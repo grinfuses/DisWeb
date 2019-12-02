@@ -5,7 +5,7 @@ and open the template in the editor.
 */
 /* 
     Created on : 02-dic-2019, 21:46:02
-    Author     : javier
+    Author     : jnaranjo
 */
 
 label {
@@ -13,7 +13,7 @@ label {
     margin-top:20px;
     letter-spacing:1px;
 }
- 
+
 .principal {
     display:block;
     margin:0 auto;
@@ -21,12 +21,12 @@ label {
     color: #666666;
     font-family:Arial;
 }
- 
+
 form {
     margin:0 auto;
     width:400px;
 }
- 
+
 input, textarea {
     width:380px;
     height:27px;
@@ -37,11 +37,11 @@ input, textarea {
     font-size:10px;
     color:#ffffff;
 }
- 
+
 textarea {
     height:150px;
 }
- 
+
 #submit {
     width:85px;
     height:35px;

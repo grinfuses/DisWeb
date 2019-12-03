@@ -16,8 +16,8 @@
         <section class="principal">
             <form method="post" action="login_scripts.php">  
                 <label for="nombre">Datos de acceso:</label>
-                <input id="nombre" name="text" placeholder="User">
-                <input id="nombre" name="password" placeholder="Password">
+                <input id="username" name="text" placeholder="User">
+                <input id="password" name="password" placeholder="Password">
                 <input id="submit" name="submit" type="submit" value="Acceder">
             </form>
         </section>

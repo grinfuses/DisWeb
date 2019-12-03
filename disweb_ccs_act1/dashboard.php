@@ -16,7 +16,7 @@
         <section class="principal">
             <nav>
 		<ul>
-			<li><a href="#">Actividad 1</a></li>
+                    <li><a href="actividad_1.php">Actividad 1</a></li>
 			<li><a href="#">Actividad 2</a></li>
 			<li><a href="#">Actividad 3</a></li>
                         Todo el código disponible en <a href="https://github.com/grinfuses/disweb" target="blank"> <img src="resources/GitHub.jpg" width="70" height="70"></a> </img>

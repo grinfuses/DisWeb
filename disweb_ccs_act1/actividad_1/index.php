@@ -14,18 +14,24 @@
             <h1>Bienvenido a la respuesta de la actividad 1 </h1>
         </header>
         <section class="principal">
-            <form method="post" action="actividad_1_scripts.php">  
+            <form method="post" action="confirmacion_envio.php">  
                 <label for="nombre">Formulario de contacto:</label>
-                <input id="nombre" name="text" placeholder="User">
-                <input id="password" name="password" placeholder="Password">
+                <input id="username" name="username" placeholder="Nombre">
                 <label for="nombre">Género:</label>
                 <input type="radio" name="gender" value="male" checked> Male<br>
                 <input type="radio" name="gender" value="female"> Female<br>
-                <input type="radio" name="gender" value="other"> Other    <input type="submit" value="" />
+                <input type="radio" name="gender" value="other"> Other<br>
                 <label for="nombre">Número de teléfono:</label>
-                <input type="tel">
+                <input name="telephone" type="tel">
                 <label for="nombre">Hora:</label>
-                <input type="time">
+                <input name="time" type="time">
+                <label>Vehículo favorito</label>
+                <input list="coche" name="coche" />
+                <datalist id="coche">
+                    <option label="Volvo" value="Volvo">
+                    <option label="BMW" value="BMW">
+                    <option label="Mercedes" value="Mercedes">
+                </datalist>
                 <input id="submit" name="submit" type="submit" value="Acceder">
             </form>
         </section>

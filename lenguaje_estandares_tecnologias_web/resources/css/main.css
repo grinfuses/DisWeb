@@ -1,4 +1,3 @@
-/*! HTML5 Boilerplate v5.0 | MIT License | http://h5bp.com/ */
 
 html {
     color: #222;
@@ -51,10 +50,15 @@ textarea {
     padding: 0.2em 0;
 }
 
+table
+{
+    border-collapse: collapse;
+}
+td, th /* Asigna un borde a las etiquetas td Y th */
+{
+    border: 1px solid black;
+}
 
-/* ===== Initializr Styles ==================================================
-   Author: Jonathan Verrecchia - verekia.com/initializr/responsive-template
-   ========================================================================== */
 
 body {
     font: 16px/26px Helvetica, Helvetica Neue, Arial;
@@ -150,27 +154,6 @@ nav a:hover {
     padding-top: 20px;
 }
 
-/* ==========================================================================
-   Author's custom styles
-   ========================================================================== */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* ==========================================================================
-   Media Queries
-   ========================================================================== */
 
 @media only screen and (min-width: 480px) {
 

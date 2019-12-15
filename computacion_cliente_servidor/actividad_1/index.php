@@ -1,13 +1,11 @@
 <!DOCTYPE html>
-<!--
-    Created on : 02-dic-2019
-    Author     : jnaranjo
--->
 <html>
+<html lang="es" xml:lang="es" xmlns="http://www.w3.org/1999/xhtml">
+
     <head>
         <meta charset="UTF-8">
         <title>Actividad 1</title>
-        <link type="text/css" rel="stylesheet" href="../style.css">
+        <link type="text/css" rel="stylesheet" href="style.css">
     </head>
     <body>
         <header class="principal">
@@ -22,9 +20,9 @@
                 <input type="radio" name="gender" value="female"> Female<br>
                 <input type="radio" name="gender" value="other"> Other<br>
                 <label for="nombre">Número de teléfono:</label>
-                <input name="telephone" type="tel">
-                <label for="nombre">Hora:</label>
-                <input name="time" type="time">
+                <input name="telephone" type="tel"placeholder="Teléfono">
+                <label for="nombre">Correo electrónico:</label>
+                <input name="correo_electronico" type="mail" placeholder="Correo electrónico">
                 <label>Vehículo favorito</label>
                 <input list="coche" name="coche" />
                 <datalist id="coche">

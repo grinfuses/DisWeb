@@ -20,11 +20,13 @@
         <header class="principal">
             <h1>Bienvenido a la confirmación  de la actividad 1 </h1>
         </header>
+        <section class="principal">
         <strong> Sus datos han sido enviados correctamente </strong>
         <?php echo"<br/> &nbsp; " . $nombre . " "; ?> 
         <?php echo"<br/> &nbsp; " . $telephone . " "; ?> 
         <?php echo"<br/> &nbsp; " . $time . " "; ?> 
         <?php echo"<br/> &nbsp; " . $gender . " "; ?> 
         <?php echo"<br/> &nbsp; " . $coche . " "; ?> 
+</section>
     </body>
 </html>

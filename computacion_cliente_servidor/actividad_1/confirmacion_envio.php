@@ -1,23 +1,37 @@
 <!DOCTYPE html>
+<!--
+    Author     : jnaranjo
+-->
 <html>
-<html lang="es" xml:lang="es" xmlns="http://www.w3.org/1999/xhtml">
-
     <head>
         <meta charset="UTF-8">
         <title>Confirmación</title>
         <link type="text/css" rel="stylesheet" href="style.css">
         <?php
-        $nombre = $_POST['username'];
+        $name = $_POST['name'];
         $telephone = $_POST['telephone'];
-        $correo_electronico = $_POST['correo_electronico'];
+        $email = $_POST['email'];
         $gender = $_POST['gender'];
-        $coche = $_POST['coche'];
-        if (!filter_var($correo_electronico, FILTER_VALIDATE_EMAIL)) {
-            echo'<script type="text/javascript">
-                  alert("Correo electrónico erróneo, revise");
+        $car_type = $_POST['car_type'];
+        $error_gender=false;
+        $error_email=false;
+        if( empty($_POST['gender']) ) 
+        { 
+          echo'<script type="text/javascript">
+                  alert("No ha seleccionado ningún género, complételo");
                   window.location.href="index.php";
                   </script>';
         }
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        echo'<script type="text/javascript">
+                  alert("Error en el formulario, revise email , complete el formulario");
+                  window.location.href="index.php";
+                  </script>';        
+        
+        }
+       
+         
+       
         ?>
     </head>
     <body>
@@ -26,16 +40,16 @@
         </header>
         <section class="principal">
             <strong> Sus datos han sido enviados correctamente </strong>
-            <label for="nombre">Nombre:</label>
-            <?php echo"<br/> &nbsp; " . $nombre . " </p>"; ?> 
+            <label for="name">Nombre:</label>
+            <?php echo"<br/> &nbsp; " . $name . " </p>"; ?> 
             <label for="telephone">Teléfono:</label>
             <?php echo"<br/> &nbsp; " . $telephone . "</p> "; ?>
-            <label for="hour">Correo electrónico:</label>
-            <?php echo"<br/> &nbsp; " . $correo_electronico . "</p> "; ?> 
+            <label for="email">Correo electrónico:</label>
+            <?php echo"<br/> &nbsp; " . $email . "</p> "; ?> 
             <label for="gender">Género:</label>
             <?php echo"<br/> &nbsp; " . $gender . "</p> "; ?> 
             <label for="car">Coche favorito:</label>
-            <?php echo"<br/> &nbsp; " . $coche . "</p> "; ?> 
+            <?php echo"<br/> &nbsp; " . $car_type . "</p> "; ?> 
         </section>
     </body>
 </html>

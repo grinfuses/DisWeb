@@ -69,6 +69,12 @@ body {
     margin: 0 5%;
 }
 
+aside{
+    display: block;
+    float: left;
+    padding-right: 15px;
+    padding-bottom: 50px;
+}
 /* ===================
     ALL: Orange Theme
    =================== */

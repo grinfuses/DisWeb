@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE actor [
+<!ELEMENT actor 
+(nombredenacimiento,fechadenacimiento,lugardenacimiento,
+sexo,lenguamaterna,alturacms,(ojos|cabellos))>
+<!ELEMENT nombredenacimiento (#PCDATA)>
+<!ELEMENT br EMPTY>
+<!ELEMENT fechadenacimiento (#PCDATA)>
+<!ELEMENT lugardenacimiento (#PCDATA)>
+<!ATTLIST lugardenacimiento value NMTOKENS>
+<!ELEMENT sexo (#PCDATA)>
+<!ATTLIST name value CDATA>
+<!ELEMENT lenguamaterna (#PCDATA)>
+<!ELEMENT alturacms (#PCDATA)>
+<!ELEMENT ojos (#PCDATA)>
+<!ELEMENT cabellos (#PCDATA)>
+
+<!ELEMENT directoresfavoritos (director)*>
+<!ELEMENT director (#PCDATA)>
+<!ATTLIST director iddirector ID>
+
+<!ELEMENT peliculasfavorita (pelicula)*>
+<!ELEMENT pelicula (#PCDATA)>
+<!ATTLIST pelicula iddirector IDREF>
+
+<!ENTITY writer "Javier Naranjo.">
+<!ENTITY copyright "Copyright UNIR - Javier Naranjo.">
+]>

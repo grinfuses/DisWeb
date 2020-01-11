@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE actores SYSTEM "actores.dtd">
+<actores>
+    <actor>
+        <nombredenacimiento>James Joseph Parsons</nombredenacimiento>
+        <br />
+        <fechadenacimiento>24/03/1973</fechadenacimiento>
+        <lugardenacimiento value="Texas, EEUU">Texas</lugardenacimiento>
+        <sexo value="Male">Varón</sexo>
+        <lenguamaterna>Ingles</lenguamaterna>
+        <alturacms>186</alturacms>
+        <ojos>azules</ojos>
+        <cabellos>marrones</cabellos>
+        <directoresfavoritos>
+            <director coddir="CE">Clint Eastwood</director>
+            <director coddir="JC">James Cameron</director>
+        </directoresfavoritos>
+    </actor>
+    <actor>
+        <nombredenacimiento>John Mark Galecki</nombredenacimiento>
+        <br />
+        <fechadenacimiento>30/04/1975</fechadenacimiento>
+        <lugardenacimiento value="Bree, Belgium">Bree</lugardenacimiento>
+        <sexo value="Male">Varón</sexo>
+        <lenguamaterna>Ingles</lenguamaterna>
+        <alturacms>179</alturacms>
+        <ojos>marrones</ojos>
+        <directoresfavoritos>
+            <director coddir="CE">Clint Eastwood</director>
+            <director coddir="JC">James Cameron</director>
+        </directoresfavoritos>
+    </actor>
+    <actor>
+        <nombredenacimiento>Kaley Christine Cuoco</nombredenacimiento>
+        <br />
+        <fechadenacimiento>30/11/1985</fechadenacimiento>
+        <lugardenacimiento value="California, EEUU">California</lugardenacimiento>
+        <sexo value="Female">Mujer</sexo>
+        <lenguamaterna>Ingles</lenguamaterna>
+        <alturacms>167</alturacms>
+        <ojos>verde</ojos>
+        <cabellos>rubio</cabellos>
+        <directoresfavoritos>
+            <director iddirector="CE">Clint Eastwood</director>
+            <director iddirector="JC">James Cameron</director>
+        </directoresfavoritos>
+        <peliculasfavorita>
+            <pelicula iddirector="JC">Avatar</pelicula>
+            <pelicula iddirector="CE">Mystic River</pelicula>
+            <pelicula iddirector="JC">Titanic</pelicula>
+        </peliculasfavorita>
+
+    </actor>
+    <author>&writer;&copyright;</author>
+</actores>

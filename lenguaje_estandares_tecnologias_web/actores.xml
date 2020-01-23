@@ -41,15 +41,15 @@
         <ojos>verde</ojos>
         <cabellos>rubio</cabellos>
         <directoresfavoritos>
-            <director iddirector="CE">Clint Eastwood</director>
-            <director iddirector="JC">James Cameron</director>
+            <director coddir="CE">Clint Eastwood</director>
+            <director coddir="JC">James Cameron</director>
         </directoresfavoritos>
         <peliculasfavorita>
-            <pelicula iddirector="JC">Avatar</pelicula>
-            <pelicula iddirector="CE">Mystic River</pelicula>
-            <pelicula iddirector="JC">Titanic</pelicula>
+            <pelicula coddir="JC">Avatar</pelicula>
+            <pelicula coddir="CE">Mystic River</pelicula>
+            <pelicula coddir="JC">Titanic</pelicula>
         </peliculasfavorita>
 
     </actor>
-    <author>&writer;&copyright;</author>
+   Escrito por &texto;
 </actores>

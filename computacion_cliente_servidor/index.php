@@ -6,7 +6,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>Formulario de contacto</title>
+        <title>Login de usuario</title>
         <link type="text/css" rel="stylesheet" href="style.css">
     </head>
     <body>
@@ -16,7 +16,7 @@
         <section class="principal">
             <form method="post" action="login_scripts.php">  
                 <label for="nombre">Datos de acceso:</label>
-                <input id="username" name="text" placeholder="User">
+                <input id="username" name="username" placeholder="User">
                 <input id="password" name="password" placeholder="Password">
                 <input id="submit" name="submit" type="submit" value="Acceder">
             </form>

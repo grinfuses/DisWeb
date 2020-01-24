@@ -1,23 +1,30 @@
 <?php
-
-$username = "";
-$password = "";
+define('DB_SERVER', '');
+define('DB_USERNAME', '');
+define('DB_PASSWORD', '');
+define('DB_NAME', 'unir');
+ 
+/* Attempt to connect to MySQL database */
+$link = new mysqli(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
+ 
+// Check connection
+if($link === false){
+    die("ERROR: Could not connect. " . mysqli_connect_error());
+}
+// Initialize the session
 session_start();
-$link = mysqli_connect('127.0.0.1:3307', $username, $password);
-$database = mysqli_select_db($link, 'test_bd');
-
-$user = $_POST['username'];
+ 
+$username = $_POST['username'];
 $pass = $_POST['password'];
 
-
-$query = "SELECT * FROM users WHERE username = '" . $user . "' AND password = '" . $password . "'";
+$query = "SELECT * FROM users WHERE username = '$username' AND password = MD5('$pass')";
 $result = mysqli_query($link, $query);
 if (mysqli_num_rows($result) == 1) {
-    echo "pass"; //Pass, go to dashboard
+            header('Location: dashboard.php');
+            exit();
+
 } else {
-    echo "fail"; //Fail
+    echo "Fail"; 
 }
-
-
-session_write_close();
+session_destroy();
 ?>

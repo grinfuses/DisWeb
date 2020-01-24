@@ -16,10 +16,10 @@
         <section class="principal">
             <nav>
 		<ul>
-                    <li><a href="actividad_1.php">Actividad 1</a></li>
-			<li><a href="#">Actividad 2</a></li>
-			<li><a href="#">Actividad 3</a></li>
-                        Todo el código disponible en <a href="https://github.com/grinfuses/disweb" target="blank"> <img src="resources/GitHub.jpg" width="70" height="70"></a> </img>
+                    <li><a href="actividad_1/index.php">Actividad 1</a></li>
+                    <li><a href="actividad_2/index.php">Actividad 2</a></li>
+                    <li><a href="actividad_3/index.php">Nuevo usuario</a></li>
+                   Todo el código disponible en <a href="https://github.com/grinfuses/disweb" target="blank"> <img src="resources/GitHub.jpg" width="70" height="70"></a> </img>
 		</ul>
 	</nav>
         </section>

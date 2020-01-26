@@ -10,7 +10,7 @@
         <lenguamaterna>Ingles</lenguamaterna>
         <alturacms>186</alturacms>
         <ojos>azules</ojos>
-        <cabellos>marrones</cabellos>
+        <cabellos clave="marron">marrones</cabellos>
         <directoresfavoritos>
             <director coddir="CE">Clint Eastwood</director>
             <director coddir="JC">James Cameron</director>
@@ -24,7 +24,7 @@
         <sexo value="Male">Varón</sexo>
         <lenguamaterna>Ingles</lenguamaterna>
         <alturacms>179</alturacms>
-        <ojos>marrones</ojos>
+        <ojos clave="marron">marrones</ojos>
         <directoresfavoritos>
             <director coddir="CE">Clint Eastwood</director>
             <director coddir="JC">James Cameron</director>
@@ -39,7 +39,7 @@
         <lenguamaterna>Ingles</lenguamaterna>
         <alturacms>167</alturacms>
         <ojos>verde</ojos>
-        <cabellos>rubio</cabellos>
+        <cabellos clave="rubio">rubio</cabellos>
         <directoresfavoritos>
             <director coddir="CE">Clint Eastwood</director>
             <director coddir="JC">James Cameron</director>
@@ -51,5 +51,5 @@
         </peliculasfavorita>
 
     </actor>
-   Escrito por &texto;
+   Escrito por &autor;
 </actores>

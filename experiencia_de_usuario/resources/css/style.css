@@ -15,20 +15,8 @@ html {
     text-shadow: none;
 }
 
-hr {
-    display: block;
-    height: 1px;
-    border: 0;
-    border-top: 1px solid #ccc;
-    margin: 1em 0;
-    padding: 0;
-}
-
 audio,
-canvas,
-iframe,
 img,
-svg,
 video {
     vertical-align: middle;
 }
@@ -43,23 +31,6 @@ textarea {
     resize: vertical;
 }
 
-.browserupgrade {
-    margin: 0.2em 0;
-    background: #ccc;
-    color: #000;
-    padding: 0.2em 0;
-}
-
-table
-{
-    border-collapse: collapse;
-}
-td, th /* Asigna un borde a las etiquetas td Y th */
-{
-    border: 1px solid black;
-}
-
-
 body {
     font: 16px/26px Helvetica, Helvetica Neue, Arial;
 }
@@ -68,16 +39,6 @@ body {
     width: 90%;
     margin: 0 5%;
 }
-
-aside{
-    display: block;
-    float: left;
-    padding-right: 15px;
-    padding-bottom: 50px;
-}
-/* ===================
-    ALL: Orange Theme
-   =================== */
 
 .header-container {
     border-bottom: 20px solid #e44d26;
@@ -136,15 +97,6 @@ nav a:hover {
 
 .main {
     padding: 30px 0;
-}
-
-.main article h1 {
-    font-size: 2em;
-}
-
-.main aside {
-    color: white;
-    padding: 0px 5% 10px;
 }
 
 .footer-container footer {

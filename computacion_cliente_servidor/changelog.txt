@@ -1,0 +1,7 @@
+Además de este código con su BD tal y como se pide por parte de la actividad.
+
+El site web se encuentra en 
+http://18.217.117.243/unir/ccs
+
+usuario: profesor
+pass: profesor

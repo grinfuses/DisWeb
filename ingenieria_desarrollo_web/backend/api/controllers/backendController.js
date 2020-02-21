@@ -58,9 +58,11 @@ exports.delete_a_task = function(req, res) {
 
 exports.auth = function(req, res) {
   var username= req.body.username;
-  var password = req.body.password;
-  Auth.findById({name: username, password:this.password}, {new: true}, function(err, userFind) {
-    console.log(userFind);
+  var pass = req.body.password;
+  //ToDo need to do this stuff
+  Auth.findById({name: username},function(err, users) {
+    if (err) return console.error(err);
+    console.log(users.value.name);
   });
   if(req.body.username === "jnaranjo" && req.body.password === "prueba") {
     const payload = {

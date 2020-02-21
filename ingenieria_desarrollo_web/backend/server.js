@@ -4,6 +4,8 @@ var express = require('express'),
   mongoose = require('mongoose'),
   Task = require('./api/models/backendModel'), //created model loading here
   Auth = require('./api/models/authModel'), //created model loading here
+  jwt = require('jsonwebtoken'),
+  config = require('./config'),
   bodyParser = require('body-parser');
 
 // mongoose instance connection url connection
@@ -13,9 +15,7 @@ mongoose.connect('mongodb://localhost/backendDB',{useNewUrlParser: true,useUnifi
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use(function(req, res) {
-  res.status(404).send({url: req.originalUrl + ' not found'})
-});
+
 
 var routes = require('./api/routes/backendRoutes'); //importing route
 routes(app); //register the route

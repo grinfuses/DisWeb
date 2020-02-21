@@ -4,24 +4,16 @@ var Schema = mongoose.Schema;
 
 
 var UserSchema = new Schema({
-  name: {
+  username: {
     type: String,
-    required: 'Kindly enter the name of the task'
+    required: 'Username'
   },
-  Created_date: {
-    type: Date,
-    default: Date.now
-  },
-  status: {
-    type: [{
-      type: String,
-      enum: ['ready', 'pending', 'blocked']
-    }],
-    default: ['pending']
+  password: {
+    type: String,
+    required: 'Password'
   },
   token:{
     type: String,
-    required: 'Kindly enter the name of the task'
   }
 });
 

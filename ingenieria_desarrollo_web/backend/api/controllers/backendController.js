@@ -57,29 +57,34 @@ exports.delete_a_task = function(req, res) {
 };
 
 exports.auth = function(req, res) {
-  var username= req.body.username;
-  var pass = req.body.password;
-  //ToDo need to do this stuff
-  Auth.findById({name: username},function(err, users) {
+  var userData= req.body.username;
+  Auth.find({username: userData},function(err, users) {
     if (err) return console.error(err);
-    console.log(users.value.name);
+    if(users.length ==0){
+      res.json({ mensaje: "Usuario sin registrar"});
+    }
+    if(users.length<=1){
+      var usuario = users[0];
+      var id_usuario = usuario._id;
+      const payload = {
+        check:  true
+      };
+      const tokenData = jwt.sign(payload, config.TOKEN_SECRET, {
+        expiresIn: 1440
+      });
+      Auth.findOneAndUpdate({_id: id_usuario}, {token : tokenData},function(err, users1) {
+      });
+      res.json({
+        mensaje: 'Auth OK',
+        token: tokenData
+      });
+      Auth.find({username: userData},function(err, dataTest) {
+        console.log(dataTest[0]);
+      });
+    }else {
+      res.json({ mensaje: "Usuario o contraseña incorrectos"})
+    }
   });
-  if(req.body.username === "jnaranjo" && req.body.password === "prueba") {
-    const payload = {
-      check:  true
-    };
-    const token = jwt.sign(payload, config.TOKEN_SECRET, {
-      expiresIn: 1440
-    });
-
-    res.json({
-      mensaje: 'Auth OK',
-      token: token
-    });
-  } else {
-    res.json({ mensaje: "Usuario o contraseña incorrectos"})
-  }
-
 };
 
 exports.create_user = function(req, res) {

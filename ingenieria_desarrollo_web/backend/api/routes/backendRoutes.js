@@ -1,7 +1,8 @@
 'use strict';
 module.exports = function(app) {
+  var express = require('express');
+  var jwt = require('jsonwebtoken');
   var backend = require('../controllers/backendController');
-
   // backend Routes
   app.route('/tasks')
     .get(backend.list_all_tasks)
@@ -15,4 +16,7 @@ module.exports = function(app) {
 
   app.route('/auth').post(backend.auth);
   app.route('/newUser').post(backend.create_user);
+  app.route('/listTask').post(backend.list_all_tasks_secure);
+
+
 };

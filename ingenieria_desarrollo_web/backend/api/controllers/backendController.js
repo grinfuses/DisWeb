@@ -15,7 +15,27 @@ exports.list_all_tasks = function(req, res) {
   });
 };
 
+exports.list_all_tasks_secure = function(req, res) {
+  var token = req.body.token;
+  if (token) {
+    jwt.verify(token, config.TOKEN_SECRET, (err, decoded) => {
+      if (err) {
+        return res.json({ mensaje: 'Token inválida' });
+      } else {
+        Task.find({}, function(err, task) {
+          if (err)
+            res.send(err);
+          res.json(task);
+        });
+      }
+    });
+  } else {
+    res.send({
+      mensaje: 'Token no proveída.'
+    });
+  }
 
+};
 
 
 exports.create_a_task = function(req, res) {
@@ -63,7 +83,7 @@ exports.auth = function(req, res) {
     if(users.length ==0){
       res.json({ mensaje: "Usuario sin registrar"});
     }
-    if(users.length<=1){
+    if(users.length>=1){
       var usuario = users[0];
       var id_usuario = usuario._id;
       const payload = {

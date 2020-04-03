@@ -24,6 +24,4 @@ routes(app); //register the route
 
 app.listen(port);
 
-
-
 console.log('backend Rest API server started on: ' + port);

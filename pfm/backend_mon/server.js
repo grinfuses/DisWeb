@@ -1,9 +1,12 @@
 var cors = require('cors');
+let nodemailer = require("nodemailer");
+const cron = require("node-cron");
 var express = require('express'),
   app = express(),
   port = process.env.PORT || 1988,
   mongoose = require('mongoose'),
   Task = require('./api/models/backendModel'), //created model loading here
+  TaskControllers = require('./api/controllers/backendController'), //created controllers loading here
   jwt = require('jsonwebtoken'),
   config = require('./config'),
   bodyParser = require('body-parser');
@@ -19,7 +22,37 @@ app.use(bodyParser.json());
 
 var routes = require('./api/routes/backendRoutes'); //importing route
 routes(app); //register the route
+ 
+// create mail transporter
+let transporter = nodemailer.createTransport({
+  service: "gmail",
+  auth: {
+    user: "servidor.pfm@gmail.com",
+    pass: "prueba1234"
+  }
+});
 
+//  // run the function 00:00:00 hour 
+ cron.schedule("* 1 * * * *", function(){
+  console.log("---------------------");  
+  console.log("Updating Db");
+    TaskControllers.updateDbCron();
+    let mailOptions = {
+      from: "servidor.pfm@gmail.com",
+      to: "grinfuses@gmail.com",
+      subject: `Base de datos actualizada ;)`,
+      text: `Se ha actualizado la base de datos `
+    };
+    transporter.sendMail(mailOptions, function(error, info) {
+      if (error) {
+        throw error;
+      } else {
+        console.log("Email enviado!");
+      }
+    });
+    console.log("---------------------");
+    console.log("Db updated");
+});
 
 
 app.listen(port);

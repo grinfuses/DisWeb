@@ -95,7 +95,7 @@ exports.update_registro = function(req, res) {
 exports.buscarPorFecha = function(req, res) {
   var fecha_desde = req.params.fecha_inicio;
   var fecha_hasta = req.params.fecha_fin;
-  Registros.find({dia:{
+  Registros.find({timestamp:{
     $gte: fecha_desde,
     $lte: fecha_hasta
   }}, function(err, task) {
@@ -103,7 +103,6 @@ exports.buscarPorFecha = function(req, res) {
       res.send(err);
     res.json(task);
   });
-
 };
 exports.buscarPorFechaAcumulando = function(req, res) {
 };

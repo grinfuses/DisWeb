@@ -7,4 +7,7 @@ module.exports = function(app) {
   app.route('/nuevoRegistro').post(backend.add_registro);
   app.route('/borraRegistro/:registroId').delete(backend.deleteregistro);
   app.route('/updateDb').get(backend.updateDb);
+  app.route('/updateDb').get(backend.updateDb);
+  app.route('/buscarFecha/:fecha_inicio/:fecha_fin').post(backend.buscarPorFecha);
+
 };

@@ -14,6 +14,35 @@ exports.list_all_registros = function(req, res) {
   });
 };
 
+
+exports.updateDb = function(req, res) {
+  var request = require('request');
+  var options = {
+    'method': 'GET',
+    'url': 'http://api.coinlayer.com/live?access_key=00157dd1a2a6c6267a87c5aedcfecdba&symbols=XDN,DCR,CVC,XLM, MIOTA,BCN,PTOY,ETH,BTH,XRP,LTC,NEO&target=EUR',
+    'headers': {
+    }
+  };
+  
+  var data = request(options, function (error, response) { 
+    if (error) throw new Error(error);
+    var data= JSON.parse(response.body);
+    var date = new Date(data.timestamp * 1000);
+    data.timestamp = date;
+    delete data['success'];
+    delete data['terms'];
+    delete data['privacy'];
+    console.log(data);
+    var new_task = new Registros(data);
+    new_task.save(function(err, task) {
+      if (err)
+        res.send(err);
+      res.json(task);
+    });
+  });
+  
+};
+
 exports.add_registro = function(req, res) {
   var data = req.body;
   var date = new Date(data.timestamp * 1000);

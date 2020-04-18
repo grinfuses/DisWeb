@@ -6,4 +6,5 @@ module.exports = function(app) {
   app.route('/registros').get(backend.list_all_registros);
   app.route('/nuevoRegistro').post(backend.add_registro);
   app.route('/borraRegistro/:registroId').delete(backend.deleteregistro);
+  app.route('/updateDb').get(backend.updateDb);
 };

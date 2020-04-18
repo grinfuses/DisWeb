@@ -33,7 +33,7 @@ let transporter = nodemailer.createTransport({
 });
 
 //  // run the function 00:00:00 hour 
- cron.schedule("* 1 * * * *", function(){
+ cron.schedule("30 1 * * *", function(){
   console.log("---------------------");  
   console.log("Updating Db");
     TaskControllers.updateDbCron();

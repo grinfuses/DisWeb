@@ -17,7 +17,7 @@ exports.list_all_registros = function(req, res) {
 exports.add_registro = function(req, res) {
   var data = req.body;
   var date = new Date(data.timestamp * 1000);
-  console.log(data.timestamp);
+  data.timestamp = date;
   var rates = data.rates;
   var mydatas= JSON.parse(rates);
   data.rates=mydatas;

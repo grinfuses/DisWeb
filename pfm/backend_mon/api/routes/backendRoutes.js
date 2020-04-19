@@ -9,5 +9,8 @@ module.exports = function(app) {
   app.route('/updateDb').get(backend.updateDb);
   app.route('/updateDb').get(backend.updateDb);
   app.route('/buscarFecha/:fecha_inicio/:fecha_fin').post(backend.buscarPorFecha);
+  app.route('/buscarPorFechaFiltrando/:fecha_inicio/:fecha_fin/:rates').post(backend.buscarPorFechaFiltrando);
+  app.route('/convertirMonedas/:divisaOrigen/:divisaDestino/:cantidad').post(backend.convertirMonedas);
+  app.route('/convertirEuros/:divisaOrigen/:cantidad').post(backend.convertirEuros);
 
 };

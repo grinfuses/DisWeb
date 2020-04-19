@@ -104,7 +104,82 @@ exports.buscarPorFecha = function(req, res) {
     res.json(task);
   });
 };
-exports.buscarPorFechaAcumulando = function(req, res) {
+exports.buscarPorFechaFiltrando = function(req, res) {
+  var fecha_desde = req.params.fecha_inicio;
+  var fecha_hasta = req.params.fecha_fin;
+  var currency = req.params.rates;
+  console.log(currency);
+  Registros.find({timestamp:{
+    $gte: fecha_desde,
+    $lte: fecha_hasta
+  }}, function(err, task) {
+    if (err){
+      res.send(err);
+    }else{
+      console.log(task);
+      res.json(task);
+    }
+
+    
+  });
+};
+
+exports.convertirMonedas = function(req, res) {
+  var divisaOrigen = req.params.divisaOrigen;
+  var divisaDestino = req.params.divisaDestino;
+  var cantidad = req.params.cantidad;
+
+  Registros.findOne({}, {}, { sort: { 'created_at' : -1 } }, function(err, task) {
+    console.log(task);
+    var keys = Object.keys(task.rates);
+    let cot_divisa_destino=0;
+    let cot_divisa_origen=0;
+    //Get the currency of last inputs of rates
+    keys.forEach(element => {
+      if(element == divisaDestino){
+          cot_divisa_destino = task.rates[divisaDestino];
+        }
+    }); 
+    keys.forEach(element => {
+      if(element == divisaOrigen){
+        cot_divisa_origen = task.rates[divisaOrigen];
+        }
+    }); 
+      //maths 
+    var total_origen = cantidad * cot_divisa_origen;
+    var total_destino = total_origen/cot_divisa_destino;
+    var data = {};
+    data.divisaOrigen=divisaOrigen;
+    data.divisaDestino=divisaDestino;
+    data.cantidad = cantidad;
+    data.conversion= total_destino;
+    res.json(data);
+    });
+};
+
+exports.convertirEuros = function(req, res) {
+  var divisaOrigen = req.params.divisaOrigen;
+  var cantidad = req.params.cantidad;
+
+  Registros.findOne({}, {}, { sort: { 'created_at' : -1 } }, function(err, task) {
+    console.log(task);
+    var keys = Object.keys(task.rates);
+    let cot_divisa_destino=0;
+    let cot_divisa_origen=0;
+    keys.forEach(element => {
+      if(element == divisaOrigen){
+        cot_divisa_origen = task.rates[divisaOrigen];
+        }
+    }); 
+      //maths 
+    var total_origen = cantidad * cot_divisa_origen;
+    var data = {};
+    data.divisaOrigen=divisaOrigen;
+    data.divisaDestino="EUR";
+    data.cantidad = cantidad;
+    data.conversion= total_origen;
+    res.json(data);
+    });
 };
 
 

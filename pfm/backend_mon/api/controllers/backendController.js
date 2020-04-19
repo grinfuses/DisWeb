@@ -1,5 +1,5 @@
 'use strict';
-
+const _ = require('lodash')
 var mongoose = require('mongoose'),
   jwt = require('jsonwebtoken'),
   config = require('../../config'),
@@ -107,20 +107,31 @@ exports.buscarPorFecha = function(req, res) {
 exports.buscarPorFechaFiltrando = function(req, res) {
   var fecha_desde = req.params.fecha_inicio;
   var fecha_hasta = req.params.fecha_fin;
-  var currency = req.params.rates;
-  console.log(currency);
+  var currency = req.params.currencies;
+  //console.log(currency);
+  // console.log(fecha_hasta);
+  // console.log(fecha_desde);
+
   Registros.find({timestamp:{
     $gte: fecha_desde,
     $lte: fecha_hasta
-  }}, function(err, task) {
-    if (err){
-      res.send(err);
-    }else{
-      console.log(task);
-      res.json(task);
-    }
-
-    
+  }}, function(err, tasks) {
+    var data = JSON.stringify(tasks);
+    var data_json = JSON.parse(data);
+    var keys = Object.keys(data_json);
+    let response = {};
+    var data1 =JSON.parse(response)
+    keys.forEach(element => {
+     //console.log(element);
+      var data_child = {};
+      //console.log(data_json[element]);
+      //console.log(data_json[element]._id);
+      data_child._id=data_json[element]._id;
+      data_child.timestamp =data_json[element].timestamp;
+      data1.push(JSON.parse(data_child));
+    }); 
+    //Falta añadir data_child a response 
+    console.log(data1);
   });
 };
 
@@ -189,7 +200,14 @@ exports.deleteregistro = function(req, res) {
   }, function(err, task) {
     if (err)
       res.send(err);
-    res.json({ message: 'Register successfully deleted' });
+    res.json({ message: 'Register successfully deleted'});
   });
 };
 
+exports.deleteAll = function(req, res) {
+  Registros.deleteMany({}, function(err, task) {
+    if (err)
+      res.send(err);
+    res.json({ message: 'All registers successfully deleted' });
+  });
+};

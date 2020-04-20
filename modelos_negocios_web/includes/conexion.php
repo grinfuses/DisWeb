@@ -1,9 +1,9 @@
 <?php 
   
   $server="localhost"; 
-  $user="root"; 
-  $pass=""; 
-  $db="bdcomidas"; 
+  $user="user_tienda"; 
+  $pass="60FvIz5bGq5azRSY"; 
+  $db="tienda_online"; 
     
   // connect to mysql 
     

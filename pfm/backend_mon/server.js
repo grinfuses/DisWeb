@@ -1,15 +1,21 @@
 var cors = require('cors');
 let nodemailer = require("nodemailer");
 const cron = require("node-cron");
+const bcrypt = require("bcryptjs");
+
 var express = require('express'),
   app = express(),
   port = process.env.PORT || 1988,
   mongoose = require('mongoose'),
   Task = require('./api/models/backendModel'), //created model loading here
   TaskControllers = require('./api/controllers/backendController'), //created controllers loading here
+  Users = require('./api/models/usuariosModel'), //created model loading here
+  UsersControllers = require('./api/controllers/backendUsersController'), //created controllers loading here
+
   jwt = require('jsonwebtoken'),
   config = require('./config'),
   bodyParser = require('body-parser');
+
 
 // mongoose instance connection url connection
 mongoose.Promise = global.Promise;
@@ -22,7 +28,7 @@ app.use(bodyParser.json());
 
 var routes = require('./api/routes/backendRoutes'); //importing route
 routes(app); //register the route
- 
+
 // create mail transporter
 let transporter = nodemailer.createTransport({
   service: "gmail",

@@ -105,13 +105,9 @@ exports.buscarPorFecha = function(req, res) {
   });
 };
 exports.buscarPorFechaFiltrando = function(req, res) {
-  var fecha_desde = req.params.fecha_inicio;
-  var fecha_hasta = req.params.fecha_fin;
-  var currency = req.params.currencies;
-  //console.log(currency);
-  // console.log(fecha_hasta);
-  // console.log(fecha_desde);
-
+  var fecha_desde = req.body.fecha_inicio;
+  var fecha_hasta = req.body.fecha_fin;
+  var rates = req.body.currencies;
   Registros.find({timestamp:{
     $gte: fecha_desde,
     $lte: fecha_hasta
@@ -119,19 +115,31 @@ exports.buscarPorFechaFiltrando = function(req, res) {
     var data = JSON.stringify(tasks);
     var data_json = JSON.parse(data);
     var keys = Object.keys(data_json);
-    let response = {};
-    var data1 =JSON.parse(response)
-    keys.forEach(element => {
-     //console.log(element);
-      var data_child = {};
-      //console.log(data_json[element]);
-      //console.log(data_json[element]._id);
-      data_child._id=data_json[element]._id;
-      data_child.timestamp =data_json[element].timestamp;
-      data1.push(JSON.parse(data_child));
-    }); 
-    //Falta añadir data_child a response 
-    console.log(data1);
+    var result=[];
+    for(var i=0;i<=keys.length-1;i++){
+      var sub_json = data_json[i];
+      var hijo={};
+      hijo._id=sub_json._id;
+      hijo.timestamp=sub_json.timestamp;
+      hijo.currency=sub_json.currency;
+      var keys_rates = Object.keys(sub_json.rates);
+      var array_input_rates = rates.split(',');
+      hijo.rates=[];
+      for(var j=0;j<=keys_rates.length-1;j++){
+        for(var k=0; k<=array_input_rates.length-1;k++){
+            if(keys_rates[j].localeCompare(array_input_rates[k])==0){
+              var value_rate=sub_json.rates[keys_rates[j]];
+              var name_rate = keys_rates[j];
+              var sub_rate={};
+              sub_rate[name_rate]=value_rate;
+              hijo.rates.push(sub_rate);
+            }
+        }
+      }
+      console.log(hijo);
+      result.push(hijo);
+    }
+    res.json(result);
   });
 };
 

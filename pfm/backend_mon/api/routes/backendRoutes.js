@@ -13,7 +13,7 @@ module.exports = function(app) {
   app.route('/updateDb').get(backend.updateDb);
   app.route('/buscarFecha/:fecha_inicio/:fecha_fin').post(backend.buscarPorFecha);
   //Falta este endpoint
-  app.route('/buscarPorFechaFiltrando/:fecha_inicio/:fecha_fin/:currencies').post(backend.buscarPorFechaFiltrando);
+  app.route('/buscarPorFechaFiltrando').post(backend.buscarPorFechaFiltrando);
   app.route('/convertirMonedas/:divisaOrigen/:divisaDestino/:cantidad').post(backend.convertirMonedas);
   app.route('/convertirEuros/:divisaOrigen/:cantidad').post(backend.convertirEuros);
   // Users Routes

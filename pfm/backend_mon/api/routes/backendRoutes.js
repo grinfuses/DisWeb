@@ -22,6 +22,4 @@ module.exports = function(app) {
   app.route('/borraUsuario/:usuarioId').delete(backendUsers.borraUsuario);
   app.route('/usuarios').get(backendUsers.list_all_users);
   app.route('/borraTodosUsuarios').delete(backendUsers.deleteAllUsers);
-
-
 };

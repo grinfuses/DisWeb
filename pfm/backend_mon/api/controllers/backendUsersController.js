@@ -225,6 +225,7 @@ exports.nuevoUsuario = function(req, res) {
   data_hashed.surname = data.surname;
   data_hashed.username = data.username;
   data_hashed.email = data.email;
+  data_hashed.permiso = data.permiso;
   data_hashed.password = hash_password;
   var new_user = new Usuario(data_hashed);
   new_user.save(function(err, task) {
@@ -268,7 +269,8 @@ exports.login = function(req, res) {
             token: token,
             name: user.name,
             surname: user.surname,
-            email: user.email
+            email: user.email,
+            permiso: user.permiso
           });
         } else {
           console.log("Error during login");
@@ -280,3 +282,5 @@ exports.login = function(req, res) {
   }
   login();
 };
+
+

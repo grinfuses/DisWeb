@@ -17,6 +17,9 @@ var usuarioSchema = new Schema({
   email:{
     type: String
   },
+  permiso:{
+    type: Number
+  }
   
 });
 

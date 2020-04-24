@@ -56,6 +56,7 @@ exports.updateDbCron = function() {
     var data= JSON.parse(response.body);
     var date = new Date(data.timestamp * 1000);
     data.timestamp = date;
+    data.currency="EUR";
     delete data['success'];
     delete data['terms'];
     delete data['privacy'];

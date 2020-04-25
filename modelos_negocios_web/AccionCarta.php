@@ -1,5 +1,5 @@
 <?php
-date_default_timezone_set("America/Lima");
+date_default_timezone_set("Europa/Madrid");
 // Iniciamos la clase de la carta
 include 'La-carta.php';
 $cart = new Cart;

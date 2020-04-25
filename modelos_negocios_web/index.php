@@ -44,7 +44,7 @@ include 'Configuracion.php';
                     <p class="list-group-item-text"><?php echo $row["description"]; ?></p>
                     <div class="row">
                         <div class="col-md-6">
-                            <p class="lead"><?php echo $row["price"].' €'; ?></p>
+                            <p class="lead"><?php echo $row["price"].' USD'; ?></p>
                         </div>
                         <div class="col-md-6">
                             <a class="btn btn-success" href="AccionCarta.php?action=addToCart&id=<?php echo $row["id"]; ?>">Agregar a la Carta</a>
@@ -58,7 +58,7 @@ include 'Configuracion.php';
         <?php } ?>
     </div>
         </div>
- <div class="panel-footer">jnaranjo</div>
+ <div class="panel-footer">Javier Naranjo Sanjuan</div>
  </div>
  
 </div>

@@ -3,19 +3,18 @@
 include 'La-carta.php';
 $cart = new Cart;
 $clave_encriptacion='87401456';
-$merchant='082108630';
-$adquirer='0000554002';
-$terminal_id='00000003';
+$merchant="082108630";
+$adquirer="0000554002";
+$terminal_id="00000003";
 $num_operacion= random_int(1, 200);
 $importe_total=$cart->total();
-$tipo_moneda='978';
-$exponente='2';
+$tipo_moneda="978";
+$exponente="2";
 $cadenasha="SHA2";
 $url_ok="http://ec2-35-180-234-37.eu-west-3.compute.amazonaws.com/modelos_negocios_web/OrdenExito.php";
 $url_nok="http://ec2-35-180-234-37.eu-west-3.compute.amazonaws.com/modelos_negocios_web/VerCarta.php";
 $cadena_a_firmar=$clave_encriptacion.$merchant.$adquirer.$terminal_id.$num_operacion.$importe_total.$tipo_moneda.$exponente.$cadenasha.$url_ok.$url_nok;
 $firma= hash('sha256', $cadena_a_firmar);
-
 
 ?>
 <!DOCTYPE html>
@@ -153,8 +152,6 @@ $firma= hash('sha256', $cadena_a_firmar);
                     <input name="Idioma" type=hidden value="1">
                     <input type="submit" value="Pagar con Cecabank">
                     </form>
-                                    <input name="prueba1" type=hidden value=<?php echo $cadena_a_firmar?>>
-
             </td>
             <?php } ?>
         </tr>

@@ -2,18 +2,18 @@
 // initializ shopping cart class
 include 'La-carta.php';
 $cart = new Cart;
-$clave_encriptacion="87401456";
-$merchant="082108630";
-$adquirer="0000554002";
-$terminalid="00000003";
-$num_operacion= random_int(1, 500);
-$tipo_moneda="978";
-$exponente="2";
+$clave_encriptacion='87401456';
+$merchant='082108630';
+$adquirer='0000554002';
+$terminal_id='00000003';
+$num_operacion= random_int(1, 200);
+$importe_total=$cart->total();
+$tipo_moneda='978';
+$exponente='2';
 $cadenasha="SHA2";
 $url_ok="http://ec2-35-180-234-37.eu-west-3.compute.amazonaws.com/modelos_negocios_web/OrdenExito.php";
 $url_nok="http://ec2-35-180-234-37.eu-west-3.compute.amazonaws.com/modelos_negocios_web/VerCarta.php";
-
-$cadena_a_firmar=$clave_encriptacion.$merchant.$adquirer.$terminalid.$num_operacion.$cart->total().$tipo_moneda.$exponente.$cadenasha.$url_ok.$url_nok;
+$cadena_a_firmar=$clave_encriptacion.$merchant.$adquirer.$terminal_id.$num_operacion.$importe_total.$tipo_moneda.$exponente.$cadenasha.$url_ok.$url_nok;
 $firma= hash('sha256', $cadena_a_firmar);
 
 
@@ -32,7 +32,6 @@ $firma= hash('sha256', $cadena_a_firmar);
     </style>
     <script>
     function updateCartItem(obj,id){
-        console.log("entra");
         $.get("cartAction.php", {action:"updateCartItem", id:id, qty:obj.value}, function(data){
             if(data == 'ok'){
                 location.reload();
@@ -138,21 +137,24 @@ $firma= hash('sha256', $cadena_a_firmar);
             <td class="text-center"><strong>Total <?php echo $cart->total().' USD'; ?></strong></td>
             <td><a href="Pagos.php" class="btn btn-success btn-block">Pagos <i class="glyphicon glyphicon-menu-right"></i></a></td>
             <td><div id="button_paypal"></div></td>
-            <td>   <form action="https://tpv.ceca.es/tpvweb/tpv/compra.action" method="POST" enctype="application/x-www-form-urlencoded">
-                    <input name="MerchantID" type=hidden value=“082108630”>
-                    <input name="AcquirerBIN" type=hidden value=“0000554002”>
-                    <input name="TerminalID" type=hidden value=“00000003”>
-                    <input name="Num_operacion" type=hidden value=“131312”>
+            <td>   <form action="https://tpv.ceca.es/tpvweb/tpv/compra.action" method="POST">
+                    <input name="MerchantID" type=hidden value='082108630'>
+                    <input name="AcquirerBIN" type=hidden value="0000554002">
+                    <input name="TerminalID" type=hidden value="00000003">
+                    <input name="Num_operacion" type=hidden value=<?php echo $num_operacion?>>
                     <input name="Importe" type=hidden value=<?php echo $cart->total()?>>
-                    <input name="TipoMoneda" type=hidden value=“978”>
+                    <input name="TipoMoneda" type=hidden value="978">
                     <input name="Exponente" type=hidden value=“2”>
-                    <input name="URL_OK" type=hidden value=“http://www.google.com">
-                    <input name="URL_NOK" type=hidden value=“http://www.yahoo.es”>
-                    <input name="Firma" type=hidden value=<?php echo $firma?>><!--hacer-->
-                    <input name="Cifrado" type=hidden value=“sha2”>
+                    <input name="URL_OK" type=hidden value=<?php echo $url_ok?>>
+                    <input name="URL_NOK" type=hidden value=<?php echo $url_nok?>>
+                    <input name="Firma" type=hidden value=<?php echo $firma?>>
+                    <input name="Cifrado" type=hidden value=“SHA2”>
+                    <input name="Pago_soportado" type=hidden value=“SSL”>
                     <input name="Idioma" type=hidden value="1">
                     <input type="submit" value="Pagar con Cecabank">
                     </form>
+                                    <input name="prueba1" type=hidden value=<?php echo $cadena_a_firmar?>>
+
             </td>
             <?php } ?>
         </tr>

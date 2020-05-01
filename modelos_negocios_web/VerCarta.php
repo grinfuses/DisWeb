@@ -2,22 +2,19 @@
 // initializ shopping cart class
 include 'La-carta.php';
 $cart = new Cart;
-$clave='87401456';
-$merchantID='082108630';
-$AcquirerBIN='0000554002';
-$TerminalId='00000003';
+$clave="87401456";
+$merchantID="082108630";
+$AcquirerBIN="0000554002";
+$TerminalId="00000003";
 $num_operacion= random_int(1, 150);
 $importe=$cart->total()*100;
 $tipoMoneda=978;
-$cadena='2SHA2';
+$cadena="2SHA2";
 $url_ok='http://ec2-35-180-234-37.eu-west-3.compute.amazonaws.com/modelos_negocios_web/OrdenExito.php';
 $url_nok='http://ec2-35-180-234-37.eu-west-3.compute.amazonaws.com/modelos_negocios_web/VerCarta.php';
 
-//$cadenaAFirmar=$clave.$merchantID.$AcquirerBIN.$TerminalId.$num_operacion+$importe.$tipoMoneda.$cadena.$url_ok.$url_nok;
 $cadenaAFirmar="87401456082108630000055400200000003{$num_operacion}{$importe}9782SHA2http://ec2-35-180-234-37.eu-west-3.compute.amazonaws.com/modelos_negocios_web/OrdenExito.phphttp://ec2-35-180-234-37.eu-west-3.compute.amazonaws.com/modelos_negocios_web/VerCarta.php";
 $firma= strtolower(hash('sha256', $cadenaAFirmar));
-$signature_str = $clave.$merchantID .$AcquirerBIN .$TerminalId .$num_operacion .$importe .$tipoMoneda .'2SHA2' .$url_ok .$url_ok; 
-$firma_2= hash('sha256', $signature_str);
 
 
 ?>
@@ -140,8 +137,8 @@ $firma_2= hash('sha256', $signature_str);
             <td class="text-center"><strong>Total <?php echo $cart->total().' USD'; ?></strong></td>
             <td><a href="Pagos.php" class="btn btn-success btn-block">Pagos <i class="glyphicon glyphicon-menu-right"></i></a></td>
             <td><div id="button_paypal"></div></td>
-            <td><form name="frm_customer_detail" action="https://tpv.ceca.es/tpvweb/tpv/compra.action" method="POST">     <INPUT NAME="MerchantID" TYPE=hidden VALUE="082108630">
-
+            <td><form name="frm_customer_detail" action="https://tpv.ceca.es/tpvweb/tpv/compra.action" method="POST">     
+                    <INPUT NAME="MerchantID" TYPE=hidden VALUE="082108630">
 <INPUT NAME="AcquirerBIN" TYPE=hidden VALUE="0000554002">
 <INPUT NAME="TerminalID" TYPE=hidden VALUE="00000003">
 <INPUT NAME="URL_OK" TYPE=hidden VALUE="http://ec2-35-180-234-37.eu-west-3.compute.amazonaws.com/modelos_negocios_web/OrdenExito.php">

@@ -5,7 +5,6 @@ $( "#login" ).submit(function( event ) {
   $inputs.each(function() {
       data[this.id] = $(this).val();
   });
-  console.log(data);
     var url_get ="http://ec2-35-180-234-37.eu-west-3.compute.amazonaws.com:1988/login/";
     $.ajax({
       url: url_get,
@@ -23,9 +22,16 @@ $( "#login" ).submit(function( event ) {
         console.log(JSON.stringify(errorThrown));
       },
       success: function (data) {
-       console.log(data);
+       if(data.message){
+          if(data.message =="Login fail password incorrect"){
+            alert("Contraseña incorrecta");
+          }else{
+            alert("Usuario incorrecta");
+          }
+       }else{
        localStorage.setItem('userData', data);
        window.location.href = "dashboard.html";
+       }
       }
 });
     

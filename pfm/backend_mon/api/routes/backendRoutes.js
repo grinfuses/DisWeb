@@ -3,6 +3,7 @@ module.exports = function(app) {
   var express = require('express');
   var backend = require('../controllers/backendController');
   var backendUsers = require('../controllers/backendUsersController');
+  var backendCartera = require('../controllers/backendCarteraController');
 
   // Registers Routes
   app.route('/registros').get(backend.list_all_registros);
@@ -22,4 +23,9 @@ module.exports = function(app) {
   app.route('/borraUsuario/:usuarioId').delete(backendUsers.borraUsuario);
   app.route('/usuarios').get(backendUsers.list_all_users);
   app.route('/borraTodosUsuarios').delete(backendUsers.deleteAllUsers);
+  // Cartera Routes
+  app.route('/addToCartera').post(backendCartera.addToCartera);
+  app.route('/cartera').get(backendCartera.list_all_cartera);
+  app.route('/borraTodaCartera').delete(backendCartera.deleteAllCartera);
+
 };

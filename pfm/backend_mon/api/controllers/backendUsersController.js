@@ -260,7 +260,10 @@ exports.login = function(req, res) {
       .then(loginData => {
         if (loginData) {
           console.log(loginData);
-          let token = jwt.sign({ email: user.email }, "firma_token", {
+          const payload = {
+            check:  true
+          };
+          let token =  jwt.sign(payload, config.TOKEN_SECRET, {
             expiresIn: "3d"
           });
           console.log(token);

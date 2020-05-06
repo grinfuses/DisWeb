@@ -11,6 +11,8 @@ var express = require('express'),
   TaskControllers = require('./api/controllers/backendController'), //created controllers loading here
   Users = require('./api/models/usuariosModel'), //created model loading here
   UsersControllers = require('./api/controllers/backendUsersController'), //created controllers loading here
+  Cartera = require('./api/models/carteraModel'), //created model loading here
+  CarteraControllers = require('./api/controllers/backendCarteraController'), //created controllers loading here
 
   jwt = require('jsonwebtoken'),
   config = require('./config'),

@@ -29,7 +29,11 @@ $( "#login" ).submit(function( event ) {
             alert("Usuario incorrecta");
           }
        }else{
-       localStorage.setItem('userData', data);
+       localStorage.setItem('userToken', data.token);
+       localStorage.setItem('userName', data.name);
+       localStorage.setItem('userSurname', data.surname);
+       localStorage.setItem('userMail', data.email);
+       localStorage.setItem('userPermiso', data.permiso);
        window.location.href = "dashboard.html";
        }
       }

@@ -112,7 +112,8 @@ exports.buscarPorFechaFiltrando = function(req, res) {
   Registros.find({timestamp:{
     $gte: fecha_desde,
     $lte: fecha_hasta
-  }}, function(err, tasks) {
+  }
+}, function(err, tasks) {
     var data = JSON.stringify(tasks);
     var data_json = JSON.parse(data);
     var keys = Object.keys(data_json);
@@ -141,7 +142,8 @@ exports.buscarPorFechaFiltrando = function(req, res) {
       result.push(hijo);
     }
     res.json(result);
-  });
+  }).sort({_id: -1})
+  .limit(10);
 };
 
 exports.convertirMonedas = function(req, res) {

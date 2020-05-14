@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Reproductor de Video</title>
+</head>
+
+<body>
+    <div class="reproductor">
+        <video width="641" height="360" src="videos/v1.mp4" controls type="video/mp4" kind="subtitles" id="video">
+            <track src="videos/youtube_es.vtt" kind="subtitles" srclang="es" label="Español" id="subEsp">
+            <track src="videos/youtube_en.vtt" kind="subtitles" srclang="en" label="English" id="subIng">
+            <track src="videos/youtube_fr.vtt" kind="subtitles" srclang="fr" label="French" id="subFre">
+             <p>Your user agent does not support the Video Audio element.</p>
+        </video>
+<br><br>
+        <div class="info">
+            <p id="titulo">Youtube - QuedateEnCasa #CoVid19</p>
+            <p id="categoria">Youtube</p>
+            <p id="descripcion">Puede que estos días se te hagan un poco cuesta arriba. Quédate en casa y explora, juega, haz ejercicio, aprende a cocinar, y muchas cosas más junto a los creadores de YouTube. Hay muchas cosas que puedes hacer, ¡anímate a hacerlas</p>
+        </div>
+    </div>
+    <button onclick="siguienteVideo()">Siguiente video</button>
+    <button onclick="reload()">Reload</button>
+    <button onclick="doblarVelocidad()">Doblar velocidad</button>
+    <button onclick="velocidadNormal()">Velocidad standar</button>
+    <button onclick="snap()">Captura</button>
+    <canvas id="c1" width="160" height="96"/></canvas>
+    <div id="contenedorVideos" class="contenedor">
+
+    </div>
+
+    <script>
+        //posicion actual fotograma y poder guardarlo como imagen
+        //inclusión de subtitulo
+        let videos = [{
+                nombre: 'Youtube - QuedateEnCasa #CoVid19',
+                categoria: 'Youtube',
+                descripcion: 'Puede que estos días se te hagan un poco cuesta arriba. Quédate en casa y explora, juega, haz ejercicio, aprende a cocinar, y muchas cosas más junto a los creadores de YouTube. Hay muchas cosas que puedes hacer, ¡anímate a hacerla',
+                src: 'videos/v1.mp4',
+                subtitulos: {
+                    espanol: 'subtitles/youtube_es.vtt',
+                    english: 'subtitles/youtube_en.vtt',
+                    french: 'subtitles/youtube_fr.vtt'
+                }
+            },
+            {
+                nombre: 'Playa relajante',
+                categoria: 'Playa',
+                descripcion: 'Playa relajante',
+                src: 'videos/v2.mp4',
+            },
+            {
+                nombre: 'Puesta de sol',
+                categoria: 'Paisajes',
+                descripcion: 'Puesta de sol bonita',
+                src: 'videos/v3.mp4',
+            },
+        ];
+        var videoActual = null;
+        function playPause() { 
+            if (video.paused) 
+                video.play(); 
+            else 
+                video.pause(); 
+        }
+        function reload() { 
+            var video = document.getElementById("video");
+            video.load(); 
+        }
+        function doblarVelocidad() { 
+        /* play video twice as fast */
+        document.querySelector("video").playbackRate = 2.0;
+        document.querySelector("video").play();
+        }
+        function velocidadNormal() { 
+        /* play video twice as normal */
+        document.querySelector("video").playbackRate = 1.0;
+        document.querySelector("video").play();
+        }
+
+        function snap() {
+            this.video = document.getElementById("video");
+            this.c1 = document.getElementById("c1");
+            this.ctx1 = this.c1.getContext("2d");
+            let self = this;
+            this.video.addEventListener("play", function() {
+                self.width = self.video.videoWidth / 2;
+                self.height = self.video.videoHeight / 2;
+            }, false);
+            this.ctx1.drawImage(this.video, 0, 0, this.width, this.height);
+            let frame = parseFloat(this.ctx1.getImageData(0, 0, this.width, this.height));
+            let l = frame.data.length / 4;
+            for (let i = 0; i < l; i++) {
+            let r = frame.data[i * 4 + 0];
+            let g = frame.data[i * 4 + 1];
+            let b = frame.data[i * 4 + 2];
+            if (g > 100 && r > 100 && b < 43)
+                frame.data[i * 4 + 3] = 0;
+            }
+            this.ctx1.putImageData(frame, 0, 0);
+        }     
+
+        function cargar() {
+
+            videoActual = videos[0];
+
+            for (let i = 0; i < videos.length; i++) {
+
+                let video = videos[i];
+                agregarvideo(video, i);
+            }
+            console.log(video);
+            
+        }
+
+        function agregarvideo(video) {
+            let texto = '<article class="estilo" ondblclick="cambiarVideo(' + videos.indexOf(video) + ')">';
+            texto += '<span class="tooltiptext">' + video.descripcion + '</span>';
+            texto += '<video width="150" height="150" src="' + video.src + '"> </video>';
+            texto += '<div class="infomini">'
+            texto += '<p class="nombre">' + video.nombre + '</p>';
+            texto += '<p class="categoria">' + video.categoria + '</p>';
+            texto += '</div>'
+            texto += '</article>';
+            document.getElementById('contenedorVideos').innerHTML += texto;
+        }
+
+
+        function cambiarVideo(idVideo) {
+            let nombre = document.getElementById('titulo');
+            let categoria = document.getElementById('categoria');
+            let descripcion = document.getElementById('descripcion');
+            let ing = document.getElementById('subIng');
+            let esp = document.getElementById('subEsp');
+            let fr = document.getElementById('subFre');
+            let video = videos[idVideo];
+            let etiquetaVideo = document.getElementById('video');
+            etiquetaVideo.setAttribute('src', video.src);
+            etiquetaVideo.play();
+            titulo.innerHTML = video.nombre;
+            categoria.innerHTML = video.categoria;
+            descripcion.innerHTML = video.descripcion;
+            subIng.src = video.subtitulos.english;
+            subEsp.src = video.subtitulos.espanol;
+            subFre.src = video.subtitulos.french;
+            videoActual = video;
+        }
+
+        function siguienteVideo() {
+
+            let indiceActual = videos.indexOf(videoActual);
+            let numeroVideos = videos.length;
+            let idVideoNuevo;
+
+            if (indiceActual < numeroVideos - 1) {
+
+                idVideoNuevo = indiceActual + 1;
+
+            } else {
+
+                idVideoNuevo = 0;
+
+            }
+
+            cambiarVideo(idVideoNuevo);
+
+        }
+
+        window.onload = cargar();
+
+
+    </script>
+</body>
+</html>

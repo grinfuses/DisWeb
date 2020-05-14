@@ -14,6 +14,7 @@
             <track src="videos/youtube_fr.vtt" kind="subtitles" srclang="fr" label="French" id="subFre">
              <p>Your user agent does not support the Video Audio element.</p>
         </video>
+   
 <br><br>
         <div class="info">
             <p id="titulo">Youtube - QuedateEnCasa #CoVid19</p>
@@ -21,28 +22,32 @@
             <p id="descripcion">Puede que estos días se te hagan un poco cuesta arriba. Quédate en casa y explora, juega, haz ejercicio, aprende a cocinar, y muchas cosas más junto a los creadores de YouTube. Hay muchas cosas que puedes hacer, ¡anímate a hacerlas</p>
         </div>
     </div>
+    <div id="botones">
+    <button onclick="anteriorVideo()">Video Anterior</button>
     <button onclick="siguienteVideo()">Siguiente video</button>
     <button onclick="reload()">Reload</button>
     <button onclick="doblarVelocidad()">Doblar velocidad</button>
     <button onclick="velocidadNormal()">Velocidad standar</button>
+    <button onclick="dobleVideo()">Tamaño Doble </button>
+    <button onclick="normaVideo()">Tamaño Normal </button>
     <button onclick="snap()">Captura</button>
-    <canvas id="c1" width="160" height="96"/></canvas>
+</div>
     <div id="contenedorVideos" class="contenedor">
-
     </div>
-
+    <img src="" id="imagen">
+    <canvas id="captura" style="float: right;"></canvas>    
+    
     <script>
         //posicion actual fotograma y poder guardarlo como imagen
-        //inclusión de subtitulo
         let videos = [{
                 nombre: 'Youtube - QuedateEnCasa #CoVid19',
                 categoria: 'Youtube',
                 descripcion: 'Puede que estos días se te hagan un poco cuesta arriba. Quédate en casa y explora, juega, haz ejercicio, aprende a cocinar, y muchas cosas más junto a los creadores de YouTube. Hay muchas cosas que puedes hacer, ¡anímate a hacerla',
                 src: 'videos/v1.mp4',
                 subtitulos: {
-                    espanol: 'subtitles/youtube_es.vtt',
-                    english: 'subtitles/youtube_en.vtt',
-                    french: 'subtitles/youtube_fr.vtt'
+                    espanol: 'videos/youtube_es.vtt',
+                    english: 'videos/youtube_en.vtt',
+                    french: 'videos/youtube_fr.vtt'
                 }
             },
             {
@@ -50,15 +55,24 @@
                 categoria: 'Playa',
                 descripcion: 'Playa relajante',
                 src: 'videos/v2.mp4',
+                subtitulos: {
+                    espanol: '',
+                    english: '',
+                    french: ''                }
             },
             {
                 nombre: 'Puesta de sol',
                 categoria: 'Paisajes',
                 descripcion: 'Puesta de sol bonita',
                 src: 'videos/v3.mp4',
+                subtitulos: {
+                    espanol: '',
+                    english: '',
+                    french: ''
+                }
             },
         ];
-        var videoActual = null;
+        let videoActual = null;
         function playPause() { 
             if (video.paused) 
                 video.play(); 
@@ -69,37 +83,42 @@
             var video = document.getElementById("video");
             video.load(); 
         }
+        function dobleVideo() { 
+            var video = document.getElementById("video");
+            video.height=video.height*2;
+            video.width=video.width*2;
+
+        }
+
+        function normaVideo() { 
+            var video = document.getElementById("video");
+            video.height=video.height/2;
+            video.width=video.width/2;
+
+        }
+
         function doblarVelocidad() { 
         /* play video twice as fast */
         document.querySelector("video").playbackRate = 2.0;
         document.querySelector("video").play();
         }
         function velocidadNormal() { 
-        /* play video twice as normal */
+        /* play video as normal */
         document.querySelector("video").playbackRate = 1.0;
         document.querySelector("video").play();
         }
 
         function snap() {
-            this.video = document.getElementById("video");
-            this.c1 = document.getElementById("c1");
-            this.ctx1 = this.c1.getContext("2d");
-            let self = this;
-            this.video.addEventListener("play", function() {
-                self.width = self.video.videoWidth / 2;
-                self.height = self.video.videoHeight / 2;
-            }, false);
-            this.ctx1.drawImage(this.video, 0, 0, this.width, this.height);
-            let frame = parseFloat(this.ctx1.getImageData(0, 0, this.width, this.height));
-            let l = frame.data.length / 4;
-            for (let i = 0; i < l; i++) {
-            let r = frame.data[i * 4 + 0];
-            let g = frame.data[i * 4 + 1];
-            let b = frame.data[i * 4 + 2];
-            if (g > 100 && r > 100 && b < 43)
-                frame.data[i * 4 + 3] = 0;
-            }
-            this.ctx1.putImageData(frame, 0, 0);
+            const video = document.querySelector('#video');
+            const canvas = document.createElement('canvas');
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            canvas.getContext('2d').drawImage(video, 0, 0);
+            const img = document.querySelector('#imagen');
+
+            // Other browsers will fall back to image/png
+            img.src = canvas.toDataURL('image/webp');
+
         }     
 
         function cargar() {
@@ -116,7 +135,8 @@
         }
 
         function agregarvideo(video) {
-            let texto = '<article class="estilo" ondblclick="cambiarVideo(' + videos.indexOf(video) + ')">';
+           
+            let texto = '<article class="estilo" onclick="cambiarVideo(' + videos.indexOf(video) + ')">';
             texto += '<span class="tooltiptext">' + video.descripcion + '</span>';
             texto += '<video width="150" height="150" src="' + video.src + '"> </video>';
             texto += '<div class="infomini">'
@@ -151,9 +171,11 @@
         function siguienteVideo() {
 
             let indiceActual = videos.indexOf(videoActual);
+            console.log(videoActual);
+
             let numeroVideos = videos.length;
             let idVideoNuevo;
-
+            
             if (indiceActual < numeroVideos - 1) {
 
                 idVideoNuevo = indiceActual + 1;
@@ -163,7 +185,24 @@
                 idVideoNuevo = 0;
 
             }
+            cambiarVideo(idVideoNuevo);
 
+        }
+        function anteriorVideo() {
+
+            let indiceActual = videos.indexOf(videoActual);
+            let numeroVideos = videos.length;
+            let idVideoNuevo;
+            
+            if (indiceActual == 0) {
+
+                idVideoNuevo = numeroVideos-1;
+
+            } else {
+
+                idVideoNuevo = indiceActual-1;
+
+            }
             cambiarVideo(idVideoNuevo);
 
         }

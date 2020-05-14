@@ -125,3 +125,11 @@
 .enreproduccion {
     background: #AFB42B;
 }
+
+#botones{
+    margin-left:60px;
+}
+#imagen{
+    width: 600px;
+    float: right;
+}

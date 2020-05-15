@@ -5,14 +5,8 @@ $( "#divisas_form" ).submit(function( event ) {
   $inputs.each(function() {
       data[this.id] = $(this).val();
   });
-  var currencies_data="";
-    for(var i=0;i<=data.origen.length-1;i++){
-      if(i ==data.origen.length){
-        currencies_data +=data.origen[i]+"";
-      }else{
-      currencies_data +=data.origen[i]+",";
-      }
-    }
+  
+    console.log(data.origen);
     var url_get ="http://ec2-35-180-234-37.eu-west-3.compute.amazonaws.com:1988/buscarPorFechaFiltrando/";
     $.ajax({
       url: url_get,
@@ -22,7 +16,7 @@ $( "#divisas_form" ).submit(function( event ) {
       data:{
         fecha_inicio:data.dia_inicio,
         fecha_fin:data.dia_fin,
-        currencies:currencies_data,
+        currencies:data.origen,
       },
       error: function(XMLHttpRequest, textStatus, errorThrown) {
         alert('Error al buscar la conversión, reinténtelo más tarde');
@@ -36,29 +30,56 @@ $( "#divisas_form" ).submit(function( event ) {
        var dataTime=[];
        var dataset =[];
        var labels=[];
+       var dataCurrencies=[];
        for(var i=0;i<=data.length-1;i++){
-         console.log(data[i].timestamp);
+         //console.log(data[i].timestamp);
          var stringCadena =data[i].timestamp;
           var arrayDeCadenas = stringCadena.split("T");
           dataTime[i]=arrayDeCadenas[0];
           var rate = data[i].rates;
-            var keys = Object.keys(rate);
-              //Get labels name
-              labels[i]=keys[i];
+          var keys = Object.keys(rate);
+          //Get labels name
+          labels[i]=keys[i];
+          //Ahora hay que coger las divisas y añadirlas al fichero de datos
+          
           for(var j=0;j<=data[i].rates.length-1;j++){
+            //cada una de las cotizaciones con su clave cotizacion-valor por día
+            var currencyJson = data[i].rates[j];
+            var keysCurrency = Object.keys(currencyJson);
+            console.log(keysCurrency)
+            dataCurrencies[i]=currencyJson[keysCurrency];
           }
        }
-       console.log(labels);
+       //console.log(labels);
+       //backgroundColor: ['#42a5f5', 'red', 'green','blue','violet'],
   var ctx = document.getElementById('myChart').getContext('2d');
+  var value_max = dataCurrencies.max;
+  var value_min = dataCurrencies.min;
+  var chartOptions = {
+    legend: {
+      display: true,
+      position: 'top',
+      labels: {
+        boxWidth: 80,
+        fontColor: 'black'
+      }
+    },
+  };
+  
   var chart = new Chart(ctx, {
     type: 'line',
     data:{
 	datasets: [{
-		data: [60,18,10, 8, 4],
-		backgroundColor: ['#42a5f5', 'red', 'green','blue','violet'],
-		label: labels}],
-		labels: dataTime},
-    options: {responsive: true}
-  });}
+    data: dataCurrencies.reverse(),
+    backgroundColor: ['#42a5f5', 'red', 'green','blue','violet','#42a5f5', 'red', 'green','blue','violet'],
+		label: keysCurrency}],
+		labels: dataTime.reverse()},
+    options: {chartOptions}
+  });
+  chart.defaults.global.defaultFontFamily = "Lato";
+  chart.defaults.global.defaultFontSize = 18;
+
+
+}
     }); 
   });

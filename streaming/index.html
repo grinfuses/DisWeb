@@ -38,7 +38,6 @@
     <canvas id="captura" style="float: right;"></canvas>    
     
     <script>
-        //posicion actual fotograma y poder guardarlo como imagen
         let videos = [{
                 nombre: 'Youtube - QuedateEnCasa #CoVid19',
                 categoria: 'Youtube',
@@ -98,12 +97,10 @@
         }
 
         function doblarVelocidad() { 
-        /* play video twice as fast */
         document.querySelector("video").playbackRate = 2.0;
         document.querySelector("video").play();
         }
         function velocidadNormal() { 
-        /* play video as normal */
         document.querySelector("video").playbackRate = 1.0;
         document.querySelector("video").play();
         }
@@ -115,8 +112,6 @@
             canvas.height = video.videoHeight;
             canvas.getContext('2d').drawImage(video, 0, 0);
             const img = document.querySelector('#imagen');
-
-            // Other browsers will fall back to image/png
             img.src = canvas.toDataURL('image/webp');
 
         }     

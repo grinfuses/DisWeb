@@ -270,7 +270,7 @@ exports.login = function(req, res) {
           console.log(user.email);
           res.send({
             token: token,
-            usernameLogin:user.username,
+            usernameLogin: user.username,
             name: user.name,
             surname: user.surname,
             email: user.email,

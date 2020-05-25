@@ -5,6 +5,8 @@ $( "#login" ).submit(function( event ) {
   $inputs.each(function() {
       data[this.id] = $(this).val();
   });
+  var usernameLogin=data[user];
+  console.log(usernameLogin);
     var url_get ="http://ec2-35-180-234-37.eu-west-3.compute.amazonaws.com:1988/login/";
     $.ajax({
       url: url_get,
@@ -21,7 +23,7 @@ $( "#login" ).submit(function( event ) {
         console.log(JSON.stringify(textStatus));
         console.log(JSON.stringify(errorThrown));
       },
-      success: function (data) {
+      success: function (data, usernameLogin) {
        if(data.message){
           if(data.message =="Login fail password incorrect"){
             alert("Contraseña incorrecta");
@@ -29,6 +31,7 @@ $( "#login" ).submit(function( event ) {
             alert("Usuario incorrecta");
           }
        }else{
+        localStorage.setItem('usernameCode', usernameLogin);
        localStorage.setItem('userToken', data.token);
        localStorage.setItem('userName', data.name);
        localStorage.setItem('userSurname', data.surname);

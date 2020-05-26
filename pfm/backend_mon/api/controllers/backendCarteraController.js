@@ -15,43 +15,70 @@ exports.list_all_cartera = function(req, res) {
   });
 };
 
+//Mejorar, no añade sobre el mismo elemento, sino que crea uno nuevo
 exports.addToCartera = function(req, res) {
   var data = req.body;
   var token = data.token;
   var user = data.username;
   let rates = data.rates;
+  var rates_div = rates.split(":");
+  var rate = rates_div[0];
+  var cantidad = rates_div[1];
+  var data_q={};
+  data_q[rate]=cantidad;
   if(token) {
     jwt.verify(token, config.TOKEN_SECRET, (err, decoded) => {
       if (err) {
         return res.json({ mensaje: 'Token inválida' });
       } else {
-  Usuario.find({username:user}, function(err, user,response=res) {
-      if(user!=undefined){
-        var data_new = {};
-        data_new.username = user[0].username;
-        var res = rates.split(",");
-        var result_rates = {};
-        for(var i=0;i<=res.length-1;i++){
-          var hijo1 = res[i].split(":");
-          var id_moneda = hijo1[0];
-          var cantidad = hijo1[1];
-          // console.log(id_moneda);
-          // console.log(cantidad);
-          result_rates[id_moneda]=cantidad;
-        }
-        data_new.rates=result_rates;
-        console.log(data_new);
-         var new_task = new Cartera(data_new);
-         new_task.save(function(err, task) {
-           if (err){
-           response.send(err);
-           }  
-           response.json(task);
-         });
-      
-      }
-  });  
-}})
+        const filter = { username: user };
+        console.log(filter);
+        mongoose.set('useFindAndModify', false);
+        Cartera.find(filter,function(err, result) {
+          //si no existe devuelve []
+          if(result.length==0){
+            var data_new={};
+            data_new["username"] = user;
+            data_new["rates"]=data_q;
+            var new_task = new Cartera(data_new);
+            new_task.save(function(err, task) {
+              if (err){
+              res.send(err);
+              }  
+              res.json(task);
+            });
+          }else{
+            //obtengo todas las divisas del usuario
+            var rates_new = result[0].rates;  // aqui tengo lo de DB
+            var entrado=false;
+            var keys_rates = Object.keys(rates_new);
+            for(var i=0;i<=keys_rates.length-1;i++){
+              if(keys_rates[i]==rate){
+                //cantidad_old no esta referenciado al de la DB -- FALLO A ARREGLAR
+                var cantidad_old = result[0].rates[rate];
+                var total = parseInt(cantidad_old) + parseInt(cantidad);
+                rates_new[keys_rates[i]]=total; 
+                entrado = true;
+              }else{
+                //la moneda no existe, se crea y se actualiza
+                if(!keys_rates.includes(rate)){
+                rates_new[rate]=parseInt(cantidad);
+              }
+              }
+            }
+            const filter = { username: user };
+            const update = { rates: rates_new };
+            console.log(update);
+            Cartera.findOneAndUpdate(filter,update,function(err, respon) {
+              if (err)
+                res.send(err);
+              res.json(respon);
+            });
+          }
+         
+        });
+}
+})
 };
 };
 
@@ -62,3 +89,42 @@ exports.deleteAllCartera = function(req, res) {
     res.json({ message: 'All cartera successfully deleted' });
   });
 };
+
+//unificar todos los datos en uno por moneda
+exports.getCartera = function(req, res) {
+  var data = req.body;
+  var token = data.token;
+  var user = data.username;
+  if(token) {
+    jwt.verify(token, config.TOKEN_SECRET, (err, decoded) => {
+      if (err) {
+        return res.json({ mensaje: 'Token inválida' });
+      } else {
+  Cartera.find({username:user}, function(_err, registros,response=res) {
+      if(registros!=undefined){
+       var data_salida={};
+       for(var i=0;i<=registros.length-1;i++){
+        var rates_usuario = registros[i].rates;
+        console.log(rates_usuario);
+        var keys_rates = Object.keys(rates_usuario);
+        var valores = rates_usuario[keys_rates]
+        var total =0;
+        if( valores!=undefined){
+          console.log(valores);
+          total = total + parseInt(valores);
+          //total += parseInt(valores);
+        }
+        data_salida[keys_rates]=total;
+       }
+       
+      }
+      console.log(data_salida);
+      var data_new = {};
+       res.send({
+            usernameLogin: registros[0].username,
+          });
+       
+        });
+      }})
+    }};
+    

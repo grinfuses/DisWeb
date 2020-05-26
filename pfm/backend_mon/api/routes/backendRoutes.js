@@ -27,5 +27,6 @@ module.exports = function(app) {
   app.route('/addToCartera').post(backendCartera.addToCartera);
   app.route('/cartera').get(backendCartera.list_all_cartera);
   app.route('/borraTodaCartera').delete(backendCartera.deleteAllCartera);
+  app.route('/getCartera').post(backendCartera.getCartera);
 
 };

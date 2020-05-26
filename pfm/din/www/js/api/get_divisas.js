@@ -53,8 +53,11 @@ $( "#divisas_form" ).submit(function( event ) {
        //console.log(labels);
        //backgroundColor: ['#42a5f5', 'red', 'green','blue','violet'],
   var ctx = document.getElementById('myChart').getContext('2d');
+  var ctx2 = document.getElementById('myChart2').getContext('2d');
   var value_max = dataCurrencies.max;
   var value_min = dataCurrencies.min;
+  var step = (value_max-value_min)/10;
+  
   var chartOptions = {
     legend: {
       display: true,
@@ -63,11 +66,30 @@ $( "#divisas_form" ).submit(function( event ) {
         boxWidth: 80,
         fontColor: 'black'
       }
-    },
+    }, scales: {
+      yAxes: [{
+          ticks: {
+              max: 10000,
+              min: 8000,
+              stepSize:500,
+          }
+      }]
+  }
   };
   
   var chart = new Chart(ctx, {
     type: 'line',
+    data:{
+	datasets: [{
+    data: dataCurrencies.reverse(),
+    backgroundColor: ['#42a5f5', 'red', 'green','blue','violet','#42a5f5', 'red', 'green','blue','violet'],
+		label: keysCurrency}],
+		labels: dataTime.reverse()},
+    options: {chartOptions}
+  });
+  
+  var chart = new Chart(ctx2, {
+    type: 'bar',
     data:{
 	datasets: [{
     data: dataCurrencies.reverse(),

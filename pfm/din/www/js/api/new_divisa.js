@@ -12,8 +12,6 @@ $( "#nuevo_registro" ).submit(function( event ) {
   data_send["username"]=usernameLogin;
   data_send["rates"]=string_rate;
   data_send["token"]=token;
-  console.log(data_send);
-
       $.ajax({
         url: "http://localhost:1988/addToCartera/",
         type: 'post',
@@ -27,7 +25,7 @@ $( "#nuevo_registro" ).submit(function( event ) {
         },
         success: function (data) {
          alert('Nueva moneda añadida creado');
-         $.mobile.changePage("cartera.html", "slideup");
+         $.mobile.changePage("cartera.html");
         }
   });
 });

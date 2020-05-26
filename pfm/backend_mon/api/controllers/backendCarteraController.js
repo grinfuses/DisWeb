@@ -101,29 +101,16 @@ exports.getCartera = function(req, res) {
         return res.json({ mensaje: 'Token inválida' });
       } else {
   Cartera.find({username:user}, function(_err, registros,response=res) {
-      if(registros!=undefined){
-       var data_salida={};
-       for(var i=0;i<=registros.length-1;i++){
-        var rates_usuario = registros[i].rates;
-        console.log(rates_usuario);
-        var keys_rates = Object.keys(rates_usuario);
-        var valores = rates_usuario[keys_rates]
-        var total =0;
-        if( valores!=undefined){
-          console.log(valores);
-          total = total + parseInt(valores);
-          //total += parseInt(valores);
-        }
-        data_salida[keys_rates]=total;
-       }
-       
+    var data_salida={};  
+      if(registros.length!=0){
+       console.log(registros);
+       data_salida = registros[0].rates;
       }
       console.log(data_salida);
-      var data_new = {};
        res.send({
-            usernameLogin: registros[0].username,
+            usernameLogin: user,
+            rates: data_salida
           });
-       
         });
       }})
     }};

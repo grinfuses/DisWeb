@@ -42,7 +42,6 @@ body {
     /*background:url(../img/inves.jpg) no-repeat center top; /* 170px x 200px */
     position:absolute;             /* position in the center of the screen */
     left:50%;
-    top:30%;
     height:250px;                   /* text area height */
     width:225px;                   /* text area width */
     text-align:center;
@@ -64,7 +63,6 @@ body {
 h1 {
     font-size:20px;
     font-weight:normal;
-    margin:-230px;
     overflow:visible;
     padding:0px;
     text-align:center;
@@ -123,8 +121,8 @@ h1 {
 #subheader {
     position:absolute;             /* position in the center of the screen */
     /*left:40%;*/
-    top:30%;
-    left: 40%;
+    top:20%;
+    left: 20%;
     height:250px;                   /* text area height */
     width:200px;                   /* text area width */
     text-align:center;
@@ -152,6 +150,23 @@ h1 {
     width:500px;
     margin:180px 250px 0px -120px;
 }
+#contenido_cartera {
+    position:absolute;             /* position in the center of the screen */
+    /*left:40%;*/
+    top:40%;
+    left: -50%;
+    height:250px;                   /* text area height */
+    width:200px;                   /* text area width */
+    text-align:center;
+    /*padding:180px 200px 200px 0px;     /* image height is 200px (bottom 20px are overlapped with text) */
+    /*margin:-115px 0px 0px -112px;  /* offset vertical: half of image height and text area height */
+                                   /* offset horizontal: half of text area width */
+    font-family:Arial, Helvetica, sans-serif;
+   
+    width:500px;
+    margin:180px 250px 0px -120px;
+}
+
 
 ul, ol {
     list-style:none;
@@ -165,7 +180,7 @@ ul, ol {
     background-color:#4B946A;
     color:#fff;
     text-decoration:none;
-    padding:10px 12px;
+    padding:10px 10px;
     display:block;
 }
 

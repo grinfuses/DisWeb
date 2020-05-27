@@ -13,7 +13,7 @@ $( "#nuevo_registro" ).submit(function( event ) {
   data_send["rates"]=string_rate;
   data_send["token"]=token;
       $.ajax({
-        url: "http://localhost:1988/addToCartera/",
+        url: "http://ec2-35-180-234-37.eu-west-3.compute.amazonaws.com:1988/addToCartera/",
         type: 'post',
         data: data_send,
         dataType: 'JSON',

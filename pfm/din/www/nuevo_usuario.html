@@ -32,7 +32,11 @@
         <meta name="msapplication-tap-highlight" content="no">
         <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
         <link rel="stylesheet" type="text/css" href="css/index.css">
-        <title>Index</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+
+
+        <title>Nuevo usuario</title>
     </head>
     <body>
         <div class="app">
@@ -44,20 +48,27 @@
                         <li><a href="calculadora.html">Conversor</a></li>
                     </ul> 
                 </div>
-                
                 <div id="content">
-                    <b>Bienvenido al sistema de democratización de criptomonedas.</b>
-                    <p>Puede ver la conversión entre criptomonedas y acceder</p> 
-                    <p>La ventajas de tener un usuario en la aplicación son las siguientes:</p>
-                    <p>- Añadir una cartera de criptomonedas, ver su valoración y evolución</p>
-                    <p>- Convertir monedas en euros para ver su valoración</p>
-                    <p>- Añadir una cartera de criptomonedas</p>
-                    <p>- Recibir las últimas noticias sobre las criptomonedas</p>
-
-                   Regístrese <a href="nuevo_usuario.html">aquí</a>
+                    <b>Nuevo usuario</b></p>
+                    <form id="nuevo_registro_usuario" method="post">  
+                        <label for="nombre">Nombre :</label>
+                        <input id="name" name="name" type="text"></p>
+                        <label for="apellidos">Apellidos :</label>
+                        <input id="surname" name="surname" type="text"></p>
+                    </p><label for="username">Nombre de usuario :</label>
+                        <input id="username" name="username" type="text"></p>
+                        <label for="password">Contraseña :</label>
+                        <input id="password" name="password" type="password"></p>
+                        <label for="correo">Email :</label>
+                        <input id="email" name="email" type="email"></p>
+                        <label for="novedades">Desea recibir novedades y alertas sobre criptomonedas:</label>
+                        <input id="novedades" name="novedades" type="checkbox"></p>
+                        <input id="submit" name="submit" type="submit" value="Enviar">
+                    </form>
                 </div>
         </div>
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
+        <script type="text/javascript" src="js/api/nuevo_usuario.js"></script>    
     </body>
 </html>

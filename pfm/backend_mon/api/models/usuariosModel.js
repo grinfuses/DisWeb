@@ -19,6 +19,9 @@ var usuarioSchema = new Schema({
   },
   permiso:{
     type: Number
+  },
+  novedades:{
+    type:Boolean
   }
   
 });

@@ -227,12 +227,19 @@ exports.nuevoUsuario = function(req, res) {
   data_hashed.email = data.email;
   data_hashed.permiso = data.permiso;
   data_hashed.password = hash_password;
-  var new_user = new Usuario(data_hashed);
-  new_user.save(function(err, task) {
-    if (err)
-      res.send(err);
-    res.json(task);
+  Usuario.find({username:data.username}, function(err, users) {
+   if(users.length==0){
+      var new_user = new Usuario(data_hashed);
+        new_user.save(function(err, task) {
+          if (err)
+            res.send(err);
+          res.json(task);
+        });
+   }else{
+      res.send("El usuario ya existe");
+   }
   });
+  
   
 };
 

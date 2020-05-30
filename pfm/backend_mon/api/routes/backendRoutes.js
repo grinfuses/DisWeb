@@ -4,6 +4,7 @@ module.exports = function(app) {
   var backend = require('../controllers/backendController');
   var backendUsers = require('../controllers/backendUsersController');
   var backendCartera = require('../controllers/backendCarteraController');
+  var backendNoticias = require('../controllers/backendNoticiasController');
 
   // Registers Routes
   app.route('/registros').get(backend.list_all_registros);
@@ -28,5 +29,9 @@ module.exports = function(app) {
   app.route('/cartera').get(backendCartera.list_all_cartera);
   app.route('/borraTodaCartera').delete(backendCartera.deleteAllCartera);
   app.route('/getCartera').post(backendCartera.getCartera);
+  // Noticias Routes
+  app.route('/getLatestNews').get(backendNoticias.getNoticias);
+  app.route('/updateNews').get(backendNoticias.updateNoticias);
+  app.route('/borrarTodasLasNoticias').delete(backendNoticias.deleteAllNoticias);
 
 };

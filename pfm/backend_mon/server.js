@@ -13,6 +13,9 @@ var express = require('express'),
   UsersControllers = require('./api/controllers/backendUsersController'), //created controllers loading here
   Cartera = require('./api/models/carteraModel'), //created model loading here
   CarteraControllers = require('./api/controllers/backendCarteraController'), //created controllers loading here
+  Noticias = require('./api/models/newsModel'), //created model loading here
+  NoticiasControllers = require('./api/controllers/backendNoticiasController'), //created controllers loading here
+
 
   jwt = require('jsonwebtoken'),
   config = require('./config'),
@@ -45,6 +48,7 @@ let transporter = nodemailer.createTransport({
   console.log("---------------------");  
   console.log("Updating Db");
     TaskControllers.updateDbCron();
+    NoticiasControllers.updateNoticias();
     let mailOptions = {
       from: "servidor.pfm@gmail.com",
       to: "grinfuses@gmail.com",

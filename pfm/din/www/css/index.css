@@ -33,7 +33,7 @@ body {
     padding:0px;
     /* Padding to avoid the "unsafe" areas behind notches in the screen */
     padding: env(safe-area-inset-top, 0px) env(safe-area-inset-right, 0px) env(safe-area-inset-bottom, 0px) env(safe-area-inset-right, 0px);
-    text-transform:uppercase;
+    
     width:100%;
 }
 
@@ -166,7 +166,30 @@ h1 {
     width:500px;
     margin:180px 250px 0px -120px;
 }
+#noticias_container {
+    position:absolute;             /* position in the center of the screen */
+    /*left:40%;*/
+    top:50%;
+    left: -50%;
+    height:250px;                   /* text area height */
+    width:200px;                   /* text area width */
+    text-align:center;
+    /*padding:180px 200px 200px 0px;     /* image height is 200px (bottom 20px are overlapped with text) */
+    /*margin:-115px 0px 0px -112px;  /* offset vertical: half of image height and text area height */
+                                   /* offset horizontal: half of text area width */
+    font-family:Arial, Helvetica, sans-serif;
+   
+    width:500px;
+    margin:180px 250px 0px -120px;
+}
+#encabezado_noticia:nth-of-type(odd) {
+    background-color:rgb(187, 133, 133);
+    }
 
+        
+#encabezado_noticia:nth-of-type(even) {
+    background-color:#fff;
+    }
 
 ul, ol {
     list-style:none;

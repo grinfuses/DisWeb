@@ -22,8 +22,9 @@ var usuarioSchema = new Schema({
   },
   novedades:{
     type:Boolean
-  }
-  
+  },
+  resetPasswordToken: String,
+  resetPasswordExpires: Date  
 });
 
 module.exports = mongoose.model('Usuarios', usuarioSchema);

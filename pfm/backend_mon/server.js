@@ -1,8 +1,13 @@
 var cors = require('cors');
 let nodemailer = require("nodemailer");
 const cron = require("node-cron");
-const bcrypt = require("bcryptjs");
-
+/*var session = require('express-session')
+var mongoose = require('mongoose');
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
+var async = require('async');
+var crypto = require('crypto');
+*/
 var express = require('express'),
   app = express(),
   port = process.env.PORT || 1988,

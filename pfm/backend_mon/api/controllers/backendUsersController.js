@@ -1,12 +1,12 @@
 'use strict';
 const _ = require('lodash');
 const bcrypt=require('bcryptjs');
+let nodemailer = require("nodemailer");
 
 var mongoose = require('mongoose'),
   jwt = require('jsonwebtoken'),
   config = require('../../config'),
   Usuario = mongoose.model('Usuarios');
-
 exports.list_all_users = function(req, res) {
   Usuario.find({}, function(err, task) {
     if (err)
@@ -225,8 +225,12 @@ exports.nuevoUsuario = function(req, res) {
   data_hashed.surname = data.surname;
   data_hashed.username = data.username;
   data_hashed.email = data.email;
-  data_hashed.permiso = data.permiso;
   data_hashed.password = hash_password;
+  if (data.permiso !=undefined){
+    data_hashed.permiso = 0;
+  }else{
+    data_hashed.permiso = data.permiso;
+  }
   Usuario.find({username:data.username}, function(err, users) {
    if(users.length==0){
       var new_user = new Usuario(data_hashed);
@@ -294,4 +298,108 @@ exports.login = function(req, res) {
   login();
 };
 
+
+exports.getTokenUser = function(req, res) {
+  User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
+    console.log(user);
+  if (!user) {
+    req.flash('error', 'Password reset token is invalid or has expired.');
+    return res.redirect('/forgot');
+  }
+  res.render('reset', {
+   User: req.user
+  });
+});
+
+};
+
+exports.resetToken = function(req, res) {
+  Usuario.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user, next) {
+    if (!user) {
+      console('error', 'Password reset token is invalid or has expired.');
+    }else{
+      console.log(user);
+      const saltRounds = 10;
+      const salt =  bcrypt.genSaltSync(saltRounds);
+      const hash_password =  bcrypt.hashSync(req.body.password, salt);
+      user.password =hash_password ;
+      user.resetPasswordToken = undefined;
+      user.resetPasswordExpires = undefined;
+      console.log('password ' + user.password  + ' and the user is ' + user);
+      user.save(function(err) {
+        if(err){
+          console.log('Error guardando nuevo usuario');
+          res.send({
+            message: "Error actualizando la pass del usuario"
+          });
+        }else{
+          res.send({
+            message: "Usuario actualizado"
+          });
+        }
+      });
+
+    }
+
+  });
+
+};
+
+exports.postForgot = function(req, res) {
+  console.log(req.body.email)
+  var email_user = req.body.email;
+  Usuario.findOne({ email: req.body.email }, function(err, user) {
+    if(!user){
+      console.log('error', 'No account with that email address exists.');
+      res.send({
+        message: "No existe usuario con ese correo"
+      });
+    }else{
+      const payload_user = {
+        check:  true
+      };
+      let token_user =  jwt.sign(payload_user, config.TOKEN_SECRET, {
+        expiresIn: "3d"
+      });
+      
+      user.resetPasswordToken = token_user;
+      user.resetPasswordExpires = Date.now() + 3600000; // 1 hour
+      user.save(function(err) {
+        if(err){
+          res.send({
+            message: "Error durante la generacion del token"
+          });
+        }
+      });
+      // enviamos el mail de token
+      let transporter = nodemailer.createTransport({
+        service: "gmail",
+        auth: {
+          user: "servidor.pfm@gmail.com",
+          pass: "prueba1234"
+        }
+      });
+      
+     var mailOptions = {
+
+       to: user.email,
+       from: 'myemail',
+       subject: 'CriptoVisor Peticion de nueva contraseña',
+       text: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
+         'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
+         'http://ec2-35-180-234-37.eu-west-3.compute.amazonaws.com/tfm/reset/' + token_user + '\n\n' +
+         'If you did not request this, please ignore this email and your password will remain unchanged.\n'
+      };
+      transporter.sendMail(mailOptions, function(err) {
+        if(err){
+          res.send({
+            message: "Error durante el envio del email"
+          });
+        }else{
+        console.log('sent')
+      }
+      });
+    }
+  });
+};
 

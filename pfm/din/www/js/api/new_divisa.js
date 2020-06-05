@@ -25,7 +25,7 @@ $( "#nuevo_registro" ).submit(function( event ) {
         },
         success: function (data) {
          alert('Nueva moneda añadida creado');
-         $.mobile.changePage("cartera.html");
+         location.href="cartera.html";
         }
   });
 });

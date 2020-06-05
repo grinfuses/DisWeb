@@ -222,3 +222,72 @@ exports.deleteAll = function(req, res) {
     res.json({ message: 'All registers successfully deleted' });
   });
 };
+
+exports.getMetricasGlobales = function(req, res) {
+  var request = require('request');
+  var options = {
+    'method': 'GET',
+    'url': 'https://pro-api.coinmarketcap.com/v1/global-metrics/quotes/latest?convert=EUR',
+    'headers': {
+      'X-CMC_PRO_API_KEY': '784ab1cc-c8e3-4fb3-84e6-67be0c77a2f6',
+      'Cookie': '__cfduid=d641c82dd4ad973c89493688532d38bd11591220278'
+    }
+  };
+  request(options, function (error, response) { 
+    if (error){
+      throw new Error(error)
+    }
+    var data= JSON.parse(response.body);
+    console.log(data);
+    console.log(data.data.quote);
+    res.json(data);
+  });
+  
+};
+
+exports.getLatestBlockData = function(req, res) {
+  var request = require('request');
+  var options = {
+    'method': 'GET',
+    'url': 'https://blockchain.info/latestblock',
+  };
+  request(options, function (error, response) { 
+    if (error){
+      throw new Error(error)
+    }
+    var data= JSON.parse(response.body);
+    var hash_last=data.hash;
+    var url_data = "https://blockchain.info/rawblock/"+hash_last;
+    var options = {
+      'method': 'GET',
+      'url': url_data,
+    };
+    request(options, function (error, response) { 
+      if (error){
+        throw new Error(error)
+      }
+      var data= JSON.parse(response.body);
+      delete data['tx'];
+      console.log(data);
+      res.json(data);
+    });
+  });
+  
+};
+
+exports.getStats = function(req, res) {
+  var request = require('request');
+  var options = {
+    'method': 'GET',
+    'url': 'https://api.blockchain.info/stats',
+  };
+  request(options, function (error, response) { 
+    if (error){
+      throw new Error(error)
+    }
+    var data= JSON.parse(response.body);
+    res.json(data);
+    
+  });
+  
+};

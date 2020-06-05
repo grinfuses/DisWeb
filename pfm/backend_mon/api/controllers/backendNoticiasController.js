@@ -3,7 +3,9 @@ const _ = require('lodash');
 
 var mongoose = require('mongoose'),
   config = require('../../config'),
-  Noticias = mongoose.model('Noticias');
+  Noticias = mongoose.model('Noticias'),
+  Usuario = mongoose.model('Usuarios'),
+  Registros = mongoose.model('Registros');
 
 exports.getNoticias = function(req, res) {
   Noticias.find({}, function(err, task) {
@@ -66,4 +68,36 @@ exports.updateNoticias = function(req, res) {
           res.send(err);
         res.json({ message: 'All noticias successfully deleted' });
       });
+    };
+
+    exports.createDailyNewsletter = function(req, res) {
+      //lista de emails a enviar de usuarios
+      //lista de ultimas noticias
+      //lista de ultimas cotizaciones de las 10 más importantes
+      //formar el mail
+      //enviarlo
+      
+
+      // Noticias.find({}, function(err, task) {
+      //   if (err){
+      //     res.send(err);
+      //   }
+      //   return task;
+      // }).sort({_id: -1})
+      // .limit(5);
+      
+      var fecha_hasta = new Date();
+      var fecha_desde = new Date();
+      var pastDate = fecha_desde.getDate() - 1;
+      fecha_desde.setDate(pastDate);
+      Registros.find({}, function(err, reg) {
+         
+          
+        }).sort({_id: -1})
+        .limit(2);
+        console.log(fecha_desde);
+        console.log(fecha_hasta);
+        console.log(user);
+  
+
     };

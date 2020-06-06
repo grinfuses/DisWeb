@@ -74,7 +74,7 @@ let transporter = nodemailer.createTransport({
 cron.schedule("30 4 * * *", function(){
   console.log("---------------------");  
   console.log("Loading Newsletter");
-  UsersControllers.createDailyNewsletter();
+  NoticiasControllers.createDailyNewsletter();
     let mailOptions = {
       from: "servidor.pfm@gmail.com",
       to: "grinfuses@gmail.com",

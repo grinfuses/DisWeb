@@ -226,6 +226,7 @@ exports.nuevoUsuario = function(req, res) {
   data_hashed.username = data.username;
   data_hashed.email = data.email;
   data_hashed.password = hash_password;
+  data_hashed.novedades=data.novedades;
   if (data.permiso !=undefined){
     data_hashed.permiso = 0;
   }else{
@@ -385,7 +386,7 @@ exports.postForgot = function(req, res) {
        to: user.email,
        from: 'myemail',
        subject: 'CriptoVisor Peticion de nueva contraseña',
-       text: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
+       html: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
          'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
          'http://ec2-35-180-234-37.eu-west-3.compute.amazonaws.com/tfm/reset/' + token_user + '\n\n' +
          'If you did not request this, please ignore this email and your password will remain unchanged.\n'

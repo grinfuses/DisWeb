@@ -57,7 +57,7 @@ let transporter = nodemailer.createTransport({
     let mailOptions = {
       from: "servidor.pfm@gmail.com",
       to: "grinfuses@gmail.com",
-      subject: `Base de datos actualizada ;)`,
+      subject: `Base de datos actualizada`,
       text: `Se ha actualizado la base de datos `
     };
     transporter.sendMail(mailOptions, function(error, info) {
@@ -71,6 +71,26 @@ let transporter = nodemailer.createTransport({
     console.log("Db updated");
 });
 
+cron.schedule("30 4 * * *", function(){
+  console.log("---------------------");  
+  console.log("Loading Newsletter");
+  UsersControllers.createDailyNewsletter();
+    let mailOptions = {
+      from: "servidor.pfm@gmail.com",
+      to: "grinfuses@gmail.com",
+      subject: `Newsletter enviada`,
+      text: `Se ha actualizado la base de datos `
+    };
+    transporter.sendMail(mailOptions, function(error, info) {
+      if (error) {
+        throw error;
+      } else {
+        console.log("Email enviado!");
+      }
+    });
+    console.log("---------------------");
+    console.log("Newsletter enviada updated");
+});
 
 app.listen(port);
 

@@ -35,6 +35,7 @@ module.exports = function(app) {
   app.route('/cartera').get(backendCartera.list_all_cartera);
   app.route('/borraTodaCartera').delete(backendCartera.deleteAllCartera);
   app.route('/getCartera').post(backendCartera.getCartera);
+  
   // Noticias Routes
   app.route('/getLatestNews').get(backendNoticias.getNoticias);
   app.route('/updateNews').get(backendNoticias.updateNoticias);

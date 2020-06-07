@@ -35,7 +35,7 @@ $( "#login" ).submit(function( event ) {
        localStorage.setItem('userSurname', data.surname);
        localStorage.setItem('userMail', data.email);
        localStorage.setItem('userPermiso', data.permiso);
-       window.location.href = "dashboard.html";
+       window.location.href = "registrado/dashboard.html";
        }
       }
 });

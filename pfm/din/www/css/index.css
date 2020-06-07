@@ -105,7 +105,7 @@ h1 {
 }
 #header {
     position:absolute;             /* position in the center of the screen */
-    /*left:40%;*/
+    left:30%;
     top:10%;
     height:250px;                   /* text area height */
     width:200px;                   /* text area width */

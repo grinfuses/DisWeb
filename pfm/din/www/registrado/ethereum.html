@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+     KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<html>
+    <head>
+        <!--
+        Customize this policy to fit your own app's needs. For more guidance, see:
+            https://github.com/apache/cordova-plugin-whitelist/blob/master/README.md#content-security-policy
+        Some notes:
+            * gap: is required only on iOS (when using UIWebView) and is needed for JS->native communication
+            * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
+            * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
+                * Enable inline JS: add 'unsafe-inline' to default-src
+        -->
+        <meta name="format-detection" content="telephone=no">
+        <meta name="msapplication-tap-highlight" content="no">
+        <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
+        <link rel="stylesheet" type="text/css" href="../css/index.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <title>Index</title>
+        
+    </head>
+    <body>
+        <div id="biblioteca" class="app">
+            <h1>Criptodivisas</h1>
+                <div id="header">
+                    <ul class="nav">
+                        <li><a href="dashboard.html">Inicio</a></li>
+                        <li><a href="divisas.html">Divisas</a></li>
+                        <li><a href="cartera.html">Mi cartera</a></li>
+                        <li><a href="calculadora_registrado.html">Conversor</a></li>
+                        <li><a href="biblioteca.html">Biblioteca</a></li>
+                        <li><a href="../index.html">Salir</a></li>
+                    </ul> 
+                </div>
+                
+                <div id="content">
+                    Aquí tendrá más información sobre el mundo de las criptomonedas
+                    <li><a href="fundamentos.html">Fundamentos de la criptomonedas</a></li>
+                    <li><a href="bitcoin.html">Información sobre el bitcoin</a></li>
+                    <li><a href="ethereum.html">Información sobre el ethereum</a></li>
+                    <p>Fecha de creación: 30 de julio de 2015</p>
+                    <p>Algoritmo: Ethash</p>
+                    <p>Consenso: Prueba de Trabajo (PoW) / Prueba de Participación (PoS) a futuro</p>
+                    <p>Emisión máxima: Infinita (por ahora)</p>
+                    <p>Tiempo de bloque (Promedio): 15 segundos</p>
+                    <p> Recompensa de bloque: 3 ethers (ETH)</p>
+                    <p>Ajuste de dificultad: 1 bloque</p>
+                    <p>Página web: https://www.ethereum.org</p>
+                    
+                    <p>Ethereum es una de las plataformas descentralizadas más importantes, la cual se caracteriza por permitir la ejecución sencilla de contratos inteligentes, útiles aplicaciones informáticas programadas para ejecutar comandos automáticamente y sin necesidad de confianza en terceros.</p>
+                    
+                    <p>La plataforma fue fundada durante agosto de 2014 y es liderada por Vitalik Buterin, un joven programador de nacionalidad rusa que ha atraído desde entonces la admiración de la comunidad blockchain alrededor del mundo.</p>
+                    
+                    <p>Gracias a las aplicaciones y posibilidades de los contratos inteligentes, Ethereum está siendo utilizada por diversas compañías del mundo, pertenecientes a distintos sectores industriales, pues estos permiten automatizar procesos transaccionales y comunicativos. Además, los dispositivos de Internet de las Cosas pueden explotar su potencial gracias a esta tecnología.</p>
+                    
+                    <p> El esquema transaccional de Ethereum requiere que para ejecutar una transferencia de ethers se consuma unidades de Gas, equivalentes a una pequeña cantidad de ether (ETH) que es cedida al minero por realizar las operaciones de cómputo. El protocolo de consenso de esta red es la Prueba de Trabajo, pero actualmente se está planificando migrar a la Prueba de Participación, lo que podría dejar a los mineros tradicionales sin utilidad en esta red. Sin embargo, es una transición de mediana duración, dado que aún se están realizando pruebas.</p>
+                    
+                    <p> Sus exploradores de bloques más conocidos son etherscan.io y etherchain.org.</p>
+                    
+                    
+                </div>
+        </div>
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="../js/index.js"></script>
+    </body>
+</html>

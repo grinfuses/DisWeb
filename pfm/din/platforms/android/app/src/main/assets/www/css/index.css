@@ -1,0 +1,279 @@
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
+* {
+    -webkit-tap-highlight-color: rgba(0,0,0,0); /* make transparent link selection, adjust last value opacity 0 to 1.0 */
+}
+
+body {
+    -webkit-touch-callout: none;                /* prevent callout to copy image, etc when tap to hold */
+    -webkit-text-size-adjust: none;             /* prevent webkit from resizing text to fit */
+    -webkit-user-select: none;                  /* prevent copy paste, to allow, change 'none' to 'text' */
+    background-color:#E4E4E4;
+    background-image:linear-gradient(top, #A7A7A7 0%, #E4E4E4 51%);
+    font-family: system-ui, -apple-system, -apple-system-font, 'Segoe UI', 'Roboto', sans-serif;
+    font-size:12px;
+    height:100vh;
+    margin:0px;
+    padding:0px;
+    /* Padding to avoid the "unsafe" areas behind notches in the screen */
+    padding: env(safe-area-inset-top, 0px) env(safe-area-inset-right, 0px) env(safe-area-inset-bottom, 0px) env(safe-area-inset-right, 0px);
+    
+    width:100%;
+}
+
+/* Portrait layout (default) */
+.app {
+    /*background:url(../img/inves.jpg) no-repeat center top; /* 170px x 200px */
+    position:absolute;             /* position in the center of the screen */
+    left:50%;
+    height:250px;                   /* text area height */
+    width:225px;                   /* text area width */
+    text-align:center;
+    padding:180px 0px 0px 0px;     /* image height is 200px (bottom 20px are overlapped with text) */
+    margin:-115px 0px 0px -112px;  /* offset vertical: half of image height and text area height */
+                                   /* offset horizontal: half of text area width */
+}
+
+/* Landscape layout (with min-width) */
+@media screen and (min-aspect-ratio: 1/1) and (min-width:400px) {
+    .app {
+        background-position:left center;
+        padding:75px 0px 75px 170px;  /* padding-top + padding-bottom + text area = image height */
+        margin:-90px 0px 0px -198px;  /* offset vertical: half of image height */
+                                      /* offset horizontal: half of image width and text area width */
+    }
+}
+
+h1 {
+    font-size:20px;
+    font-weight:normal;
+    overflow:visible;
+    padding:0px;
+    text-align:center;
+}
+
+.event {
+    border-radius:4px;
+    -webkit-border-radius:4px;
+    color:#FFFFFF;
+    font-size:12px;
+    margin:0px 30px;
+    padding:2px 0px;
+}
+
+.event.listening {
+    background-color:#333333;
+    display:block;
+}
+
+.event.received {
+    background-color:#4B946A;
+    display:none;
+}
+
+@keyframes fade {
+    from { opacity: 1.0; }
+    50% { opacity: 0.4; }
+    to { opacity: 1.0; }
+}
+ 
+@-webkit-keyframes fade {
+    from { opacity: 1.0; }
+    50% { opacity: 0.4; }
+    to { opacity: 1.0; }
+}
+ 
+.blink {
+    animation:fade 3000ms infinite;
+    -webkit-animation:fade 3000ms infinite;
+}
+#header {
+    position:absolute;             /* position in the center of the screen */
+    /*left:40%;*/
+    top:10%;
+    height:250px;                   /* text area height */
+    width:200px;                   /* text area width */
+    text-align:center;
+    /*padding:180px 200px 200px 0px;     /* image height is 200px (bottom 20px are overlapped with text) */
+    /*margin:-115px 0px 0px -112px;  /* offset vertical: half of image height and text area height */
+                                   /* offset horizontal: half of text area width */
+    font-family:Arial, Helvetica, sans-serif;
+   
+    width:500px;
+    margin:180px 250px 0px -120px;
+}
+#subheader {
+    position:absolute;             /* position in the center of the screen */
+    /*left:40%;*/
+    top:20%;
+    left: 20%;
+    height:250px;                   /* text area height */
+    width:200px;                   /* text area width */
+    text-align:center;
+    /*padding:180px 200px 200px 0px;     /* image height is 200px (bottom 20px are overlapped with text) */
+    /*margin:-115px 0px 0px -112px;  /* offset vertical: half of image height and text area height */
+                                   /* offset horizontal: half of text area width */
+    font-family:Arial, Helvetica, sans-serif;
+   
+    width:500px;
+    margin:180px 250px 0px -120px;
+}
+#nuevo_registro_cartera {
+    position:absolute;             /* position in the center of the screen */
+    /*left:40%;*/
+    top:50%;
+    left: 10%;
+    height:250px;                   /* text area height */
+    width:200px;                   /* text area width */
+    text-align:center;
+    /*padding:180px 200px 200px 0px;     /* image height is 200px (bottom 20px are overlapped with text) */
+    /*margin:-115px 0px 0px -112px;  /* offset vertical: half of image height and text area height */
+                                   /* offset horizontal: half of text area width */
+    font-family:Arial, Helvetica, sans-serif;
+   
+    width:500px;
+    margin:180px 250px 0px -120px;
+}
+#contenido_cartera {
+    position:absolute;             /* position in the center of the screen */
+    /*left:40%;*/
+    top:40%;
+    left: -50%;
+    height:250px;                   /* text area height */
+    width:200px;                   /* text area width */
+    text-align:center;
+    /*padding:180px 200px 200px 0px;     /* image height is 200px (bottom 20px are overlapped with text) */
+    /*margin:-115px 0px 0px -112px;  /* offset vertical: half of image height and text area height */
+                                   /* offset horizontal: half of text area width */
+    font-family:Arial, Helvetica, sans-serif;
+   
+    width:500px;
+    margin:180px 250px 0px -120px;
+}
+#noticias_container {
+    position:absolute;             /* position in the center of the screen */
+    /*left:40%;*/
+    top:60%;
+   
+    height:250px;                   /* text area height */
+    width:200px;                   /* text area width */
+    text-align:center;
+    /*padding:180px 200px 200px 0px;     /* image height is 200px (bottom 20px are overlapped with text) */
+    /*margin:-115px 0px 0px -112px;  /* offset vertical: half of image height and text area height */
+                                   /* offset horizontal: half of text area width */
+    font-family:Arial, Helvetica, sans-serif;
+   
+    width:500px;
+    margin:180px 250px 0px -120px;
+}
+#cotizaciones {
+    position:absolute;             /* position in the center of the screen */
+    /*left:40%;*/
+    top:40%;
+   
+    height:250px;                   /* text area height */
+    width:200px;                   /* text area width */
+    text-align:center;
+    /*padding:180px 200px 200px 0px;     /* image height is 200px (bottom 20px are overlapped with text) */
+    /*margin:-115px 0px 0px -112px;  /* offset vertical: half of image height and text area height */
+                                   /* offset horizontal: half of text area width */
+    font-family:Arial, Helvetica, sans-serif;
+   
+    width:500px;
+    margin:180px 250px 0px -120px;
+}
+#encabezado_noticia:nth-of-type(odd) {
+    background-color:rgb(187, 133, 133);
+    }
+
+        
+#encabezado_noticia:nth-of-type(even) {
+    background-color:#fff;
+    }
+
+ul, ol {
+    list-style:none;
+}
+
+.nav > li {
+    float:left;
+}
+
+.nav li a {
+    background-color:#4B946A;
+    color:#fff;
+    text-decoration:none;
+    padding:10px 10px;
+    display:block;
+}
+
+.nav li a:hover {
+    background-color:#434343;
+}
+
+.nav li ul {
+    display:none;
+    position:absolute;
+    min-width:140px;
+}
+
+.nav li:hover > ul {
+    display:block;
+}
+
+.nav li ul li {
+    position:relative;
+}
+
+.nav li ul li ul {
+    right:-140px;
+    top:0px;
+}
+#content{
+    position:absolute;             /* position in the center of the screen */
+    /*left:40%;*/
+    top:70%;
+    height:300px;                   /* text area height */
+    width:250px;                   /* text area width */
+    font-size: 10px;
+    margin:10px 20px 20px -30px;
+}
+input[type=submit] {
+    background-color: #4B946A;
+    border: none;
+    color: white;
+    padding: 16px 32px;
+    text-decoration: none;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+table, th, td 
+{
+    border: solid 1px #DDD;
+    border-collapse: collapse;
+    padding: 2px 3px;
+    text-align: center;
+}
+th {
+    font-weight:bold;
+}
+.hidden {
+    display: none;
+    visibility: hidden;
+  } 

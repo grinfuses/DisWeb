@@ -1,5 +1,10 @@
 'use strict';
-const _ = require('lodash')
+const _ = require('lodash');
+const fs = require('fs');
+const tf = require('@tensorflow/tfjs');
+const mobilenetModule = require('@tensorflow-models/mobilenet');
+const knnClassifier = require('@tensorflow-models/knn-classifier');
+
 var mongoose = require('mongoose'),
   jwt = require('jsonwebtoken'),
   config = require('../../config'),
@@ -290,4 +295,82 @@ exports.getStats = function(req, res) {
     
   });
   
+};
+
+exports.estimarBTC = function(req, res) {
+  var rates = "BTC";
+  Registros.find({}
+, async function(err, tasks) {
+    var data = JSON.stringify(tasks);
+    var data_json = JSON.parse(data);
+    var keys = Object.keys(data_json);
+    var result=[];
+    var index_result=0;
+    for(var i=0;i<=keys.length-1;i++){
+      var sub_json = data_json[i];
+      var hijo={};
+      var keys_rates = Object.keys(sub_json.rates);
+      var array_input_rates = rates.split(',');
+      hijo.rates=[];
+      for(var j=0;j<=keys_rates.length-1;j++){
+        for(var k=0; k<=array_input_rates.length-1;k++){
+            if(keys_rates[j].localeCompare(array_input_rates[k])==0){
+              var value_rate=sub_json.rates[keys_rates[j]];
+              result[index_result]=parseFloat(value_rate);  
+              index_result +=1;
+            }
+        }
+      }
+      //console.log(result);
+            
+
+    }
+    console.log(result);  
+
+    const model = tf.sequential({
+      layers: [tf.layers.dense({units: result.length, inputShape: [result.length]})]
+   });
+   model.compile({optimizer: 'sgd', loss: 'meanSquaredError'});
+   //const result1 = model.evaluate(tf.ones([8, 10]), tf.ones([8, 1]), {
+   const result1 = model.evaluate(result, result, {
+      batchSize: result.length,
+   });
+   result1.print();
+    res.json(result);
+
+  }).sort({_id: -1});
+};
+
+exports.estimar = async function(req, res) {
+  
+//   var rates = "BTC";
+//   Registros.find({}
+// , function(err, tasks) {
+//     var data = JSON.stringify(tasks);
+//     var data_json = JSON.parse(data);
+//     var keys = Object.keys(data_json);
+//     var result=[];
+//     var index_result=0;
+//     for(var i=0;i<=keys.length-1;i++){
+//       var sub_json = data_json[i];
+//       var hijo={};
+//       var keys_rates = Object.keys(sub_json.rates);
+//       var array_input_rates = rates.split(',');
+//       hijo.rates=[];
+//       for(var j=0;j<=keys_rates.length-1;j++){
+//         for(var k=0; k<=array_input_rates.length-1;k++){
+//             if(keys_rates[j].localeCompare(array_input_rates[k])==0){
+//               var value_rate=sub_json.rates[keys_rates[j]];
+//               result[index_result]=value_rate;  
+//               index_result +=1;
+//             }
+//         }
+//       }
+//     }
+//       //console.log(result);
+            
+     
+//     })
+//     res.json(result);
+//   .sort({_id: -1});
 };

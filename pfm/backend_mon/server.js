@@ -71,7 +71,7 @@ let transporter = nodemailer.createTransport({
     console.log("Db updated");
 });
 
-cron.schedule("30 6 * * *", function(){
+cron.schedule("30 3 * * *", function(){
   console.log("---------------------");  
   console.log("Loading Newsletter");
   NoticiasControllers.createDailyNewsletter();

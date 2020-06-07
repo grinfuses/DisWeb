@@ -169,8 +169,24 @@ h1 {
 #noticias_container {
     position:absolute;             /* position in the center of the screen */
     /*left:40%;*/
-    top:50%;
-    left: -50%;
+    top:60%;
+   
+    height:250px;                   /* text area height */
+    width:200px;                   /* text area width */
+    text-align:center;
+    /*padding:180px 200px 200px 0px;     /* image height is 200px (bottom 20px are overlapped with text) */
+    /*margin:-115px 0px 0px -112px;  /* offset vertical: half of image height and text area height */
+                                   /* offset horizontal: half of text area width */
+    font-family:Arial, Helvetica, sans-serif;
+   
+    width:500px;
+    margin:180px 250px 0px -120px;
+}
+#cotizaciones {
+    position:absolute;             /* position in the center of the screen */
+    /*left:40%;*/
+    top:40%;
+   
     height:250px;                   /* text area height */
     width:200px;                   /* text area width */
     text-align:center;

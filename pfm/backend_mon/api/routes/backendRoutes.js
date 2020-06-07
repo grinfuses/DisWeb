@@ -20,7 +20,7 @@ module.exports = function(app) {
   app.route('/getMetricasGlobales').get(backend.getMetricasGlobales);
   app.route('/getLatestBlockData').get(backend.getLatestBlockData);
   app.route('/getStats').get(backend.getStats);
-  app.route('/estimarBTC').get(backend.estimarBTC);
+  app.route('/estimar').post(backend.estimar);
 
 
   // Users Routes

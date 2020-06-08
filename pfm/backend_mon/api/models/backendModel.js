@@ -1,6 +1,5 @@
 'use strict';
 var mongoose = require('mongoose');
-var mongooseToCsv=require('mongoose-to-csv');
 var Schema = mongoose.Schema;
 const Any = new Schema({
   any: {
@@ -17,9 +16,5 @@ var RegistroSchema = new Schema({
   rates:{
   }
 });
-RegistroSchema.plugin(mongooseToCsv, {
-  headers: 'Fecha Valor',
-});
-
 
 module.exports = mongoose.model('Registros', RegistroSchema);

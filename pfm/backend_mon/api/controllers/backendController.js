@@ -2,7 +2,10 @@
 const _ = require('lodash');
 const fs = require('fs');
 const brain = require('brain.js');
- 
+const assert = require('assert');
+var parse = require('csv-parse');
+var async = require('async');
+
 var mongoose = require('mongoose'),
   jwt = require('jsonwebtoken'),
   config = require('../../config'),
@@ -343,4 +346,113 @@ data_enviar["ultimo_valor"]=ultimo_dato;
 data_enviar["evaluacion"]=output;
 res.json(data_enviar);  
 }).sort({_id: -1}).limit(1);
+};
+
+exports.sandbox = function(req, res) {
+  var rates = "BTC";
+  Registros.find({}
+, async function(err, tasks) {
+    var data = JSON.stringify(tasks);
+    var data_json = JSON.parse(data);
+    var keys = Object.keys(data_json);
+    var result=[];
+    var index_result=0;
+    for(var i=0;i<=keys.length-1;i++){
+      var sub_json = data_json[i];
+      var hijo={};
+      var keys_rates = Object.keys(sub_json.rates);
+      var array_input_rates = rates.split(',');
+      hijo.rates=[];
+      for(var j=0;j<=keys_rates.length-1;j++){
+        for(var k=0; k<=array_input_rates.length-1;k++){
+            if(keys_rates[j].localeCompare(array_input_rates[k])==0){
+              var value_rate=sub_json.rates[keys_rates[j]];
+              result[index_result]=parseFloat(value_rate);  
+              index_result +=1;
+            }
+        }
+      }
+      //console.log(result);
+            
+
+    }
+    
+  
+  var inputFile='BTC-USD.csv';
+  
+    // read contents of the file
+    const entrada_texto = fs.readFileSync(inputFile, 'UTF-8');
+
+    // split the contents by new line
+    const lines = entrada_texto.split(/\r?\n/);
+
+    // print all lines
+    var index=0;
+    var cotizaciones_pasadas=[];
+    var volumen_mercado =[];
+    var j=0;
+    lines.forEach((line) => {
+        //console.log(line);
+        if(index!=0){
+        var datos = line.split(',');
+        if(datos[6] !=undefined){
+        cotizaciones_pasadas[j] =parseFloat(datos[5]);
+        volumen_mercado[j]=parseFloat(datos[6]);
+        j +=1;
+        }
+        }
+        index +=1;
+    });
+    var data_test_input =[];
+    var trainingData =[];
+    for (var j=0;j<=cotizaciones_pasadas.length-1;j++){
+      var data_fila={};
+      var index_volumen = j-1;
+      var cot_pas=cotizaciones_pasadas[j];
+      var volum_dia =volumen_mercado[j];
+      var tDaux=[cotizaciones_pasadas];
+      trainingData[j]=tDaux;
+      if(j==0){
+        index_volumen =0;
+      }
+      var accion_realizada;
+      var string_accion;
+      var volum_anterior = volumen_mercado[index_volumen];
+      //si ese dia ha habido mas volumen de mercado que el anterior, ha habido mas VENTAS =1
+      if(volum_anterior <volum_dia){
+        accion_realizada=1;
+        string_accion ="venta";
+      }else{
+        accion_realizada=1;
+        string_accion ="compra";
+      }
+      data_fila["input"] = {cotizacion:cot_pas};
+      var object = {};
+      object[string_accion] = 1;
+      data_fila["output"] = object;
+      data_test_input[j]=data_fila;
+    }
+    const net = new brain.NeuralNetwork();
+
+    net.train(data_test_input);
+    var ultimo_dato = result[0];
+    const output = net.run({cotizacion:ultimo_dato}); 
+    var data_enviar={};
+    data_enviar["ultimo_valor"]=ultimo_dato;
+    data_enviar["evaluacion"]=output;
+
+    const net_forecast = new brain.recurrent.LSTMTimeStep({
+      inputSize: 1,
+      hiddenLayers: [10],
+      outputSize: 1,
+    });
+    
+    //Revisar RN para entrenamiento y predicción, ajustar retro
+    net_forecast.train(trainingData, { log: true, errorThresh: 0.09 });
+    console.log(ultimo_dato);
+    const forecast = net_forecast.forecast(ultimo_dato,1)
+    console.log(forecast);
+    res.json(data_enviar);  
+  }).sort({_id: -1}).limit(1);
+
 };

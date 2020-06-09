@@ -21,7 +21,7 @@ module.exports = function(app) {
   app.route('/getLatestBlockData').get(backend.getLatestBlockData);
   app.route('/getStats').get(backend.getStats);
   app.route('/estimar').post(backend.estimar);
-
+  app.route('/sandbox').post(backend.sandbox);
 
   // Users Routes
   app.route('/nuevoUsuario').post(backendUsers.nuevoUsuario);

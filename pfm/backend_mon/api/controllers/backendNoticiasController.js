@@ -17,7 +17,6 @@ exports.getNoticias = function(req, res) {
   .limit(5);;
 };
 
-//Mejorar, no añade sobre el mismo elemento, sino que crea uno nuevo
 exports.updateNoticias = function(req, res) {
   var request = require('request');
   var options = {
@@ -28,7 +27,6 @@ exports.updateNoticias = function(req, res) {
   };
   
   var data = request(options, function (error, response) { 
-    //console.log(data.responseContent.body);
     var xml_response = data.responseContent.body;
     if (error) throw new Error(error);
     let list_noticias =[];

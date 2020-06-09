@@ -53,7 +53,7 @@ let transporter = nodemailer.createTransport({
   console.log("---------------------");  
   console.log("Updating Db");
     TaskControllers.updateDbCron();
-    NoticiasControllers.updateNoticias();
+    //NoticiasControllers.updateNoticias();
     let mailOptions = {
       from: "servidor.pfm@gmail.com",
       to: "grinfuses@gmail.com",

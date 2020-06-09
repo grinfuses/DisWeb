@@ -372,10 +372,7 @@ exports.sandbox = function(req, res) {
             }
         }
       }
-      //console.log(result);
-            
-
-    }
+  }
     
   
   var inputFile='BTC-USD.csv';
@@ -410,8 +407,7 @@ exports.sandbox = function(req, res) {
       var index_volumen = j-1;
       var cot_pas=cotizaciones_pasadas[j];
       var volum_dia =volumen_mercado[j];
-      var tDaux=[cotizaciones_pasadas];
-      trainingData[j]=tDaux;
+      trainingData[j]=Math.round(cot_pas);
       if(j==0){
         index_volumen =0;
       }
@@ -433,26 +429,25 @@ exports.sandbox = function(req, res) {
       data_test_input[j]=data_fila;
     }
     const net = new brain.NeuralNetwork();
-
+    var trainingData1=[];
+    var index_max =trainingData.length/12;
     net.train(data_test_input);
     var ultimo_dato = result[0];
     const output = net.run({cotizacion:ultimo_dato}); 
     var data_enviar={};
     data_enviar["ultimo_valor"]=ultimo_dato;
     data_enviar["evaluacion"]=output;
-
-    const net_forecast = new brain.recurrent.LSTMTimeStep({
-      inputSize: 1,
-      hiddenLayers: [10],
-      outputSize: 1,
-    });
-    
-    //Revisar RN para entrenamiento y predicción, ajustar retro
-    net_forecast.train(trainingData, { log: true, errorThresh: 0.09 });
-    console.log(ultimo_dato);
-    const forecast = net_forecast.forecast(ultimo_dato,1)
-    console.log(forecast);
+    //Red Neuronal de prevision y calculo
+    trainingData1[0]=trainingData.slice(0,5);
+    //console.log([trainingData]);
+    var net3 = new brain.recurrent.LSTMTimeStep();
+    net3.train([trainingData.slice(0,700)]);
+    const outputRun3 = net3.run([ultimo_dato]);
+    const output3 = net3.forecast([ultimo_dato]);
+    console.log(output3);
+    console.log(outputRun3);
+    //estimaciones malisimas, revisar retro y configuracion
+    data_enviar["estimacion"]=output3;
     res.json(data_enviar);  
   }).sort({_id: -1}).limit(1);
-
 };

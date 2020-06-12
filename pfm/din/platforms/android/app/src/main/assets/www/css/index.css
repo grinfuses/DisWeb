@@ -105,7 +105,7 @@ h1 {
 }
 #header {
     position:absolute;             /* position in the center of the screen */
-    /*left:40%;*/
+    left:30%;
     top:10%;
     height:250px;                   /* text area height */
     width:200px;                   /* text area width */
@@ -122,7 +122,7 @@ h1 {
     position:absolute;             /* position in the center of the screen */
     /*left:40%;*/
     top:20%;
-    left: 20%;
+    left: 55%;
     height:250px;                   /* text area height */
     width:200px;                   /* text area width */
     text-align:center;
@@ -152,9 +152,8 @@ h1 {
 }
 #contenido_cartera {
     position:absolute;             /* position in the center of the screen */
-    /*left:40%;*/
+    left:25%;
     top:40%;
-    left: -50%;
     height:250px;                   /* text area height */
     width:200px;                   /* text area width */
     text-align:center;

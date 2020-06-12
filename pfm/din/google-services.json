@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "75091287284",
+    "firebase_url": "https://proyecto-fin-de-master-15810.firebaseio.com",
+    "project_id": "proyecto-fin-de-master-15810",
+    "storage_bucket": "proyecto-fin-de-master-15810.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:75091287284:android:6389b9ff7bb4cae10792a1",
+        "android_client_info": {
+          "package_name": "io.cordova.hellocordova"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "75091287284-ff93rmdmelrpmj5tutiusr19vmlrc1gd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBie2ezRoaVcJVZZBZ8XhDgQfKw5sqQvxs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "75091287284-ff93rmdmelrpmj5tutiusr19vmlrc1gd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

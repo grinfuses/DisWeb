@@ -71,104 +71,143 @@ $( "#ver_cartera" ).ready(function( event ) {
                       console.log(JSON.stringify(errorThrown));
                     },
                     success: function (valores_divisas_ultimos_dias) {
-                        console.log("entra al final de todo");
-                        console.log("data recibida");
-                        console.log(data_convertida);
-                        console.log("data divisas hoy - 10 dias");
-                        console.log(valores_divisas_ultimos_dias);
-                        var dataTime=[];
-                        var dataset =[];
-                        var labels=[];
-                        var dataCurrencies=[];
-                        for(var i=0;i<=valores_divisas_ultimos_dias.length-1;i++){
-                          //console.log(data[i].timestamp);
-                          var stringCadena =valores_divisas_ultimos_dias[i].timestamp;
-                           var arrayDeCadenas = stringCadena.split("T");
-                           dataTime[i]=arrayDeCadenas[0];
-                           var rate = valores_divisas_ultimos_dias[i].rates;
-                           var keys = Object.keys(rate);
-                           //Get labels name
-                           labels[i]=keys[i];
-                           //Ahora hay que coger las divisas y añadirlas al fichero de datos
-                           
-                           for(var j=0;j<=valores_divisas_ultimos_dias[i].rates.length-1;j++){
-                             //cada una de las cotizaciones con su clave cotizacion-valor por día
-                             var currencyJson = valores_divisas_ultimos_dias[i].rates[j];
-                             var keysCurrency = Object.keys(currencyJson);
-                             console.log(keysCurrency)
-                             dataCurrencies[i]=currencyJson[keysCurrency];
-                           }
+                      $.ajax({
+                        url: "http://ec2-35-180-234-37.eu-west-3.compute.amazonaws.com:1988/estimar/",
+                        type: 'post',
+                        timeout: 5000, 
+                        dataType: 'json',
+                        data:{
+                          currency:data_convertida.divisaOrigen,
+                        },
+                        error: function(XMLHttpRequest, textStatus, errorThrown) {
+                          alert('Error al buscar la conversión, reinténtelo más tarde');
+                          console.log(JSON.stringify(XMLHttpRequest));
+                          console.log(JSON.stringify(textStatus));
+                          console.log(JSON.stringify(errorThrown));
+                        },
+                        success: function (estimaciones) {
+                          console.log("entra al final de todo");
+                          console.log("data recibida");
+                          console.log(data_convertida);
+                          console.log("data divisas hoy - 10 dias");
+                          console.log(valores_divisas_ultimos_dias);
+                          console.log("estimaciones");
+                          var estimacion_porcentaje_compra = estimaciones.evaluacion.compra *100;
+                          var estimacion_porcentaje_venta =  estimaciones.evaluacion.venta *100;
+                          var string_estimacion_compra = "Recomendación de compra: "+estimacion_porcentaje_compra.toFixed(2) + "%";
+                          var string_estimacion_venta =  "Recomendación de venta: "+estimacion_porcentaje_venta.toFixed(2) + "%";
+                          console.log(string_estimacion_compra);
+                          console.log(string_estimacion_venta);
+                          var dataTime=[];
+                          var dataset =[];
+                          var labels=[];
+                          var dataCurrencies=[];
+                          for(var i=0;i<=valores_divisas_ultimos_dias.length-1;i++){
+                            //console.log(data[i].timestamp);
+                            var stringCadena =valores_divisas_ultimos_dias[i].timestamp;
+                             var arrayDeCadenas = stringCadena.split("T");
+                             dataTime[i]=arrayDeCadenas[0];
+                             var rate = valores_divisas_ultimos_dias[i].rates;
+                             var keys = Object.keys(rate);
+                             //Get labels name
+                             labels[i]=keys[i];
+                             //Ahora hay que coger las divisas y añadirlas al fichero de datos
+                             
+                             for(var j=0;j<=valores_divisas_ultimos_dias[i].rates.length-1;j++){
+                               //cada una de las cotizaciones con su clave cotizacion-valor por día
+                               var currencyJson = valores_divisas_ultimos_dias[i].rates[j];
+                               var keysCurrency = Object.keys(currencyJson);
+                               console.log(keysCurrency)
+                               dataCurrencies[i]=currencyJson[keysCurrency];
+                             }
+                          }
+                          var canvas_grafica = document.createElement("canvas");
+                          var div_datos = document.createElement("div");
+                          var nombre_id="grafica"+index_elementos;
+                          var elementos_id="elementos"+index_elementos;
+                          canvas_grafica.id=nombre_id;
+                          div_datos.id=elementos_id;
+                          var encabezado = document.createElement("div");
+                          encabezado.id="encabezado"+index_elementos;
+                          var encabezadoOrigen = document.createElement("div");
+                          encabezadoOrigen.id="encabezadoOrigen"+index_elementos;
+                          var monedaOrigen = document.createElement("div");
+                          monedaOrigen.id="monedaOrigen"+index_elementos;
+                          var encabezadoCantidad = document.createElement("div");
+                          encabezadoCantidad.id="encabezadoCantidad"+index_elementos;
+                          var monedaCantidad = document.createElement("div");
+                          monedaCantidad.id="monedaCantidad"+index_elementos;
+                          var encabezadoConvertida = document.createElement("div");
+                          encabezadoConvertida.id="encabezadoConvertida"+index_elementos;
+                          var monedaConvertida = document.createElement("div");
+                          monedaConvertida.id="monedaConvertida"+index_elementos;
+                          var encabezadoEstimacion = document.createElement("div");
+                          encabezadoEstimacion.id="encabezadoEstimacion"+index_elementos;
+                          var estimacionCompra = document.createElement("div");
+                          estimacionCompra.id="estimacionCompra"+index_elementos;
+                          var estimacionVenta = document.createElement("div");
+                          estimacionVenta.id="estimacionVenta"+index_elementos;
+                          document.getElementById("contenido_cartera").appendChild(canvas_grafica); 
+                          document.getElementById("contenido_cartera").appendChild(div_datos);     
+                          document.getElementById(elementos_id).appendChild(encabezado);     
+                          document.getElementById(elementos_id).appendChild(encabezadoOrigen);     
+                          document.getElementById(elementos_id).appendChild(monedaOrigen);     
+                          document.getElementById(elementos_id).appendChild(encabezadoCantidad);     
+                          document.getElementById(elementos_id).appendChild(monedaCantidad);     
+                          document.getElementById(elementos_id).appendChild(encabezadoConvertida);     
+                          document.getElementById(elementos_id).appendChild(monedaConvertida);
+                          document.getElementById(elementos_id).appendChild(encabezadoEstimacion);
+                          document.getElementById(elementos_id).appendChild(estimacionCompra);
+                          document.getElementById(elementos_id).appendChild(estimacionVenta);
+                          var cantidad = data_convertida.cantidad;
+                          var divisaOrigen = data_convertida.divisaOrigen;
+                          var conversion = data_convertida.conversion;
+                          document.getElementById("encabezado"+index_elementos).innerHTML="Conversion";
+                          document.getElementById("encabezadoCantidad"+index_elementos).innerHTML="Cantidad a convertir";
+                          document.getElementById("monedaCantidad"+index_elementos).innerHTML=cantidad;
+                          document.getElementById("encabezadoOrigen"+index_elementos).innerHTML="Moneda Origen";
+                          document.getElementById("monedaOrigen"+index_elementos).innerHTML=divisaOrigen;
+                          document.getElementById("encabezadoConvertida"+index_elementos).innerHTML="Cantidad en euros";
+                          document.getElementById("monedaConvertida"+index_elementos).innerHTML=conversion;     
+                          document.getElementById("encabezadoEstimacion"+index_elementos).innerHTML="Estimación de compra y venta";
+                          document.getElementById("estimacionCompra"+index_elementos).innerHTML=string_estimacion_compra;  
+                          document.getElementById("estimacionVenta"+index_elementos).innerHTML=string_estimacion_venta;        
+                          
+                          var ctx = document.getElementById(nombre_id).getContext('2d');
+                          index_elementos +=1;
+                          var chartOptions = {
+                            responsive:true,
+                            legend: {
+                              display: true,
+                              position: 'top',
+                              labels: {
+                                boxWidth: 80,
+                                fontColor: 'black'
+                              }
+                            }, scales: {
+                              yAxes: [{
+                                  ticks: {
+                                      max: 10000,
+                                      min: 8000,
+                                      stepSize:500,
+                                  }
+                              }]
+                          }
+                          };
+                          var chart = new Chart(ctx, {
+                              type: 'line',
+                              data:{
+                              datasets: [{
+                              data: dataCurrencies.reverse(),
+                              backgroundColor: ['#42a5f5', 'red', 'green','blue','violet','#42a5f5', 'red', 'green','blue','violet'],
+                                  label: keysCurrency}],
+                                  labels: dataTime.reverse()},
+                              options: {chartOptions}
+                            });
+  
                         }
-                        var canvas_grafica = document.createElement("canvas");
-                        var div_datos = document.createElement("div");
-                        var nombre_id="grafica"+index_elementos;
-                        var elementos_id="elementos"+index_elementos;
-                        canvas_grafica.id=nombre_id;
-                        div_datos.id=elementos_id;
-                        var encabezado = document.createElement("div");
-                        encabezado.id="encabezado"+index_elementos;
-                        var encabezadoOrigen = document.createElement("div");
-                        encabezadoOrigen.id="encabezadoOrigen"+index_elementos;
-                        var monedaOrigen = document.createElement("div");
-                        monedaOrigen.id="monedaOrigen"+index_elementos;
-                        var encabezadoCantidad = document.createElement("div");
-                        encabezadoCantidad.id="encabezadoCantidad"+index_elementos;
-                        var monedaCantidad = document.createElement("div");
-                        monedaCantidad.id="monedaCantidad"+index_elementos;
-                        var encabezadoConvertida = document.createElement("div");
-                        encabezadoConvertida.id="encabezadoConvertida"+index_elementos;
-                        var monedaConvertida = document.createElement("div");
-                        monedaConvertida.id="monedaConvertida"+index_elementos;
-                        document.getElementById("contenido_cartera").appendChild(canvas_grafica); 
-                        document.getElementById("contenido_cartera").appendChild(div_datos);     
-                        document.getElementById(elementos_id).appendChild(encabezado);     
-                        document.getElementById(elementos_id).appendChild(encabezadoOrigen);     
-                        document.getElementById(elementos_id).appendChild(monedaOrigen);     
-                        document.getElementById(elementos_id).appendChild(encabezadoCantidad);     
-                        document.getElementById(elementos_id).appendChild(monedaCantidad);     
-                        document.getElementById(elementos_id).appendChild(encabezadoConvertida);     
-                        document.getElementById(elementos_id).appendChild(monedaConvertida);
-                        var cantidad = data_convertida.cantidad;
-                        var divisaOrigen = data_convertida.divisaOrigen;
-                        var conversion = data_convertida.conversion;
-                        document.getElementById("encabezado"+index_elementos).innerHTML="Conversion";
-                        document.getElementById("encabezadoCantidad"+index_elementos).innerHTML="Cantidad a convertir";
-                        document.getElementById("monedaCantidad"+index_elementos).innerHTML=cantidad;
-                        document.getElementById("encabezadoOrigen"+index_elementos).innerHTML="Moneda Origen";
-                        document.getElementById("monedaOrigen"+index_elementos).innerHTML=divisaOrigen;
-                        document.getElementById("encabezadoConvertida"+index_elementos).innerHTML="Cantidad en euros";
-                        document.getElementById("monedaConvertida"+index_elementos).innerHTML=conversion;     
-                        var ctx = document.getElementById(nombre_id).getContext('2d');
-                        index_elementos +=1;
-                        var chartOptions = {
-                          responsive:true,
-                          legend: {
-                            display: true,
-                            position: 'top',
-                            labels: {
-                              boxWidth: 80,
-                              fontColor: 'black'
-                            }
-                          }, scales: {
-                            yAxes: [{
-                                ticks: {
-                                    max: 10000,
-                                    min: 8000,
-                                    stepSize:500,
-                                }
-                            }]
-                        }
-                        };
-                        var chart = new Chart(ctx, {
-                            type: 'line',
-                            data:{
-                            datasets: [{
-                            data: dataCurrencies.reverse(),
-                            backgroundColor: ['#42a5f5', 'red', 'green','blue','violet','#42a5f5', 'red', 'green','blue','violet'],
-                                label: keysCurrency}],
-                                labels: dataTime.reverse()},
-                            options: {chartOptions}
-                          });
+                        });
+                       
                     }});
                 }
             });

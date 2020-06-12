@@ -276,3 +276,8 @@ th {
     display: none;
     visibility: hidden;
   } 
+
+.visor{
+    top:65%;
+    right:20%
+}

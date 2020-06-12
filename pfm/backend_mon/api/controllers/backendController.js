@@ -5,7 +5,6 @@ const brain = require('brain.js');
 const assert = require('assert');
 var parse = require('csv-parse');
 var async = require('async');
-
 var mongoose = require('mongoose'),
   jwt = require('jsonwebtoken'),
   config = require('../../config'),
@@ -373,41 +372,44 @@ exports.sandbox = function(req, res) {
         }
       }
   }
-    
-  
-  var inputFile='BTC-USD.csv';
-  
+  var inputFile='BTC-EUR.csv';
     // read contents of the file
     const entrada_texto = fs.readFileSync(inputFile, 'UTF-8');
-
     // split the contents by new line
     const lines = entrada_texto.split(/\r?\n/);
-
     // print all lines
     var index=0;
     var cotizaciones_pasadas=[];
     var volumen_mercado =[];
+    var apertura =[];
+    var highVal=[];
+    var lowVal =[];
     var j=0;
     lines.forEach((line) => {
         //console.log(line);
         if(index!=0){
         var datos = line.split(',');
         if(datos[6] !=undefined){
-        cotizaciones_pasadas[j] =parseFloat(datos[5]);
-        volumen_mercado[j]=parseFloat(datos[6]);
-        j +=1;
-        }
+          cotizaciones_pasadas[j] =parseFloat(datos[5]);
+          volumen_mercado[j]=parseFloat(datos[6]);
+          apertura[j]=parseFloat(datos[1]);
+          highVal[j]=parseFloat(datos[2]);
+          lowVal[j]=parseFloat(datos[3]);
+          j +=1;
+          }
         }
         index +=1;
     });
     var data_test_input =[];
     var trainingData =[];
+    var traingDataEstimacion =[];
     for (var j=0;j<=cotizaciones_pasadas.length-1;j++){
       var data_fila={};
       var index_volumen = j-1;
       var cot_pas=cotizaciones_pasadas[j];
       var volum_dia =volumen_mercado[j];
       trainingData[j]=Math.round(cot_pas);
+      traingDataEstimacion[j]=[Math.round(apertura[j]),Math.round(highVal[j]),Math.round(lowVal[j]),Math.round(cotizaciones_pasadas[j]),Math.round(volumen_mercado[j])]
       if(j==0){
         index_volumen =0;
       }
@@ -438,16 +440,10 @@ exports.sandbox = function(req, res) {
     data_enviar["ultimo_valor"]=ultimo_dato;
     data_enviar["evaluacion"]=output;
     //Red Neuronal de prevision y calculo
-    trainingData1[0]=trainingData.slice(0,5);
-    //console.log([trainingData]);
-    var net3 = new brain.recurrent.LSTMTimeStep();
-    net3.train([trainingData.slice(0,700)]);
-    const outputRun3 = net3.run([ultimo_dato]);
-    const output3 = net3.forecast([ultimo_dato]);
-    console.log(output3);
-    console.log(outputRun3);
-    //estimaciones malisimas, revisar retro y configuracion
-    data_enviar["estimacion"]=output3;
+
+
+
+
     res.json(data_enviar);  
   }).sort({_id: -1}).limit(1);
 };

@@ -6,10 +6,10 @@
     </feature>
     <name>CriptoVisor</name>
     <description>
-        CriptoVisor
+        CriptoVisor.
     </description>
     <author email="javier.naranjo@jerez.es" href="">
-        Javier Naranjo
+        Javier Naranjo 
     </author>
     <content src="index.html" />
     <access origin="*" />

@@ -353,3 +353,10 @@ body.loading .modal {
 #encabezadoCantidad{
     margin-bottom: 5px;
 }
+
+#logo{
+    position: absolute;
+    height:200px;
+    right:10px;
+    top:20%;
+}

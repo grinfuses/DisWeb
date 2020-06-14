@@ -23,7 +23,7 @@ $( "#divisas_form" ).submit(function( event ) {
     $.ajax({
       url: url_get,
       type: 'post',
-      timeout: 5000, 
+      timeout: 10000, 
       dataType: 'json',
       data:{
         fecha_inicio:data.dia_inicio,

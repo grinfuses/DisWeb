@@ -154,14 +154,16 @@ async function getData() {
       x: d.open, y: d.close,
     }));
     
-    
-    document.getElementById("grafica").innerHTML=tfvis.render.scatterplot(
-      {name: 'Model Predictions vs Original Data'}, 
+    const container = document.getElementById("grafica")
+
+    tfvis.render.scatterplot(
+      container, 
       {values: [originalPoints, predictedPoints], series: ['original', 'predicted']}, 
       {
         xLabel: 'Open',
         yLabel: 'Close',
-        height: 300
+        height: 300,
+        zoomToFit: true,
       }
     );
 
@@ -202,8 +204,22 @@ async function getData() {
       const estimacion = pend.mul(xs).add(nplus);
       //console.log(estimacion.print());
       const valor_escribir = estimacion.toInt();
-      console.log("valor a escribir:" +valor_escribir)
-      document.getElementById("estimacion").innerHTML=valor_escribir;
+      const regex = /\d+/g;
+      let m;
+      let string_publicar;
+      while ((m = regex.exec(valor_escribir)) !== null) {
+          // This is necessary to avoid infinite loops with zero-width matches
+          if (m.index === regex.lastIndex) {
+              regex.lastIndex++;
+          }
+          // The result can be accessed through the `m`-variable.
+          m.forEach((match, groupIndex) => {
+              console.log(`Found match, group ${groupIndex}: ${match}`);
+              string_publicar= match;
+          });
+      }
+      console.log("valor a escribir: " +valor_escribir)
+      document.getElementById("estimacion").innerHTML="Valor predecido: "+string_publicar+"€";
       //alert(estimacion.print());
       const unNormPreds = preds
         .mul(labelMax.sub(labelMin))

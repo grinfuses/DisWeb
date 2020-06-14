@@ -2,7 +2,7 @@ $("#biblioteca").ready(function( event ) {
     $.ajax({
         url: "http://ec2-35-180-234-37.eu-west-3.compute.amazonaws.com:1988/getLatestBlockData",
         type: 'get',
-        timeout: 5000, 
+        timeout: 10000, 
         dataType: 'json',        
         error: function(XMLHttpRequest, textStatus, errorThrown) {
           alert('Error al buscar la conversión, reinténtelo más tarde');

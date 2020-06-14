@@ -71,33 +71,11 @@ $( "#ver_cartera" ).ready(function( event ) {
                       console.log(JSON.stringify(errorThrown));
                     },
                     success: function (valores_divisas_ultimos_dias) {
-                      $.ajax({
-                        url: "http://ec2-35-180-234-37.eu-west-3.compute.amazonaws.com:1988/estimar/",
-                        type: 'post',
-                        timeout: 5000, 
-                        dataType: 'json',
-                        data:{
-                          currency:data_convertida.divisaOrigen,
-                        },
-                        error: function(XMLHttpRequest, textStatus, errorThrown) {
-                          alert('Error al buscar la conversión, reinténtelo más tarde');
-                          console.log(JSON.stringify(XMLHttpRequest));
-                          console.log(JSON.stringify(textStatus));
-                          console.log(JSON.stringify(errorThrown));
-                        },
-                        success: function (estimaciones) {
                           console.log("entra al final de todo");
                           console.log("data recibida");
                           console.log(data_convertida);
                           console.log("data divisas hoy - 10 dias");
                           console.log(valores_divisas_ultimos_dias);
-                          console.log("estimaciones");
-                          var estimacion_porcentaje_compra = estimaciones.evaluacion.compra *100;
-                          var estimacion_porcentaje_venta =  estimaciones.evaluacion.venta *100;
-                          var string_estimacion_compra = "Recomendación de compra: "+estimacion_porcentaje_compra.toFixed(2) + "%";
-                          var string_estimacion_venta =  "Recomendación de venta: "+estimacion_porcentaje_venta.toFixed(2) + "%";
-                          console.log(string_estimacion_compra);
-                          console.log(string_estimacion_venta);
                           var dataTime=[];
                           var dataset =[];
                           var labels=[];
@@ -141,12 +119,6 @@ $( "#ver_cartera" ).ready(function( event ) {
                           encabezadoConvertida.id="encabezadoConvertida"+index_elementos;
                           var monedaConvertida = document.createElement("div");
                           monedaConvertida.id="monedaConvertida"+index_elementos;
-                          var encabezadoEstimacion = document.createElement("div");
-                          encabezadoEstimacion.id="encabezadoEstimacion"+index_elementos;
-                          var estimacionCompra = document.createElement("div");
-                          estimacionCompra.id="estimacionCompra"+index_elementos;
-                          var estimacionVenta = document.createElement("div");
-                          estimacionVenta.id="estimacionVenta"+index_elementos;
                           document.getElementById("contenido_cartera").appendChild(canvas_grafica); 
                           document.getElementById("contenido_cartera").appendChild(div_datos);     
                           document.getElementById(elementos_id).appendChild(encabezado);     
@@ -156,9 +128,6 @@ $( "#ver_cartera" ).ready(function( event ) {
                           document.getElementById(elementos_id).appendChild(monedaCantidad);     
                           document.getElementById(elementos_id).appendChild(encabezadoConvertida);     
                           document.getElementById(elementos_id).appendChild(monedaConvertida);
-                          document.getElementById(elementos_id).appendChild(encabezadoEstimacion);
-                          document.getElementById(elementos_id).appendChild(estimacionCompra);
-                          document.getElementById(elementos_id).appendChild(estimacionVenta);
                           var cantidad = data_convertida.cantidad;
                           var divisaOrigen = data_convertida.divisaOrigen;
                           var conversion = data_convertida.conversion;
@@ -169,10 +138,6 @@ $( "#ver_cartera" ).ready(function( event ) {
                           document.getElementById("monedaOrigen"+index_elementos).innerHTML=divisaOrigen;
                           document.getElementById("encabezadoConvertida"+index_elementos).innerHTML="Cantidad en euros";
                           document.getElementById("monedaConvertida"+index_elementos).innerHTML=conversion;     
-                          document.getElementById("encabezadoEstimacion"+index_elementos).innerHTML="Estimación de compra y venta";
-                          document.getElementById("estimacionCompra"+index_elementos).innerHTML=string_estimacion_compra;  
-                          document.getElementById("estimacionVenta"+index_elementos).innerHTML=string_estimacion_venta;        
-                          
                           var ctx = document.getElementById(nombre_id).getContext('2d');
                           index_elementos +=1;
                           var chartOptions = {
@@ -204,14 +169,10 @@ $( "#ver_cartera" ).ready(function( event ) {
                                   labels: dataTime.reverse()},
                               options: {chartOptions}
                             });
-  
                         }
-                        });
-                       
-                    }});
-                }
-            });
-        }}
-  });
-      
-    });
+                      });
+                    }
+                  });
+          }
+        }});
+      });

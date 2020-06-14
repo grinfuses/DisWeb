@@ -19,21 +19,21 @@ $("#dashboard").ready(function( event ) {
         var divisas_activas = data_entrada.data.active_cryptocurrencies;
         var dominacion_btc = data_entrada.data.btc_dominance;
         var dominacion_eth = data_entrada.data.eth_dominance;
-        var cuota_mercado = data_entrada.data.quote.EUR.total_market_cap;
+        var cuota_mercado = test(data_entrada.data.quote.EUR.total_market_cap);
         var total_criptomonedas = data_entrada.data.total_cryptocurrencies
-        var string_salida = " Ultimas cotizaciones ";
-        string_salida += " Criptodivisas activas: "+divisas_activas;
-        string_salida += " Tasa de dominación del Bitcoin: "+dominacion_btc;
-        string_salida += " Tasa de dominación del Ethereum: "+dominacion_eth;
-        string_salida += " Total capitalización del mercado: "+cuota_mercado;
-        string_salida += " Total de criptomonedas: "+total_criptomonedas;
+        var string_salida = "";
+        string_salida += " Monedas activas: "+divisas_activas;
+        string_salida += " Dominación BTC: "+dominacion_btc.toFixed(2) +"%";
+        string_salida += " Dominación ETH: "+dominacion_eth.toFixed(2) +"%";
+        string_salida += " Capitalizacion: "+cuota_mercado;
+        string_salida += " Total de monedas: "+total_criptomonedas;
         cuerpo_datos.innerHTML = string_salida;
         document.getElementById("cotizaciones").innerHTML = string_salida;
       }});
 });
 $("#dashboard").ready(function( event ) {
     var nombre_usuario = window.localStorage.getItem('userName');
-    document.getElementById("nombre_usuario").innerHTML = "<b>" + nombre_usuario + "</b>";
+    document.getElementById("nombre_usuario").innerHTML = "Bienvenido a la parte privada <b>" + nombre_usuario + "</b>";
     $.ajax({
         url: "http://ec2-35-180-234-37.eu-west-3.compute.amazonaws.com:1988/getLatestNews",
         type: 'get',
@@ -66,3 +66,21 @@ $("#dashboard").ready(function( event ) {
 
 
 
+function test (labelValue) {
+
+  // Nine Zeroes for Billions
+  return Math.abs(Number(labelValue)) >= 1.0e+9
+
+  ? (Math.abs(Number(labelValue)) / 1.0e+9).toFixed(2)+ " B"
+  // Six Zeroes for Millions 
+  : Math.abs(Number(labelValue)) >= 1.0e+6
+
+  ? Math.abs(Number(labelValue)) / 1.0e+6 + "M"
+  // Three Zeroes for Thousands
+  : Math.abs(Number(labelValue)) >= 1.0e+3
+
+  ? Math.abs(Number(labelValue)) / 1.0e+3 + "K"
+
+  : Math.abs(Number(labelValue));
+
+}

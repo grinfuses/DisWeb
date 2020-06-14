@@ -218,7 +218,6 @@ async function getData() {
               string_publicar= match;
           });
       }
-      console.log("valor a escribir: " +valor_escribir)
       document.getElementById("estimacion").innerHTML="Valor predecido: "+string_publicar+"€";
       //alert(estimacion.print());
       const unNormPreds = preds
@@ -239,6 +238,8 @@ async function getData() {
   }
   
   async function prediceValor(value) {
+    $body = $("body");
+    $body.addClass("loading");
     console.log("entrando en predice Valor");
     console.log(value);
     //const preds = model.predict(xs.reshape([100, 1]));
@@ -257,4 +258,5 @@ async function getData() {
     //const predicciones = model.predict(xs.reshape([1, 1]));    
     ///No cuadra las predicciones  
     predictModel(model, value, tensorData);  
+    $body.removeClass("loading");
   }

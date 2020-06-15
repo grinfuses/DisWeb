@@ -2,7 +2,7 @@ $body = $("body");
 
 $(document).on({
     ajaxStart: function() { $body.addClass("loading");    },
-     //ajaxStop: function() { $body.removeClass("loading"); }    
+     ajaxStop: function() { $body.removeClass("loading"); }    
 });
 
 $( "#divisas_form" ).submit(function( event ) {
@@ -60,7 +60,7 @@ $( "#divisas_form" ).submit(function( event ) {
             console.log("estimaciones");
             console.log(estimaciones)
             console.log("data_recibida")
-            console.log(data_recibida);
+            console.log(data);
             var dataTime=[];
             var dataset =[];
             var labels=[];
@@ -99,67 +99,67 @@ $( "#divisas_form" ).submit(function( event ) {
             }
             //console.log(labels);
             //backgroundColor: ['#42a5f5', 'red', 'green','blue','violet'],
-        var ctx = document.getElementById('myChart').getContext('2d');
-        var ctx2 = document.getElementById('myChart2').getContext('2d');
-        var value_max = valor_max.toFixed(2)+1;
-        var value_min = valor_min.toFixed(2)-1;
-        console.log("valores max y min");
-        var chartOptions = {
-          responsive:false,
-          legend: {
-            display: true,
-            position: 'top',
-            labels: {
-              boxWidth: 80,
-              fontColor: 'black'
-            }
-          }, 
-          scales: {
-            yAxes: [{
-                ticks: {
-                  min: value_min,
-                  max: value_max,
-                }
-            }]
-        }
-        };
+        // var ctx = document.getElementById('myChart').getContext('2d');
+        // var ctx2 = document.getElementById('myChart2').getContext('2d');
+        // var value_max = valor_max.toFixed(2)+1;
+        // var value_min = valor_min.toFixed(2)-1;
+        // console.log("valores max y min");
+        // var chartOptions = {
+        //   responsive:false,
+        //   legend: {
+        //     display: true,
+        //     position: 'top',
+        //     labels: {
+        //       boxWidth: 80,
+        //       fontColor: 'black'
+        //     }
+        //   }, 
+        //   scales: {
+        //     yAxes: [{
+        //         ticks: {
+        //           min: value_min,
+        //           max: value_max,
+        //         }
+        //     }]
+        // }
+        // };
         
-        var config = {
-          type: 'line',
-          data: {
-            labels: dataTime.reverse(),
-            datasets: [{
-              label: keysCurrency,
-              backgroundColor: ['#42a5f5', 'red', 'green','blue','violet','#42a5f5', 'red', 'green','blue','violet'],
-              borderColor: ['#42a5f5', 'red', 'green','blue','violet','#42a5f5', 'red', 'green','blue','violet'],
-              data: dataCurrencies.reverse(),
-              fill: false,
-            }]
-          },
-          options: {
-            responsive:true,
-            tooltips: {
-              mode: 'index',
-              intersect: false,
-            },
-            hover: {
-              mode: 'nearest',
-              intersect: true
-            },
-          scales: {
-              yAxes: [{
-                display: true,
+        // var config = {
+        //   type: 'line',
+        //   data: {
+        //     labels: dataTime.reverse(),
+        //     datasets: [{
+        //       label: keysCurrency,
+        //       backgroundColor: ['#42a5f5', 'red', 'green','blue','violet','#42a5f5', 'red', 'green','blue','violet'],
+        //       borderColor: ['#42a5f5', 'red', 'green','blue','violet','#42a5f5', 'red', 'green','blue','violet'],
+        //       data: dataCurrencies.reverse(),
+        //       fill: false,
+        //     }]
+        //   },
+        //   options: {
+        //     responsive:true,
+        //     tooltips: {
+        //       mode: 'index',
+        //       intersect: false,
+        //     },
+        //     hover: {
+        //       mode: 'nearest',
+        //       intersect: true
+        //     },
+        //   scales: {
+        //       yAxes: [{
+        //         display: true,
                 
-                ticks: {
-                  min: value_min,
-                  labelOffset:5,
-                  padding:5
-                }
-              }]
-            }
-          }
-        };
-        var chart = new Chart(ctx, config);
+        //         ticks: {
+        //           min: value_min,
+        //           labelOffset:5,
+        //           padding:5
+        //         }
+        //       }]
+        //     }
+        //   }
+        // };
+        // var chart = new Chart(ctx, config);
         // var chart = new Chart(ctx, {
         //   type: 'line',
         //   data:{
@@ -173,16 +173,51 @@ $( "#divisas_form" ).submit(function( event ) {
         //   options: {chartOptions}
         // });
         
-        var chart = new Chart(ctx2, {
-          type: 'bar',
-          data:{
-        datasets: [{
-          data: dataCurrencies.reverse(),
-          backgroundColor: ['#42a5f5', 'red', 'green','blue','violet','#42a5f5', 'red', 'green','blue','violet'],
-          label: keysCurrency}],
-          labels: dataTime.reverse()},
-          options: {chartOptions}
+        // var chart = new Chart(ctx2, {
+        //   type: 'bar',
+        //   data:{
+        // datasets: [{
+        //   data: dataCurrencies.reverse(),
+        //   backgroundColor: ['#42a5f5', 'red', 'green','blue','violet','#42a5f5', 'red', 'green','blue','violet'],
+        //   label: keysCurrency}],
+        //   labels: dataTime.reverse()},
+        //   options: {chartOptions}
+        // });
+        var salida_data=[];
+        Array.prototype.max = function() {
+          return Math.max.apply(null, this);
+        };
+        
+        Array.prototype.min = function() {
+          return Math.min.apply(null, this);
+        };
+        var max_array = dataCurrencies.max();
+        var min_array = dataCurrencies.min();
+        var salida_data=[];
+        for(var i=0;i<=dataCurrencies.length-1;i++){
+          if(dataCurrencies[i] == min_array){
+            var sub_salida={x:new Date(dataTime[i]),y:dataCurrencies[i],indexLabel: "\u2193 Mínimo",markerColor: "DarkSlateGrey", markerType: "cross"}
+          }else if(dataCurrencies[i] == max_array){
+            var sub_salida={x:new Date(dataTime[i]),y:dataCurrencies[i], indexLabel: "\u2191 Máximo",markerColor: "red", markerType: "triangle"}
+          }else{
+          var sub_salida={x:new Date(dataTime[i]),y:dataCurrencies[i]}
+        }
+          salida_data[i]=sub_salida;
+        }
+        console.log(salida_data);
+        var chart = new CanvasJS.Chart("prueba_canvas", {
+          animationEnabled: true,
+          theme: "light2",
+          axisY:{
+            includeZero: false
+          },
+          data: [{        
+            type: "line",
+                indexLabelFontSize: 16,
+            dataPoints: salida_data,
+          }]
         });
+        chart.render();
         // chart.defaults.global.defaultFontFamily = "Lato";
         // chart.defaults.global.defaultFontSize = 18;
         var encabezadoEstimacion = document.createElement("div");

@@ -41,16 +41,15 @@
     </head>
     <body>
         <div class="app">
-            <h1>Divisas</h1>
+            <img id="logo" src="../img/logo_v3.png"/>
                 <div id="header">
                     <ul class="nav">
                         <li><a href="dashboard.html">Inicio</a></li>
                         <li><a href="divisas.html">Divisas</a></li>
-                        <li><a href="cartera.html">Mi cartera</a></li>
+                        <li><a href="cartera.html">Cartera</a></li>
                         <li><a href="calculadora_registrado.html">Conversor</a></li>
                         <li><a href="biblioteca.html">Biblioteca</a></li>
                         <li><a href="../index.html">Salir</a></li>
-
                     </ul> 
                 </div>
                 <div id="subheader">
@@ -59,7 +58,7 @@
                     </ul> 
                 </div>
                 <div id="nuevo_registro_cartera">
-                    <p><b>Añada su moneda nueva así como su cantidad</b></p>
+                    <p><b>Introduzca la nueva moneda a añadir a su cartera</b></p>
                     <form id="nuevo_registro" method="post">  
                         <label for="nombre_divisa">Nueva Divisa:</label>
                         <select id="origen" name="origen">
@@ -72,9 +71,9 @@
                             <option value="USDT">Tether</option>
                             <option value="ADA">Cardanos</option>
                             <option value="XMR">Monero</option>
-                          </select> 
+                          </select> <p></p>
                         <label for="cantidad">Cantidad:</label>
-                        <input id="cantidad" name="cantidad" type="number">
+                        <input id="cantidad" name="cantidad" type="number"><p></p>
                         <input id="submit" name="submit" type="submit" value="Enviar">
                     </form>
                 </div>

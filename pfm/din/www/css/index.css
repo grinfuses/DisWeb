@@ -151,7 +151,7 @@ h1 {
 #nuevo_registro_cartera {
     position:absolute;             /* position in the center of the screen */
     /*left:40%;*/
-    top:50%;
+    top:40%;
     left: 10%;
     height:250px;                   /* text area height */
     width:200px;                   /* text area width */
@@ -308,7 +308,7 @@ th {
    our animation centered, and no-repeating */
    .modal {
     display:    none;
-    position:   fixed;
+    position:   absolute;
     z-index:    1000;
     top:        0;
     left:       0;
@@ -316,7 +316,7 @@ th {
     height:     100%;
     width:      100%;
     background: rgba( 255, 255, 255, .8 ) 
-                url('http://i.stack.imgur.com/FhHRx.gif') 
+                url('../img/spinner.gif') 
                 50% 50% 
                 no-repeat;
 }

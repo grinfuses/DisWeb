@@ -16,21 +16,21 @@ exports.entrena = function(req, res) {
   };
 
 function getData() {
-    const fetch = require("node-fetch");
+    
     var url_get = "https://cors-anywhere.herokuapp.com/http://ec2-35-180-234-37.eu-west-3.compute.amazonaws.com/repo_data/btc-eur.json";
-    fetch(url_get).then(function(response) {
-        const carsData = response.json();  
-        const cleaned = carsData.map(value => ({
-          open: value.Open,
-          close: value.Close,
-        }));  
-        console.log(cleaned);
-        return cleaned;    
+    var request = require('request');
+    var options = {
+      'method': 'GET',
+      'url':  url_get,
+      'headers': {
+      }
+    };
+    
+    request(options, function (error, response) { 
+      console.log(response);
+      
+        
     });  
-    // const carsData = await carsDataReq.json();  
-    // const cleaned = carsData.map(value => ({
-    //   open: value.Open,
-    //   close: value.Close,
-    // }));  
-    // return cleaned;
-  }
+  
+
+}

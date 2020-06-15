@@ -24,10 +24,11 @@ body {
     -webkit-touch-callout: none;                /* prevent callout to copy image, etc when tap to hold */
     -webkit-text-size-adjust: none;             /* prevent webkit from resizing text to fit */
     -webkit-user-select: none;                  /* prevent copy paste, to allow, change 'none' to 'text' */
-    background-color:#E4E4E4;
-    background-image:linear-gradient(top, #A7A7A7 0%, #E4E4E4 51%);
+    background-color:#FFFFFF;
+    /*background-image:linear-gradient(top, #A7A7A7 0%, #E4E4E4 51%);*/
     font-family: system-ui, -apple-system, -apple-system-font, 'Segoe UI', 'Roboto', sans-serif;
-    font-size:12px;
+    font-size:14px;
+    color: #072146;
     height:100vh;
     margin:0px;
     padding:0px;
@@ -214,7 +215,9 @@ h1 {
     margin:180px 250px 0px -120px; */ 
 }
 #encabezado_noticia:nth-of-type(odd) {
-    background-color:rgb(187, 133, 133);
+    background-color:rgb(91, 190, 230);
+    margin-bottom: 5px;
+    margin-top:5px;
     }
 
         
@@ -231,7 +234,7 @@ ul, ol {
 }
 
 .nav li a {
-    background-color:#4B946A;
+    background-color:#072146;
     color:#fff;
     text-decoration:none;
     padding:10px 10px;
@@ -239,7 +242,7 @@ ul, ol {
 }
 
 .nav li a:hover {
-    background-color:#434343;
+    background-color:#072146;
 }
 
 .nav li ul {
@@ -270,7 +273,7 @@ ul, ol {
     margin:10px 20px 20px -30px;
 }
 input[type=submit] {
-    background-color: #4B946A;
+    background-color: #072146;
     border: none;
     color: white;
     padding: 16px 32px;

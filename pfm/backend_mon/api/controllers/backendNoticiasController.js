@@ -21,7 +21,7 @@ exports.updateNoticias = function(req, res) {
   var request = require('request');
   var options = {
     'method': 'GET',
-    'url': 'https://www.coindesk.com/feed',
+    'url': 'https://es.cointelegraph.com/rss/tag/blockchain',
     'headers': {
     }
   };
@@ -32,18 +32,22 @@ exports.updateNoticias = function(req, res) {
     let list_noticias =[];
     var parseString = require('xml2js').parseString;
     parseString(xml_response, function (err, result) {
+      //console.log(result.rss.channel[0].item);
         list_noticias=result.rss.channel[0].item;
         //console.log(result.rss.channel[0].item[0]);
         for(var i=0;i<=result.rss.channel[0].item.length-1;i++){
           var title = result.rss.channel[0].item[i].title[0];
           var description=result.rss.channel[0].item[i].description[0];
+          var descripcion_recortada = description.match(/<p>(.*?)<\/p>/g).map(function(val){
+            return val.replace(/<\/?p>/g,'');
+         });
           var date = new Date();
           // console.log(title);
-          // console.log(description);
+          // console.log(descripcion_recortada[0]);
           // console.log(date);
           var data={};
           data.title=title;
-          data.body=description;
+          data.body=descripcion_recortada[0];
           data.timestamp=date;
           var new_task = new Noticias(data);
           new_task.save(function(err, news) {

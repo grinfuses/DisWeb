@@ -1,38 +1,14 @@
 {
-  "name": "backend",
+  "name": "ml",
   "version": "1.0.0",
-  "description": "backend of server",
+  "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon server.js"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "jnaranjo",
   "license": "ISC",
-  "devDependencies": {
-    "nodemon": "^2.0.4"
-  },
   "dependencies": {
-    "assert": "^2.0.0",
-    "async": "^3.2.0",
-    "bcrypt-nodejs": "0.0.3",
-    "bcryptjs": "^2.4.3",
-    "brain.js": "^2.0.0-beta.1",
-    "cors": "^2.8.5",
-    "cron": "^1.8.2",
-    "csv-parse": "^4.10.1",
-    "express": "^4.17.1",
-    "express-session": "^1.17.1",
-    "fast-xml-parser": "^3.17.3",
-    "jquery": "^3.5.1",
-    "jsonwebtoken": "^8.5.1",
-    "lodash": "^4.17.15",
-    "mongoose": "^5.9.18",
-    "node-cron": "^2.0.3",
-    "nodemailer": "^6.4.8",
-    "passport": "^0.4.1",
-    "passport-local": "^1.0.0",
-    "request": "^2.88.2",
-    "xml2js": "^0.4.23"
+    "express": "^4.17.1"
   }
 }

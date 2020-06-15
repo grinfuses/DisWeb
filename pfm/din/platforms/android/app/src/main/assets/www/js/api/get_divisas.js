@@ -183,6 +183,23 @@ $( "#divisas_form" ).submit(function( event ) {
         //   labels: dataTime.reverse()},
         //   options: {chartOptions}
         // });
+        var encabezadoEstimacion = document.createElement("div");
+        encabezadoEstimacion.id="encabezadoEstimacion";
+        var estimacionCompra = document.createElement("div");
+        estimacionCompra.id="estimacionCompra";
+        var estimacionVenta = document.createElement("div");
+        estimacionVenta.id="estimacionVenta";
+        console.log("estimaciones");
+        var estimacion_porcentaje_compra = estimaciones.evaluacion.compra *100;
+        var estimacion_porcentaje_venta =  estimaciones.evaluacion.venta *100;
+        var string_estimacion_compra = "Recomendación de compra: "+estimacion_porcentaje_compra.toFixed(2) + "%";
+        var string_estimacion_venta =  "Recomendación de venta: "+estimacion_porcentaje_venta.toFixed(2) + "%";
+        document.getElementById("estimaciones").appendChild(encabezadoEstimacion);
+        document.getElementById("estimaciones").appendChild(estimacionCompra);
+        document.getElementById("estimaciones").appendChild(estimacionVenta);
+        document.getElementById("encabezadoEstimacion").innerHTML="<b>Estimación de compra y venta</b>";
+        document.getElementById("estimacionCompra").innerHTML=string_estimacion_compra;  
+        document.getElementById("estimacionVenta").innerHTML=string_estimacion_venta;        
         var salida_data=[];
         Array.prototype.max = function() {
           return Math.max.apply(null, this);
@@ -220,24 +237,6 @@ $( "#divisas_form" ).submit(function( event ) {
         chart.render();
         // chart.defaults.global.defaultFontFamily = "Lato";
         // chart.defaults.global.defaultFontSize = 18;
-        var encabezadoEstimacion = document.createElement("div");
-        encabezadoEstimacion.id="encabezadoEstimacion";
-        var estimacionCompra = document.createElement("div");
-        estimacionCompra.id="estimacionCompra";
-        var estimacionVenta = document.createElement("div");
-        estimacionVenta.id="estimacionVenta";
-        console.log("estimaciones");
-        var estimacion_porcentaje_compra = estimaciones.evaluacion.compra *100;
-        var estimacion_porcentaje_venta =  estimaciones.evaluacion.venta *100;
-        var string_estimacion_compra = "Recomendación de compra: "+estimacion_porcentaje_compra.toFixed(2) + "%";
-        var string_estimacion_venta =  "Recomendación de venta: "+estimacion_porcentaje_venta.toFixed(2) + "%";
-
-        document.getElementById("estimaciones").appendChild(encabezadoEstimacion);
-        document.getElementById("estimaciones").appendChild(estimacionCompra);
-        document.getElementById("estimaciones").appendChild(estimacionVenta);
-        document.getElementById("encabezadoEstimacion").innerHTML="Estimación de compra y venta";
-        document.getElementById("estimacionCompra").innerHTML=string_estimacion_compra;  
-        document.getElementById("estimacionVenta").innerHTML=string_estimacion_venta;        
       }
     });
   }});}

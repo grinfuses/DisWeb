@@ -18,14 +18,7 @@ exports.entrena = function(req, res) {
 async function getData() {
     const fetch = require("node-fetch");
     var url_get = "https://cors-anywhere.herokuapp.com/http://ec2-35-180-234-37.eu-west-3.compute.amazonaws.com/repo_data/btc-eur.json";
-    //const carsDataReq = await fetch('https://cors-anywhere.herokuapp.com/http://ec2-35-180-234-37.eu-west-3.compute.amazonaws.com/repo_data/btc-eur.json');  
-    var salida=[];
-    fetch(url_get).then((resp)=> resp.json()).then(function(data) {
-        let open = data.Open;
-        let close = data.Close;
-        console.log(open);
-        console.log(close);
-    });
+    const carsDataReq = await fetch(url_get);  
     const carsData = await carsDataReq.json();  
     const cleaned = carsData.map(value => ({
       open: value.Open,

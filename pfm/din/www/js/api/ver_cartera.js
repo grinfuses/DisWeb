@@ -1,4 +1,11 @@
+$body = $("body");
+
+$(document).on({
+    ajaxStart: function() { $body.addClass("loading");    },
+     ajaxStop: function() { $body.removeClass("loading"); }    
+});
 $( "#ver_cartera" ).ready(function( event ) {
+
     var data_sender={};
     var index_elementos=0;
     var username = window.localStorage.getItem('usernameLogin');
@@ -27,7 +34,7 @@ $( "#ver_cartera" ).ready(function( event ) {
              $.ajax({
                 url: url_get,
                 type: 'post',
-                timeout: 5000, 
+                timeout: 10000, 
                 dataType: 'json',
                 error: function(XMLHttpRequest, textStatus, errorThrown) {
                   alert('Error al buscar la conversión, reinténtelo más tarde');
@@ -57,7 +64,7 @@ $( "#ver_cartera" ).ready(function( event ) {
                  $.ajax({
                     url: "http://ec2-35-180-234-37.eu-west-3.compute.amazonaws.com:1988/buscarPorFechaFiltrando/",
                     type: 'post',
-                    timeout: 5000, 
+                    timeout: 10000, 
                     dataType: 'json',
                     data:{
                       fecha_inicio:data_fin_fecha,
@@ -100,13 +107,15 @@ $( "#ver_cartera" ).ready(function( event ) {
                              }
                           }
                           var canvas_grafica = document.createElement("canvas");
-                          var div_datos = document.createElement("div");
                           var nombre_id="grafica"+index_elementos;
                           var elementos_id="elementos"+index_elementos;
                           canvas_grafica.id=nombre_id;
+                          document.getElementById("contenido_cartera").appendChild(canvas_grafica); 
+                          var div_datos = document.createElement("div");
                           div_datos.id=elementos_id;
                           var encabezado = document.createElement("div");
                           encabezado.id="encabezado"+index_elementos;
+                          encabezado.setAttribute('class', 'encabezado_cartera');
                           var encabezadoOrigen = document.createElement("div");
                           encabezadoOrigen.id="encabezadoOrigen"+index_elementos;
                           var monedaOrigen = document.createElement("div");
@@ -119,7 +128,6 @@ $( "#ver_cartera" ).ready(function( event ) {
                           encabezadoConvertida.id="encabezadoConvertida"+index_elementos;
                           var monedaConvertida = document.createElement("div");
                           monedaConvertida.id="monedaConvertida"+index_elementos;
-                          document.getElementById("contenido_cartera").appendChild(canvas_grafica); 
                           document.getElementById("contenido_cartera").appendChild(div_datos);     
                           document.getElementById(elementos_id).appendChild(encabezado);     
                           document.getElementById(elementos_id).appendChild(encabezadoOrigen);     
@@ -131,13 +139,10 @@ $( "#ver_cartera" ).ready(function( event ) {
                           var cantidad = data_convertida.cantidad;
                           var divisaOrigen = data_convertida.divisaOrigen;
                           var conversion = data_convertida.conversion;
-                          document.getElementById("encabezado"+index_elementos).innerHTML="Conversion";
-                          document.getElementById("encabezadoCantidad"+index_elementos).innerHTML="Cantidad a convertir";
-                          document.getElementById("monedaCantidad"+index_elementos).innerHTML=cantidad;
-                          document.getElementById("encabezadoOrigen"+index_elementos).innerHTML="Moneda Origen";
-                          document.getElementById("monedaOrigen"+index_elementos).innerHTML=divisaOrigen;
-                          document.getElementById("encabezadoConvertida"+index_elementos).innerHTML="Cantidad en euros";
-                          document.getElementById("monedaConvertida"+index_elementos).innerHTML=conversion;     
+                          document.getElementById("encabezado"+index_elementos).innerHTML="<b>Sumario "+divisaOrigen+"</b></p>";
+                          document.getElementById("encabezadoCantidad"+index_elementos).innerHTML= "En cartera: "+cantidad+"";
+                          document.getElementById("encabezadoConvertida"+index_elementos).innerHTML="Valor: "+conversion.toFixed(2) +"€</p>";
+
                           var ctx = document.getElementById(nombre_id).getContext('2d');
                           index_elementos +=1;
                           var chartOptions = {
@@ -165,10 +170,13 @@ $( "#ver_cartera" ).ready(function( event ) {
                               datasets: [{
                               data: dataCurrencies.reverse(),
                               backgroundColor: ['#42a5f5', 'red', 'green','blue','violet','#42a5f5', 'red', 'green','blue','violet'],
-                                  label: keysCurrency}],
+                                  label: keysCurrency,fill:false},
+                                ],
                                   labels: dataTime.reverse()},
+                                  
                               options: {chartOptions}
                             });
+  
                         }
                       });
                     }

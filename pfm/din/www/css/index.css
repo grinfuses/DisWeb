@@ -136,7 +136,7 @@ h1 {
     position:absolute;             /* position in the center of the screen */
     /*left:40%;*/
     top:20%;
-    left: 55%;
+    left: 40%;
     height:250px;                   /* text area height */
     width:200px;                   /* text area width */
     text-align:center;
@@ -362,4 +362,7 @@ body.loading .modal {
     height:200px;
     right:10px;
     top:20%;
+}
+.encabezado_cartera{
+    margin-top: 5px;
 }

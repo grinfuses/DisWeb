@@ -15,14 +15,22 @@ exports.entrena = function(req, res) {
     res.json("Prueba Entrena");
   };
 
-async function getData() {
+function getData() {
     const fetch = require("node-fetch");
     var url_get = "https://cors-anywhere.herokuapp.com/http://ec2-35-180-234-37.eu-west-3.compute.amazonaws.com/repo_data/btc-eur.json";
-    const carsDataReq = await fetch(url_get);  
-    const carsData = await carsDataReq.json();  
-    const cleaned = carsData.map(value => ({
-      open: value.Open,
-      close: value.Close,
-    }));  
-    return cleaned;
+    fetch(url_get).then(function(response) {
+        const carsData = response.json();  
+        const cleaned = carsData.map(value => ({
+          open: value.Open,
+          close: value.Close,
+        }));  
+        console.log(cleaned);
+        return cleaned;    
+    });  
+    // const carsData = await carsDataReq.json();  
+    // const cleaned = carsData.map(value => ({
+    //   open: value.Open,
+    //   close: value.Close,
+    // }));  
+    // return cleaned;
   }

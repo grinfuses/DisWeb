@@ -36,17 +36,18 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <title>Calculadora de divisas</title>
         <script src="../lib/Chart.js/dist/Chart.min.js"></script>
-       
+        <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+
 
     </head>
     <body>
         <div class="app">
-            <h1>Divisas</h1>
+            <img id="logo" src="../img/logo_v3.png"/>
                 <div id="header">
                     <ul class="nav">
                         <li><a href="dashboard.html">Inicio</a></li>
-                        <li><a href="divisas.html">Divisas</a></li>
-                        <li><a href="cartera.html">Mi cartera</a></li>
+                        <li><a href="divisas.html"><b>Divisas</b></a></li>
+                        <li><a href="cartera.html">Cartera</a></li>
                         <li><a href="calculadora_registrado.html">Conversor</a></li>
                         <li><a href="biblioteca.html">Biblioteca</a></li>
                         <li><a href="../index.html">Salir</a></li>
@@ -54,7 +55,11 @@
                 </div>
                 
                 <div id="content">
-                    <b>Seleccione divisas</b></p>
+                    <b>Seleccione la divisa</b></p>
+                    <p>Aquí podrá comprobar la evolución de la criptomonedas entre 
+                        el periodo de inicio y fin.</p>
+                        <p>Además podrá ver una estimación de venta y compra de dicha moneda</p>
+                    
                     <form id="divisas_form">
                          <label for="dia">Inicio :</label>
                         <input id="dia_inicio" name="dia" type="date"></p>
@@ -75,10 +80,11 @@
                           
                         <input id="submit" name="submit" type="submit" value="Convertir">
                     </form>
-                   
-                    <canvas id="myChart"></canvas>
-                    <canvas id="myChart2"></canvas>
-               
+                    <!-- <canvas style="width: 75%;" id="myChart"></canvas>
+                    <canvas id="myChart2"></canvas> -->
+                    <div id="prueba_canvas"></div>
+                    <div id="estimaciones"></div>
+                    <div class="modal"></div>
                 </div>
                 </div>
         </div>

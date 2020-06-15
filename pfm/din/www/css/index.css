@@ -334,7 +334,7 @@ body.loading .modal {
 }
 
 #estimaciones{
-    margin-top:10%
+    margin-top:-40%
 }
 #estimacionCompra{
     margin-top: 5px;
@@ -365,4 +365,7 @@ body.loading .modal {
 }
 .encabezado_cartera{
     margin-top: 5px;
+}
+#prueba_canvas{
+    margin-top:45%;
 }

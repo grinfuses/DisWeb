@@ -5,7 +5,9 @@ $( "#calculadora" ).submit(function( event ) {
   $inputs.each(function() {
       data[this.id] = $(this).val();
   });
-  console.log(data);
+  if(data.cantidad ==""){
+      alert("Cantidad vacía, por favor rellene");
+  }else{
     var url_get ="http://ec2-35-180-234-37.eu-west-3.compute.amazonaws.com:1988/convertirEuros/" +data.origen+"/"+data.cantidad;
     $.ajax({
       url: url_get,
@@ -13,12 +15,12 @@ $( "#calculadora" ).submit(function( event ) {
       timeout: 5000, 
       dataType: 'json',
       error: function(XMLHttpRequest, textStatus, errorThrown) {
-        alert('Error al buscar la conversión, reinténtelo más tarde');
+        alert('Error al convertir el valor, reinténtelo más tarde');
         console.log(JSON.stringify(XMLHttpRequest));
         console.log(JSON.stringify(textStatus));
         console.log(JSON.stringify(errorThrown));
       },
-      success: function (data) {
+      success: function (data,) {
        console.log(data);
        var col = [];
        for (var i = 0; i < data.length; i++) {
@@ -66,14 +68,34 @@ $( "#calculadora" ).submit(function( event ) {
                var cantidad = data.cantidad;
                var divisaOrigen = data.divisaOrigen;
                var conversion = data.conversion;
-               document.getElementById("encabezado").innerHTML="Conversion";
-               document.getElementById("encabezadoOrigen").innerHTML="Moneda Origen";
-               document.getElementById("monedaOrigen").innerHTML=divisaOrigen;
-               document.getElementById("encabezadoCantidad").innerHTML="Cantidad a convertir";
-               document.getElementById("monedaCantidad").innerHTML=cantidad;
-               document.getElementById("encabezadoConvertida").innerHTML="Cantidad en euros";
-               document.getElementById("monedaConvertida").innerHTML=conversion;
+               document.getElementById("encabezado_calculadora_registrado").innerHTML="<b>Conversion de divisas</b>";
+               document.getElementById("encabezadoOrigen").innerHTML="<b>Divisa Origen</b>: "+divisaOrigen;
+               //document.getElementById("monedaOrigen").innerHTML=divisaOrigen;
+               document.getElementById("encabezadoCantidad").innerHTML="<b>Cantidad convertida</b>: "+cantidad;
+               //document.getElementById("monedaCantidad").innerHTML=cantidad;
+               document.getElementById("encabezadoConvertida").innerHTML="<b>Valor en euros</b>";
+               document.getElementById("monedaConvertida").innerHTML=test(conversion)+ " €";
       }
-});
+});}
     
   });
+
+  function test (labelValue) {
+
+    // Nine Zeroes for Billions
+    return Math.abs(Number(labelValue)) >= 1.0e+9
+  
+    ? (Math.abs(Number(labelValue)) / 1.0e+9).toFixed(2)+ " B"
+    // Six Zeroes for Millions 
+    : Math.abs(Number(labelValue)) >= 1.0e+6
+  
+    ? (Math.abs(Number(labelValue)) / 1.0e+6).toFixed(2) + " M"
+    // Three Zeroes for Thousands
+    : Math.abs(Number(labelValue)) >= 1.0e+3
+  
+    ? (Math.abs(Number(labelValue)) / 1.0e+3).toFixed(2) + " K"
+  
+    : (Math.abs(Number(labelValue))).toFixed(2);
+  
+  }
+  

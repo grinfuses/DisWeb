@@ -154,16 +154,19 @@ async function getData() {
       x: d.open, y: d.close,
     }));
     
-    
+    const container = document.getElementById("grafica")
+
     tfvis.render.scatterplot(
-      {name: 'Model Predictions vs Original Data'}, 
+      container, 
       {values: [originalPoints, predictedPoints], series: ['original', 'predicted']}, 
       {
         xLabel: 'Open',
         yLabel: 'Close',
-        height: 300
+        height: 300,
+        zoomToFit: true,
       }
     );
+
   }
   function predictModel(model, value, normalizationData) {
     const {inputMax, inputMin, labelMin, labelMax} = normalizationData;  
@@ -201,8 +204,21 @@ async function getData() {
       const estimacion = pend.mul(xs).add(nplus);
       //console.log(estimacion.print());
       const valor_escribir = estimacion.toInt();
-      console.log("valor a escribir:" +valor_escribir)
-      document.getElementById("estimacion").innerHTML=valor_escribir;
+      const regex = /\d+/g;
+      let m;
+      let string_publicar;
+      while ((m = regex.exec(valor_escribir)) !== null) {
+          // This is necessary to avoid infinite loops with zero-width matches
+          if (m.index === regex.lastIndex) {
+              regex.lastIndex++;
+          }
+          // The result can be accessed through the `m`-variable.
+          m.forEach((match, groupIndex) => {
+              console.log(`Found match, group ${groupIndex}: ${match}`);
+              string_publicar= match;
+          });
+      }
+      document.getElementById("estimacion").innerHTML="Valor predecido: "+string_publicar+"€";
       //alert(estimacion.print());
       const unNormPreds = preds
         .mul(labelMax.sub(labelMin))
@@ -222,6 +238,8 @@ async function getData() {
   }
   
   async function prediceValor(value) {
+    $body = $("body");
+    $body.addClass("loading");
     console.log("entrando en predice Valor");
     console.log(value);
     //const preds = model.predict(xs.reshape([100, 1]));
@@ -240,4 +258,5 @@ async function getData() {
     //const predicciones = model.predict(xs.reshape([1, 1]));    
     ///No cuadra las predicciones  
     predictModel(model, value, tensorData);  
+    $body.removeClass("loading");
   }

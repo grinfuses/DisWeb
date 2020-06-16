@@ -34,19 +34,16 @@
         <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
         <link rel="stylesheet" type="text/css" href="../css/index.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-        <title>Calculadora de divisas</title>
-        <script src="../lib/Chart.js/dist/Chart.min.js"></script>
-        <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
-
-
+        <title>Index</title>
+        
     </head>
     <body>
-        <div class="app">
+        <div id="biblioteca" class="app">
             <img id="logo" src="../img/logo_v3.png"/>
                 <div id="header">
                     <ul class="nav">
                         <li><a href="dashboard.html">Inicio</a></li>
-                        <li><a href="divisas.html"><b>Divisas</b></a></li>
+                        <li><a href="divisas.html">Divisas</a></li>
                         <li><a href="cartera.html">Cartera</a></li>
                         <li><a href="calculadora_registrado.html">Conversor</a></li>
                         <li><a href="biblioteca.html">Biblioteca</a></li>
@@ -55,42 +52,36 @@
                 </div>
                 
                 <div id="content">
-                    <b>Seleccione la divisa</b></p>
-                    <p>Aquí podrá comprobar la evolución de la criptomonedas entre 
-                        el periodo de inicio y fin.</p>
-                        <p>Además podrá ver una estimación de venta y compra de dicha moneda</p>
-                        <p>Para esta clasificación se ha usado un <a href="./knn.html">clasificador KNN</a></p>
+                    Aquí tendrá más información sobre el mundo de las criptomonedas
+                    <li><a href="fundamentos.html">Fundamentos de la criptomonedas</a></li>
+                    <li><a href="bitcoin.html">Información sobre el bitcoin</a></li>
+                    <li><a href="estimador.html">Predictor de bitcoins</a></li>
+                    <li><a href="ethereum.html">Información sobre el ethereum</a></li>
+                    <p></p>         
+                    <p></p>
+                   <p> El método de los k vecinos más cercanos es un método de clasificación supervisada 
+                       (Aprendizaje, estimación basada en un conjunto de entrenamiento y prototipos) 
+                       que sirve para estimar la función de densidad F(x|Cj)
+                       de las predictoras X por cada clase Cj.</p>
 
-                    <form id="divisas_form">
-                         <label for="dia">Inicio :</label>
-                        <input id="dia_inicio" name="dia" type="date"></p>
-                        <label for="dia">Fin :</label>
-                        <input id="dia_fin" name="dia" type="date"></p>
-                        <label for="origen">Divisa origen :</label>
-                        <select id="origen" name="origen">
-                            <option value="ETH">Ethereum</option> 
-                            <option value="XRP">Ripple</option>
-                            <option value="BTC"selected>Bitcoin</option>
-                            <option value="EOS">EOS</option> 
-                            <option value="XLM">Lúmenes estelares</option>
-                            <option value="LTC">Litecoin</option>
-                            <option value="USDT">Tether</option>
-                            <option value="ADA">Cardanos</option>
-                            <option value="XMR">Monero</option>
-                          </select></p>    
-                          
-                        <input id="submit" name="submit" type="submit" value="Convertir">
-                    </form>
-                    <!-- <canvas style="width: 75%;" id="myChart"></canvas>
-                    <canvas id="myChart2"></canvas> -->
-                    <div id="prueba_canvas"></div>
-                    <div id="estimaciones"></div>
-                    <div class="modal"></div>
-                </div>
+                    <p>Este es un método de clasificación no paramétrico, que estima el valor de la función 
+                        de densidad de probabilidad o directamente la probabilidad a posteriori de 
+                        que un elemento X pertenezca a la clase Cj
+                        a partir de la información proporcionada por el conjunto de prototipos. 
+                        En el proceso de aprendizaje no se hace ninguna suposición acerca de la 
+                        distribución de las variables predictoras.</p>
+
+                    <p>En el reconocimiento de patrones, el algoritmo K-nn es usado como 
+                        método de clasificación de objetos (elementos) basado en un entrenamiento mediante 
+                        ejemplos cercanos en el espacio de los elementos. K-nn es un tipo 
+                        de aprendizaje vago (lazy learning), donde la función se aproxima solo localmente y 
+                        todo el cómputo es diferido a la clasificación.</p>
+
+           
+                    
                 </div>
         </div>
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="../js/index.js"></script>
-        <script type="text/javascript" src="../js/api/get_divisas.js"></script>
     </body>
 </html>

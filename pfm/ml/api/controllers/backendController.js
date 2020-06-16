@@ -21,6 +21,12 @@ exports.entrena = function(req, res) {
 function getData() {
   const fs = require('fs');
   var global_data = fs.readFileSync("cotizaciones.json").toString();
+  const cleaned = global_data.map(value => ({
+    open: value.Open,
+    close: value.Close,
+  }));  
+  return cleaned;
+
   return global_data;
 }
 

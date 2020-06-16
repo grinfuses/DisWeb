@@ -1,8 +1,8 @@
 var request = require('request');
+const tf = require('@tensorflow/tfjs');
 
 exports.entrena = function(req, res) {
     
-    const tf = require('@tensorflow/tfjs');
     var data = getData();
     const model = tf.sequential(); 
     

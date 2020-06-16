@@ -2,8 +2,6 @@ var request = require('request');
 const tf = require('@tensorflow/tfjs');
 
 exports.entrena = async function(req, res) {
-    console.log("Valor de entrada a entrenar");
-    console.log(value_input);
     var data = getData();
     const model = tf.sequential(); 
     

@@ -153,7 +153,11 @@ function almacenaVariables(model, normalizationData) {
     var nplus_valor = nplus.toString();
     console.log(pendiente_recta);
     console.log(nplus_valor);
-
+    var data =[];
+    data["pendiente"]=pendiente_recta;
+    data["nplus"]=nplus_valor;
+    data["timestamp"] = new Date();
+    res.json(data);
     return [pendiente_recta,nplus_valor]
   });
 

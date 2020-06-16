@@ -5,6 +5,7 @@ $(document).on({
      ajaxStop: function() { $body.removeClass("loading"); }    
 });
 
+
 $( "#divisas_form" ).submit(function( event ) {
   event.preventDefault()
   var $inputs = $('#divisas_form :input');
@@ -213,9 +214,9 @@ $( "#divisas_form" ).submit(function( event ) {
         var salida_data=[];
         for(var i=0;i<=dataCurrencies.length-1;i++){
           if(dataCurrencies[i] == min_array){
-            var sub_salida={x:new Date(dataTime[i]),y:dataCurrencies[i],indexLabel: "\u2193 Mínimo",markerColor: "DarkSlateGrey", markerType: "cross"}
+            var sub_salida={x:new Date(dataTime[i]),y:dataCurrencies[i],indexLabel: "\u2193 ",markerColor: "DarkSlateGrey", markerType: "cross"}
           }else if(dataCurrencies[i] == max_array){
-            var sub_salida={x:new Date(dataTime[i]),y:dataCurrencies[i], indexLabel: "\u2191 Máximo",markerColor: "red", markerType: "triangle"}
+            var sub_salida={x:new Date(dataTime[i]),y:dataCurrencies[i], indexLabel: "\u2191 ",markerColor: "red", markerType: "triangle"}
           }else{
           var sub_salida={x:new Date(dataTime[i]),y:dataCurrencies[i]}
         }
@@ -234,6 +235,7 @@ $( "#divisas_form" ).submit(function( event ) {
             dataPoints: salida_data,
           }]
         });
+        document.getElementById("texto_explicacion").innerHTML="El icono rojo significa el valor máximo y la x el valor mínimo en las fechas seleccionadas";
         chart.render();
         // chart.defaults.global.defaultFontFamily = "Lato";
         // chart.defaults.global.defaultFontSize = 18;

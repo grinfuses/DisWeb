@@ -106,7 +106,7 @@ h1 {
 #header {
     position:absolute;             /* position in the center of the screen */
     left:30%;
-    top:10%;
+    top:5%;
     height:250px;                   /* text area height */
     text-align:center;
     /*padding:180px 200px 200px 0px;     /* image height is 200px (bottom 20px are overlapped with text) */
@@ -183,7 +183,7 @@ h1 {
 }
 #noticias_container {
     position:absolute;             /* position in the center of the screen */
-    top:110%;
+    top:85%;
     width:120%;
     text-align:center;
     left:-15%;
@@ -196,7 +196,7 @@ h1 {
 }
 #cotizaciones {
     position:absolute;             /* position in the center of the screen */
-    top:85%;
+    top:65%;
     width:130%;
     left:-15%;
     text-align:center;
@@ -269,7 +269,7 @@ ul, ol {
     position:relative;             /* position in the center of the screen */
     /*left:40%;
     top:70%;*/
-    top:20%;
+    top:30%;
     left: 10%;
     /*height:300px;                    text area height 
     width:250px;                   /* text area width */
@@ -338,7 +338,7 @@ body.loading .modal {
 }
 
 #estimaciones{
-    margin-top:-40%
+    margin-top:-85%
 }
 #estimacionCompra{
     margin-top: 5px;
@@ -349,6 +349,11 @@ body.loading .modal {
     margin:10%;
     width:200px;
     font-size: 12px;
+}
+
+#texto_explicacion{
+    position: relative;
+    top:430px;
 }
 #encabezado_calculadora_registrado{
     margin-bottom: 5px;
@@ -371,5 +376,5 @@ body.loading .modal {
     margin-top: 5px;
 }
 #prueba_canvas{
-    margin-top:45%;
+    margin-top:70%;
 }

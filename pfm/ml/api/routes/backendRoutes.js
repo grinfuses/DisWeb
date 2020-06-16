@@ -7,5 +7,6 @@ module.exports = function(app) {
   app.route('/entrenaModelo').get(backend.entrena);
   app.route('/allData').get(backend.list_all);
   app.route('/borrarAllData').delete(backend.deleteAllNoticias);
+  app.route('/estimacion').post(backend.estimacion);
 
 };

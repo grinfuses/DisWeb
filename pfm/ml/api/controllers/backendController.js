@@ -38,6 +38,20 @@ exports.entrena = async function(req, res) {
     almacenaVariables(model, tensorData,res);  
   };
 
+  exports.estimacion = function(req, res) {
+     var value = req.body.value;
+     Registros.find({}, function(err,registro){
+      var pendiente = registro.pendiente;
+      var nplus = registro.nplus;
+      console.log("Entra en estimacion")
+      console.log(pendiente);
+      console.log(nplus);
+      console.log(value)
+    }).sort({_id: -1}).limit(1);
+  }
+
+  };
+
 function getData() {
   const fs = require('fs');
   let global_data = fs.readFileSync("cotizaciones.json");

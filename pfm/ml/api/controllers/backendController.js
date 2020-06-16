@@ -1,7 +1,7 @@
 var request = require('request');
 const tf = require('@tensorflow/tfjs');
 
-exports.entrena = function(req, res) {
+exports.entrena = async function(req, res) {
     
     var data = getData();
     const model = tf.sequential(); 
@@ -14,8 +14,10 @@ exports.entrena = function(req, res) {
     model.add(tf.layers.dense({units: 1, useBias: true}));
     const tensorData = convertToTensor(data);
     const {inputs, labels} = tensorData;
-    console.log(inputs);
-    res.json(data);
+    await trainModel(model, inputs, labels);
+    console.log("Entrenamiento realizado");
+
+    res.json("Entrenamiento realizado");
   };
 
 function getData() {
@@ -63,4 +65,21 @@ function convertToTensor(data) {
       labelMin,
     }
   });  
+}
+
+async function trainModel(model, inputs, labels) {
+  // Prepare the model for training.  
+  model.compile({
+    optimizer: tf.train.adam(),
+    loss: tf.losses.meanSquaredError,
+    metrics: ['mse'],
+  });
+  
+  const batchSize = 40;
+  const epochs = 80;
+  return await model.fit(inputs, labels, {
+    batchSize,
+    epochs,
+    shuffle: true,
+  });
 }

@@ -27,9 +27,7 @@ exports.entrena = async function(req, res) {
     await trainModel(model, inputs, labels);
     console.log("Entrenamiento realizado");
     testModel(model, data, tensorData);  
-    almacenaVariables(model, tensorData);  
-
-    res.json("Modelo testado");
+    almacenaVariables(model, tensorData,res);  
   };
 
 function getData() {
@@ -130,7 +128,7 @@ function testModel(model, inputData, normalizationData) {
   // habría que enviar a cliente para que lo pinten -> originalPoints, predictedPoints
 }
 
-function almacenaVariables(model, normalizationData) {
+function almacenaVariables(model, normalizationData,res) {
   const {inputMax, inputMin, labelMin, labelMax} = normalizationData;  
   
   const [xs, preds] = tf.tidy(() => {
@@ -154,13 +152,31 @@ function almacenaVariables(model, normalizationData) {
     console.log(pendiente_recta);
     console.log(nplus_valor);
     var data =[];
-    data["pendiente"]=pendiente_recta;
-    data["nplus"]=nplus_valor;
+    data["pendiente"]=limpiarString(pendiente_recta);
+    data["nplus"]=limpiarString(nplus_valor);
     data["timestamp"] = new Date();
-    res.json(data);
+    console.log(data);
     return [pendiente_recta,nplus_valor]
   });
 
 
 }
 
+function limpiarString(value){
+  const regex = /\d+/g;
+      let m;
+      let string_publicar;
+      while ((m = regex.exec(value)) !== null) {
+          // This is necessary to avoid infinite loops with zero-width matches
+          if (m.index === regex.lastIndex) {
+              regex.lastIndex++;
+          }
+          // The result can be accessed through the `m`-variable.
+          m.forEach((match, groupIndex) => {
+              console.log(`Found match, group ${groupIndex}: ${match}`);
+              string_publicar= match;
+          });
+      }
+  return string_publicar;
+
+}

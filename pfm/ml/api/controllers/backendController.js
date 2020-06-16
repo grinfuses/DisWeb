@@ -3,6 +3,7 @@ const tf = require('@tensorflow/tfjs');
 var mongoose = require('mongoose'),
   config = require('../../config'),
   Registros = mongoose.model('Registros');
+  NubePuntos = mongoose.model('NubePuntos');
 
   exports.deleteAllNoticias = function(req, res) {
     Registros.deleteMany({}, function(err, task) {
@@ -14,6 +15,14 @@ var mongoose = require('mongoose'),
 
   exports.list_all = function(req, res) {
     Registros.find({}, function(err, task) {
+      if (err)
+        res.send(err);
+      res.json(task);
+    });
+  };
+
+  exports.list_all_nube = function(req, res) {
+    NubePuntos.find({}, function(err, task) {
       if (err)
         res.send(err);
       res.json(task);
@@ -44,9 +53,6 @@ exports.entrena = async function(req, res) {
       var pendiente = registro[0].pendiente;
       var nplus = registro[0].nplus;
       valor_estimado = (pendiente*value)+nplus;
-      console.log("Globales")
-      console.log(global.predictedPoints);
-      console.log(global.originalPoints);
       res.json(valor_estimado);
     }).sort({_id: -1}).limit(1);
   };
@@ -146,8 +152,15 @@ function testModel(model, inputData, normalizationData) {
   const originalPoints = inputData.map(d => ({
     x: d.open, y: d.close,
   }));
-  global.predictedPoints=predictedPoints;
-  global.originalPoints= originalPoints;
+  var data={};
+  data.originalPoints=originalPoints;
+  data.predictedPoints = predictedPoints;
+  var new_task = new NubePuntos(data);
+  new_task.save(function(err, news) {
+    if (err)
+      console.log("Error actualizando nube de puntos");
+    console.log(news);
+  });
   // habría que enviar a cliente para que lo pinten -> originalPoints, predictedPoints
 }
 

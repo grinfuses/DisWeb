@@ -7,6 +7,7 @@ var express = require('express'),
   port = process.env.PORT || 1994,
   mongoose = require('mongoose'),
   Task = require('./api/models/backendModel'), //created model loading here
+  Nube = require('./api/models/backendModelPoints'), //created model loading here
   TaskControllers = require('./api/controllers/backendController'), 
   config = require('./config'),
   bodyParser = require('body-parser');

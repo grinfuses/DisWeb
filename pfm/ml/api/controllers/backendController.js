@@ -145,6 +145,6 @@ function almacenaVariables(model, normalizationData) {
     console.log(nplus_valor.toInt());
     return [pendiente_recta,nplus_valor]
   });
-  return [pendiente_recta.toInt(),nplus.toInt()];
+  return [xs.toInt(),preds.toInt()];
 }
 

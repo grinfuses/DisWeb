@@ -41,15 +41,16 @@ exports.entrena = async function(req, res) {
   exports.estimacion = function(req, res) {
      var value = req.body.value;
      Registros.find({}, function(err,registro){
-      var pendiente = registro.pendiente;
-      var nplus = registro.nplus;
+      var pendiente = registro[0].pendiente;
+      var nplus = registro[0].nplus;
+      valor_estimado = (pendiente*value)+nplus;
       console.log("Entra en estimacion")
       console.log(pendiente);
       console.log(nplus);
-      console.log(value)
+      console.log(value);
+      console.log(valor_estimado);
+      res.json(valor_estimado);
     }).sort({_id: -1}).limit(1);
-  }
-
   };
 
 function getData() {

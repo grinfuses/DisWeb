@@ -138,17 +138,15 @@ function almacenaVariables(model, normalizationData) {
     
     const pend = inputMax.sub(inputMin).div(labelMax.sub(labelMin));
     const nplus = labelMax.sub(inputMax.sub(pend));
-    // console.log("Pendiente y nplus");
+    console.log("Pendiente y nplus");
     var pendiente_recta = pend.toInt();
     var nplus_valor = nplus.toInt();
-    // console.log(pendiente_recta);
-    // console.log(nplus_valor);
+    console.log(pendiente_recta);
+    console.log(nplus_valor);
+    console.log("Pendiente y nplus imprimiendo");
+    pend.print();
+    nplus.print();
     return [pendiente_recta,nplus_valor]
   });
-  console.log("Pendiente y nplus");
-  console.log(pendiente_recta);
-  console.log(xs);
-  console.log(nplus_valor);
-  console.log(preds);
 }
 

@@ -5,6 +5,8 @@ const cron = require("node-cron");
 var express = require('express'),
   app = express(),
   port = process.env.PORT || 1994,
+  mongoose = require('mongoose'),
+  Task = require('./api/models/backendModel'), //created model loading here
   TaskControllers = require('./api/controllers/backendController'), 
   config = require('./config'),
   bodyParser = require('body-parser');
@@ -13,6 +15,9 @@ var express = require('express'),
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+// mongoose instance connection url connection
+mongoose.Promise = global.Promise;
+mongoose.connect('mongodb://localhost/pfmDB',{useNewUrlParser: true,useUnifiedTopology: true });
 
 var routes = require('./api/routes/backendRoutes'); //importing route
 routes(app); //register the route

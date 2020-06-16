@@ -5,5 +5,5 @@ module.exports = function(app) {
 
   // Registers Routes
   app.route('/entrenaModelo').get(backend.entrena);
-
+  app.route('/allData').get(backend.list_all);
 };

@@ -152,8 +152,8 @@ function almacenaVariables(model, normalizationData,res) {
     console.log(pendiente_recta);
     console.log(nplus_valor);
     var data =[];
-    data["pendiente"]=limpiarString(pendiente_recta);
-    data["nplus"]=limpiarString(nplus_valor);
+    data["pendiente"]=parseFloat(limpiarString(pendiente_recta));
+    data["nplus"]=parseFloat(limpiarString(nplus_valor));
     data["timestamp"] = new Date();
     console.log(data);
     return [pendiente_recta,nplus_valor]
@@ -163,7 +163,7 @@ function almacenaVariables(model, normalizationData,res) {
 }
 
 function limpiarString(value){
-  const regex = /\d+/g;
+  const regex = /\d+.\d+/g;
       let m;
       let string_publicar;
       while ((m = regex.exec(value)) !== null) {

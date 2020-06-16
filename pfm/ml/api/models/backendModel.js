@@ -6,10 +6,10 @@ var RegistroSchema = new Schema({
     type: Date
   },
   pendiente:{
-    type: String
+    type: Number
   },
   nplus:{
-    type: String
+    type: Number
   }
 });
 module.exports = mongoose.model('Registros', RegistroSchema);

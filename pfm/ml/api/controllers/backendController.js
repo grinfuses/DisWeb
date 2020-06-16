@@ -4,6 +4,14 @@ var mongoose = require('mongoose'),
   config = require('../../config'),
   Registros = mongoose.model('Registros');
 
+  exports.deleteAllNoticias = function(req, res) {
+    Registros.deleteMany({}, function(err, task) {
+      if (err)
+        res.send(err);
+      res.json({ message: 'All registros successfully deleted' });
+    });
+  };
+
   exports.list_all = function(req, res) {
     Registros.find({}, function(err, task) {
       if (err)
@@ -156,6 +164,12 @@ function almacenaVariables(model, normalizationData,res) {
     data["nplus"]=parseFloat(limpiarString(nplus_valor));
     data["timestamp"] = new Date();
     console.log(data);
+    var new_task = new Registros(data);
+    new_task.save(function(err, news) {
+      if (err)
+        console.log("Error actualizando entrenamientos");
+      console.log(news);
+    });
     return [pendiente_recta,nplus_valor]
   });
 

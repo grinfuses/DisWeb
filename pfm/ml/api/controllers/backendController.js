@@ -1,5 +1,7 @@
 var request = require('request');
 const tf = require('@tensorflow/tfjs');
+let originPointGlobal;
+let predictedPointGlobal;
 var mongoose = require('mongoose'),
   config = require('../../config'),
   Registros = mongoose.model('Registros');
@@ -44,11 +46,8 @@ exports.entrena = async function(req, res) {
       var pendiente = registro[0].pendiente;
       var nplus = registro[0].nplus;
       valor_estimado = (pendiente*value)+nplus;
-      console.log("Entra en estimacion")
-      console.log(pendiente);
-      console.log(nplus);
-      console.log(value);
-      console.log(valor_estimado);
+      console.log(originPointGlobal);
+      console.log(predictedPointGlobal);
       res.json(valor_estimado);
     }).sort({_id: -1}).limit(1);
   };
@@ -148,6 +147,8 @@ function testModel(model, inputData, normalizationData) {
   const originalPoints = inputData.map(d => ({
     x: d.open, y: d.close,
   }));
+  originPointGlobal = originalPoints;
+  predictedPointGlobal = predictedPoints;
   // habría que enviar a cliente para que lo pinten -> originalPoints, predictedPoints
 }
 

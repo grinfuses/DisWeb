@@ -141,8 +141,8 @@ function almacenaVariables(model, normalizationData) {
     console.log("Pendiente y nplus");
     var pendiente_recta = pend.toInt();
     var nplus_valor = nplus.toInt();
-    console.log(pendiente_recta);
-    console.log(nplus_valor);
+    console.log(pend.toInt());
+    console.log(nplus.toInt());
     return [pendiente_recta,nplus_valor]
   });
   return [xs,preds];

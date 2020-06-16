@@ -2,7 +2,8 @@ var request = require('request');
 const tf = require('@tensorflow/tfjs');
 
 exports.entrena = async function(req, res) {
-    
+    console.log("Valor de entrada a entrenar");
+    console.log(value_input);
     var data = getData();
     const model = tf.sequential(); 
     
@@ -14,10 +15,13 @@ exports.entrena = async function(req, res) {
     model.add(tf.layers.dense({units: 1, useBias: true}));
     const tensorData = convertToTensor(data);
     const {inputs, labels} = tensorData;
+    console.log("Comenzamos a entrenar el modelo");
     await trainModel(model, inputs, labels);
     console.log("Entrenamiento realizado");
+    testModel(model, data, tensorData);  
+    almacenaVariables(model, tensorData);  
 
-    res.json("Entrenamiento realizado");
+    res.json("Modelo testado");
   };
 
 function getData() {
@@ -83,3 +87,64 @@ async function trainModel(model, inputs, labels) {
     shuffle: true,
   });
 }
+
+function testModel(model, inputData, normalizationData) {
+  const {inputMax, inputMin, labelMin, labelMax} = normalizationData;  
+  
+  // Generate predictions for a uniform range of numbers between 0 and 1;
+  // We un-normalize the data by doing the inverse of the min-max scaling 
+  // that we did earlier.
+  const [xs, preds] = tf.tidy(() => {
+    
+    const xs = tf.linspace(0, 1, 100);    
+    const preds = model.predict(xs.reshape([100, 1]));      
+    
+    const unNormXs = xs
+      .mul(inputMax.sub(inputMin))
+      .add(inputMin);
+      
+    const unNormPreds = preds
+      .mul(labelMax.sub(labelMin))
+      .add(labelMin);
+    
+    // Un-normalize the data
+    return [unNormXs.dataSync(), unNormPreds.dataSync()];
+  });
+  
+ 
+  const predictedPoints = Array.from(xs).map((val, i) => {
+    return {x: val, y: preds[i]}
+  });
+  
+  const originalPoints = inputData.map(d => ({
+    x: d.open, y: d.close,
+  }));
+  // habría que enviar a cliente para que lo pinten -> originalPoints, predictedPoints
+}
+
+function almacenaVariables(model, normalizationData) {
+  const {inputMax, inputMin, labelMin, labelMax} = normalizationData;  
+  
+  const [xs, preds] = tf.tidy(() => {
+    
+    const xs = tf.linspace(0, 1, 100);    
+    const preds = model.predict(xs.reshape([100, 1]));      
+    
+    const unNormXs = xs
+      .mul(inputMax.sub(inputMin))
+      .add(inputMin);
+      
+    const unNormPreds = preds
+      .mul(labelMax.sub(labelMin))
+      .add(labelMin);
+    
+    const pend = inputMax.sub(inputMin).div(labelMax.sub(labelMin));
+    const nplus = labelMax.sub(inputMax.sub(pend));
+    console.log("Pendiente y nplus");
+    console.log(pend.print());
+    console.log(nplus.print());
+  });
+
+  return preds;
+}
+

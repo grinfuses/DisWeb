@@ -8,6 +8,6 @@ module.exports = function(app) {
   app.route('/allData').get(backend.list_all);
   app.route('/borrarAllData').delete(backend.deleteAllNoticias);
   app.route('/estimacion').post(backend.estimacion);
-  app.route('/allNubePuntos').post(backend.list_all_nube);
+  app.route('/allNubePuntos').get(backend.list_all_nube);
 
 };

@@ -26,7 +26,7 @@ var mongoose = require('mongoose'),
       if (err)
         res.send(err);
       res.json(task);
-    });
+    }).sort({_id: -1}).limit(1);
   };
 exports.entrena = async function(req, res) {
     var data = getData();
@@ -112,8 +112,8 @@ async function trainModel(model, inputs, labels) {
     metrics: ['mse'],
   });
   
-  const batchSize = 40;
-  const epochs = 80;
+  const batchSize = 45;
+  const epochs = 140;
   return await model.fit(inputs, labels, {
     batchSize,
     epochs,

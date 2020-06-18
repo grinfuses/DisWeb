@@ -269,15 +269,45 @@ ul, ol {
     position:relative;             /* position in the center of the screen */
     /*left:40%;
     top:70%;*/
+    top:50%;
+    left: 10%;
+    /*height:300px;                    text area height 
+    width:250px;                   /* text area width */
+    font-size: 15px;
+    /*margin:10px 20px 20px -30px;*/
+    margin-top:10%;
+    margin-right:20%;
+
+}
+#content_index{
+    position:relative;             /* position in the center of the screen */
+    /*left:40%;
+    top:70%;*/
     top:30%;
     left: 10%;
     /*height:300px;                    text area height 
     width:250px;                   /* text area width */
     font-size: 15px;
-    margin:10px 20px 20px -30px;
+    /*margin:10px 20px 20px -30px;*/
+    margin-top:10%;
+    margin-right:20%;
+
+}
+#content_biblioteca{
+    position:relative;             /* position in the center of the screen */
+    /*left:40%;
+    top:70%;*/
+    top:45%;
+    /*height:300px;                    text area height 
+    width:250px;                   /* text area width */
+    font-size: 15px;
+    /*margin:10px 20px 20px -30px;*/
+    margin-top:10%;
+    margin-right:20%;
+
 }
 input[type=submit] {
-    background-color: #072146;
+    background-color: #1464A5;
     border: none;
     color: white;
     padding: 16px 32px;
@@ -378,3 +408,33 @@ body.loading .modal {
 #prueba_canvas{
     margin-top:70%;
 }
+ul {
+    position: absolute;
+    width: 100%;
+    overflow: hidden;
+    word-wrap: break-word;
+
+    background-color: #072146;
+    right:3%;
+    left:-3%;
+    }
+  
+  li {
+    float: left;
+  }
+  
+  li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+  }
+  
+  /* Change the link color to #111 (black) on hover */
+  li a:hover {
+    background-color: #111;
+  }
+  li a:active {
+    background-color: #fff;
+  }

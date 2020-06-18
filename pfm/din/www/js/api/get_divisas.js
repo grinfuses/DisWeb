@@ -5,6 +5,11 @@ $(document).on({
      ajaxStop: function() { $body.removeClass("loading"); }    
 });
 
+$("#divisas").ready(function( event ) {
+  var nombre_usuario = window.localStorage.getItem('userName');
+  document.getElementById("nombre_usuario").innerHTML = "<b>" + nombre_usuario + "</b>";
+});
+
 
 $( "#divisas_form" ).submit(function( event ) {
   event.preventDefault()

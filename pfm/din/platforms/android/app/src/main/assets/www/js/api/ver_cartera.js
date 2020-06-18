@@ -5,6 +5,8 @@ $(document).on({
      ajaxStop: function() { $body.removeClass("loading"); }    
 });
 $( "#ver_cartera" ).ready(function( event ) {
+  var nombre_usuario = window.localStorage.getItem('userName');
+  document.getElementById("nombre_usuario").innerHTML = "<b>" + nombre_usuario + "</b>";
 
     var data_sender={};
     var index_elementos=0;

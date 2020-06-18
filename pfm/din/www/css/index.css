@@ -105,10 +105,10 @@ h1 {
 }
 #header {
     position:absolute;             /* position in the center of the screen */
-    left:30%;
+    left:50%;
     top:5%;
     height:250px;                   /* text area height */
-    text-align:center;
+    align:center;
     /*padding:180px 200px 200px 0px;     /* image height is 200px (bottom 20px are overlapped with text) */
     /*margin:-115px 0px 0px -112px;  /* offset vertical: half of image height and text area height */
                                    /* offset horizontal: half of text area width 
@@ -183,7 +183,7 @@ h1 {
 }
 #noticias_container {
     position:absolute;             /* position in the center of the screen */
-    top:85%;
+    top:95%;
     width:120%;
     text-align:center;
     left:-15%;
@@ -196,7 +196,7 @@ h1 {
 }
 #cotizaciones {
     position:absolute;             /* position in the center of the screen */
-    top:65%;
+    top:75%;
     width:130%;
     left:-15%;
     text-align:center;
@@ -297,13 +297,13 @@ ul, ol {
     position:relative;             /* position in the center of the screen */
     /*left:40%;
     top:70%;*/
-    top:45%;
+    top:65%;
     /*height:300px;                    text area height 
     width:250px;                   /* text area width */
     font-size: 15px;
     /*margin:10px 20px 20px -30px;*/
     margin-top:10%;
-    margin-right:20%;
+    margin-right:0%;
 
 }
 input[type=submit] {
@@ -383,7 +383,9 @@ body.loading .modal {
 
 #texto_explicacion{
     position: relative;
-    top:430px;
+    top:-160px;
+    color:red;
+    font-size: 10px;
 }
 #encabezado_calculadora_registrado{
     margin-bottom: 5px;
@@ -406,7 +408,7 @@ body.loading .modal {
     margin-top: 5px;
 }
 #prueba_canvas{
-    margin-top:70%;
+    margin-top:90%;
 }
 ul {
     position: absolute;
@@ -438,3 +440,12 @@ ul {
   li a:active {
     background-color: #fff;
   }
+  #submenu_biblioteca{
+	position:relative;
+	top:30%;
+}
+#submenu_registrado{
+	position:relative;
+    top:30%;
+    align:center;
+}

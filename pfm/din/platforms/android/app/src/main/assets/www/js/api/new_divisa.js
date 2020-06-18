@@ -1,3 +1,8 @@
+$("#nueva_divisa_cartera").ready(function( event ) {
+  var nombre_usuario = window.localStorage.getItem('userName');
+  document.getElementById("nombre_usuario").innerHTML = "<b>" + nombre_usuario + "</b>";
+});
+
 $( "#nuevo_registro" ).submit(function( event ) {
   event.preventDefault()
   var $inputs = $('#nuevo_registro :input');

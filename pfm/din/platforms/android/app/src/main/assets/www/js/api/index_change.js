@@ -33,7 +33,7 @@ $("#dashboard").ready(function( event ) {
 });
 $("#dashboard").ready(function( event ) {
     var nombre_usuario = window.localStorage.getItem('userName');
-    document.getElementById("nombre_usuario").innerHTML = "Bienvenido a la parte privada <b>" + nombre_usuario + "</b>";
+    document.getElementById("nombre_usuario").innerHTML = "<b>" + nombre_usuario + "</b>";
     $.ajax({
         url: "http://ec2-35-180-234-37.eu-west-3.compute.amazonaws.com:1988/getLatestNews",
         type: 'get',

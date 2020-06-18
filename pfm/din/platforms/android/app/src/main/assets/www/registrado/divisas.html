@@ -41,25 +41,30 @@
 
     </head>
     <body>
-        <div class="app">
+        <div id="divisas" class="app">
             <img id="logo" src="../img/logo_v3.png"/>
-                <div id="header">
-                    <ul class="nav">
-                        <li><a href="dashboard.html">Inicio</a></li>
-                        <li><a href="divisas.html"><b>Divisas</b></a></li>
-                        <li><a href="cartera.html">Cartera</a></li>
-                        <li><a href="calculadora_registrado.html">Conversor</a></li>
-                        <li><a href="biblioteca.html">Biblioteca</a></li>
-                        <li><a href="../index.html">Salir</a></li>
-                    </ul> 
-                </div>
+            <div id="header">
+                <ul class="nav">
+                    <li><a href="divisas.html">Divisas</a></li>
+                    <li><a href="cartera.html">Cartera</a></li>
+                    <li><a href="calculadora_registrado.html">Conversor</a></li>
+                    <li><a href="biblioteca.html">Biblioteca</a></li>
+                </ul> 
+            </div>
+            <div id="submenu_registrado">
+                <ul class="nav">
+                    <li><a href="dashboard.html"><div id="nombre_usuario"></div></a></li>
+                    <li><a href="../index.html">Salir</a></li>
+                </ul> 
+            </div>
                 
                 <div id="content">
                     <b>Seleccione la divisa</b></p>
                     <p>Aquí podrá comprobar la evolución de la criptomonedas entre 
                         el periodo de inicio y fin.</p>
                         <p>Además podrá ver una estimación de venta y compra de dicha moneda</p>
-                    
+                        <p>Para esta clasificación se ha usado un <a href="./knn.html">clasificador KNN</a></p>
+
                     <form id="divisas_form">
                          <label for="dia">Inicio :</label>
                         <input id="dia_inicio" name="dia" type="date"></p>
@@ -83,7 +88,9 @@
                     <!-- <canvas style="width: 75%;" id="myChart"></canvas>
                     <canvas id="myChart2"></canvas> -->
                     <div id="prueba_canvas"></div>
+                    <div id="texto_explicacion"></div>
                     <div id="estimaciones"></div>
+
                     <div class="modal"></div>
                 </div>
                 </div>

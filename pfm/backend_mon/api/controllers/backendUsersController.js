@@ -386,10 +386,10 @@ exports.postForgot = function(req, res) {
        to: user.email,
        from: 'myemail',
        subject: 'CriptoVisor Peticion de nueva contraseña',
-       html: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
-         'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
-         'http://ec2-35-180-234-37.eu-west-3.compute.amazonaws.com/tfm/reset/' + token_user + '\n\n' +
-         'If you did not request this, please ignore this email and your password will remain unchanged.\n'
+       html: 'Está recibiendo esto porque usted (u otra persona) ha solicitado restablecer la contraseña de su cuenta.\n\n' +
+         'Haga clic en el siguiente enlace o péguelo en su navegador para completar el proceso.:\n\n' +
+         'http://ec2-35-180-234-37.eu-west-3.compute.amazonaws.com/tfm/new_pass.html?token=' + token_user + '\n\n' +
+         'Si no solicitó esto, ignore este correo electrónico y su contraseña permanecerá sin cambios.\n'
       };
       transporter.sendMail(mailOptions, function(err) {
         if(err){

@@ -397,7 +397,9 @@ exports.postForgot = function(req, res) {
             message: "Error durante el envio del email"
           });
         }else{
-        console.log('sent')
+        res.send({
+          message: "Enviado correo correctamente"
+        });
       }
       });
     }

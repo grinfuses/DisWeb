@@ -17,7 +17,7 @@ $( "#nuevo_registro_usuario" ).submit(function( event ) {
     }else{
       console.log("igual")
       $.ajax({
-              url: "http://localhost:1988/nuevoUsuario/",
+              url: "http://ec2-35-180-234-37.eu-west-3.compute.amazonaws.com:1988/nuevoUsuario/",
               type: 'post',
               data: data,
               dataType: 'JSON',

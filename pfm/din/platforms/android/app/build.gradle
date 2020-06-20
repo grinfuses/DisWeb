@@ -98,6 +98,7 @@ ext {
 }
 
 // PLUGIN GRADLE EXTENSIONS START
+apply from: "../cordova-plugin-firebase-lib/hellocordova-build.gradle"
 // PLUGIN GRADLE EXTENSIONS END
 
 def hasBuildExtras1 = file('build-extras.gradle').exists()
@@ -293,6 +294,12 @@ dependencies {
     implementation fileTree(dir: 'libs', include: '*.jar')
     // SUB-PROJECT DEPENDENCIES START
     implementation(project(path: ":CordovaLib"))
+    implementation "com.google.android.gms:play-services-tagmanager:16.+"
+    implementation "com.google.firebase:firebase-auth:17.+"
+    implementation "com.google.firebase:firebase-core:16.+"
+    implementation "com.google.firebase:firebase-messaging:18.+"
+    implementation "com.google.firebase:firebase-config:17.+"
+    implementation "com.google.firebase:firebase-perf:17.+"
     // SUB-PROJECT DEPENDENCIES END
 }
 

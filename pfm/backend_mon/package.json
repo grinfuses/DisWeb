@@ -21,6 +21,7 @@
     "cors": "^2.8.5",
     "cron": "^1.8.2",
     "csv-parse": "^4.10.1",
+    "csv-string": "^4.0.1",
     "express": "^4.17.1",
     "express-session": "^1.17.1",
     "fast-xml-parser": "^3.17.3",

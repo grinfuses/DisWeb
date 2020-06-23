@@ -5,6 +5,9 @@ const brain = require('brain.js');
 const assert = require('assert');
 var parse = require('csv-parse');
 var async = require('async');
+var csv = require('csv-string');
+
+const { hasData } = require('jquery');
 var mongoose = require('mongoose'),
   jwt = require('jsonwebtoken'),
   config = require('../../config'),
@@ -513,4 +516,51 @@ exports.sandbox = function(req, res) {
 
     res.json(data_enviar);  
   }).sort({_id: -1}).limit(1);
+};
+
+exports.updateBTCJson = function(req, res) {
+  var request = require('request');
+  var hasta = Math.round(+new Date()/1000);
+  var d = new Date();
+  d.setDate(d.getDate() - 1000);
+  var desde = Math.round(+d/1000);
+  console.log(desde);
+  var url_get="https://query1.finance.yahoo.com/v7/finance/download/BTC-EUR?interval=1d&events=history"+"&period1="+desde+"&period2="+hasta;
+
+  var options = {
+    'method': 'GET',
+    'url': url_get,
+  };
+  request(options, function (error, response) { 
+    if (error){
+      throw new Error(error)
+    }
+    var server_string = response.body; 
+    const arr = csv.parse(server_string);
+    const str = csv.stringify(arr);
+    var lines=str.split("\n");
+    var result = [];
+    var headers=lines[0].split(",");
+
+    for(var i=1;i<lines.length;i++){
+
+      var obj = {};
+      var currentline=lines[i].split(",");
+
+      for(var j=0;j<headers.length;j++){
+          obj[headers[j]] = currentline[j];
+      }
+
+      result.push(obj);
+
+  }
+  var json_string= JSON.stringify(result);
+  var route_file="cotizaciones.json";
+  fs.writeFile(route_file, json_string, function (err) {
+    if (err) throw err;
+    console.log('File is created successfully.');
+  }); 
+    res.send('File is created successfully');
+  });
+
 };

@@ -32,7 +32,7 @@ let transporter = nodemailer.createTransport({
     pass: "prueba1234"
   }
 });
-cron.schedule("30 1 * * *", function(){
+cron.schedule("30 2 * * *", function(){
   console.log("---------------------");  
   console.log("Entrenando modelo");
   TaskControllers.entrena();

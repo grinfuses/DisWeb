@@ -22,6 +22,8 @@ module.exports = function(app) {
   app.route('/getStats').get(backend.getStats);
   app.route('/estimar').post(backend.estimar);
   app.route('/sandbox').post(backend.sandbox);
+  app.route('/updateBTCJson').get(backend.updateBTCJson);
+
 
   // Users Routes
   app.route('/nuevoUsuario').post(backendUsers.nuevoUsuario);

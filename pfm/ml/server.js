@@ -35,6 +35,7 @@ let transporter = nodemailer.createTransport({
 cron.schedule("30 2 * * *", function(){
   console.log("---------------------");  
   console.log("Entrenando modelo");
+  TaskControllers.updateBTCJson();
   TaskControllers.entrena();
     let mailOptions = {
       from: "servidor.pfm@gmail.com",

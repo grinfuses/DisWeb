@@ -560,7 +560,7 @@ exports.updateBTCJson = function(req, res) {
     if (err) throw err;
     console.log('File is created successfully.');
   }); 
-    res.send('File is created successfully');
+    console.log('Updated data');
   });
 
 };

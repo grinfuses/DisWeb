@@ -1,9 +1,9 @@
 $body = $("body");
 
-$(document).on({
-    ajaxStart: function() { $body.addClass("loading");    },
-     ajaxStop: function() { $body.removeClass("loading"); }    
-});
+// $(document).on({
+//     ajaxStart: function() { $body.addClass("loading");    },
+//     ajaxStop: function() { $body.removeClass("loading"); }    
+// });
 $( "#ver_cartera" ).ready(function( event ) {
   var nombre_usuario = window.localStorage.getItem('userName');
   document.getElementById("nombre_usuario").innerHTML = "<b>" + nombre_usuario + "</b>";
@@ -14,6 +14,7 @@ $( "#ver_cartera" ).ready(function( event ) {
     var token = window.localStorage.getItem('userToken');
     data_sender["username"]=username;
     data_sender["token"]=token;
+    $body.addClass("loading");
     $.ajax({
         url: "http://ec2-35-180-234-37.eu-west-3.compute.amazonaws.com:1988/getCartera/",
         type: 'post',
@@ -144,7 +145,7 @@ $( "#ver_cartera" ).ready(function( event ) {
                           document.getElementById("encabezado"+index_elementos).innerHTML="<b>Sumario "+divisaOrigen+"</b></p>";
                           document.getElementById("encabezadoCantidad"+index_elementos).innerHTML= "En cartera: "+cantidad+"";
                           document.getElementById("encabezadoConvertida"+index_elementos).innerHTML="Valor: "+conversion.toFixed(2) +"€</p>";
-
+                          $body.removeClass("loading");
                           var ctx = document.getElementById(nombre_id).getContext('2d');
                           index_elementos +=1;
                           var chartOptions = {
